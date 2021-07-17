@@ -1,43 +1,42 @@
-import React, {Video} from 'react'
-import {Form, Card, Button} from 'react-bootstrap'
-import '.styles.css';
-const LoginForm = () => {
+import React, {Video, Source} from 'react'
+import { Card, Form, Button } from 'react-bootstrap'
+import backgroundVid from '../../videos/yikes.mp4'
+import './styles.css'
+const SignUp = () => {
     return (
         <>
             <section class="showcase">
                 <div class="videoContainer">
-                    <Video autoplay loop muted id="loginVideo">
-                        <Source src={} type="video/mp4"/>
-                    </Video>
+                    <video autoplay loop muted id="loginVideo">
+                        <source src={backgroundVid} type="video/mp4"/>
+                    </video>
                 </div>
-                <div class="content" id="loginContain">
+                <div class="content" id="SignUpContain">
                     <div class="d-flex justify-content-center">
                         <Card class="card" id="cardLogin">
                             <Card.Title class="card-header">
-                                <h3>Sign In</h3>
+                                <h3>Sign Up</h3>
                             </Card.Title>
                             <Form>
+                                <Form.Group className="mb-3" controlId="name">
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="name" placeholder="Enter name" />
+                                </Form.Group>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control type="email" placeholder="Enter email" />
-                                    <Form.Text className="text-muted">
-                                    We'll never share your email with anyone else.
-                                    </Form.Text>
                                 </Form.Group>
 
                                 <Form.Group className="mb-3" controlId="password">
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="rememberCheckbox">
-                                    <Form.Check type="checkbox" label="Remember Me" />
-                                </Form.Group>
                                 <Button variant="primary" type="submit">
-                                    Submit
+                                    Sign-Up
                                 </Button>
                             </Form>
                             <Button variant="primary" type="submit">
-                                    Need User? Make an account here.
+                                    Already have an account? Login here.
                             </Button>
                         </Card>
                     </div>
@@ -47,4 +46,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default SignUp
