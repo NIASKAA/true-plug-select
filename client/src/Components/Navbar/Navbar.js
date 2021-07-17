@@ -1,9 +1,13 @@
 import React, {useState} from 'react'
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import {Link} from 'react-router-dom'; 
+import { Navbar, Container, Nav, NavDropdown, Card, Button, Row, Col} from 'react-bootstrap';
+import {Link, useHistory} from 'react-router-dom'; 
 import './styles.css';
 
 const Navigation = () => {
+  let history = useHistory()
+  const toBrands = () => {
+    history.push('/brands')
+  }
     return (
         <>
           <Navbar collapseOnSelect fixed="top" expand="sm" bg='dark' variant="dark">
@@ -14,7 +18,26 @@ const Navigation = () => {
                   <Nav.Link className="navBtns" as={Link} to={'/'}>Home</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/bids'}>Bids</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/about'}>About</Nav.Link>
-                  <Nav.Link className="navBtns" as={Link} to={'/brands'}>Top Brands</Nav.Link>
+                  <NavDropdown title="Top Brands" id="navbarScrollingDropdown"className="navBtns" as={Link} to={'/brands'}>
+                    <NavDropdown.Item>  
+                      <Card>
+                        <Row class="row">
+                          <Col class="col">
+                              <a class="imgBrand" href="https://www.off---white.com/en-us/?gclid=Cj0KCQjwzYGGBhCTARIsAHdMTQxP9D5xyjhzu6aD-W7nOebdzn6bmekwjT4NqBU2bGLI2DIwiAMztUQaAvLwEALw_wcB&gclsrc=aw.ds">
+                                Off-White
+                              </a>
+                              <a class="imgBrand" href="https://www.supremenewyork.com/">
+                                Supreme
+                              </a>
+                              <a class="imgBrand" href="https://kawsone.com/">
+                                KAWS
+                              </a>
+                          </Col>
+                        </Row>
+                        <Button onClick={toBrands}>See More!</Button>
+                      </Card>
+                    </NavDropdown.Item>
+                  </NavDropdown>
                   <Nav.Link className="navBtns" as={Link} to={'/login'}>Login</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
