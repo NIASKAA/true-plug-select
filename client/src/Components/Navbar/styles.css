@@ -1,0 +1,10 @@
+.navBtns {
+    font-family: "Bangers";
+    font-size: 150%;
+    z-index: 1;
+  }
+  
+  .navBtns:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
