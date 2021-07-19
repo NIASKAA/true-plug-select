@@ -40,8 +40,6 @@
     transition-duration: 500ms;
     z-index: 1;
     border-radius: 15px;
-    animation-delay: 0.2s; 
-    animation-name: fadeInUp;
     -webkit-box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
     box-shadow: 0 0.25rem 1rem 0 rgba(47, 91, 234, 0.125);
   }
