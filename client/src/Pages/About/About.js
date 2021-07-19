@@ -1,5 +1,5 @@
 import React from 'react'
-import {Container} from 'react-bootstrap'
+import {Container, Row, Col} from 'react-bootstrap'
 import './style.css'
 
 const About = () => {
@@ -19,17 +19,17 @@ const About = () => {
                 </p>
 
                 <Container>
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-sm-8 col-lg-6">
+                    <Row class="row justify-content-center">
+                        <Col className="col-12 col-sm-8 col-lg-6">
                             <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <h3 class="aboutText">Our Team Consists Of:</h3>
                                 <div class="line"></div>
                             </div>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
 
-                    <div class="row justify-content-center">
-                        <div class="col">
+                    <Row class="row justify-content-center">
+                        <Col class="col">
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
                                     <h6>Alan</h6>
@@ -39,10 +39,10 @@ const About = () => {
                                     <a href="https://github.com/NIASKAA" class="btn gitBtns">GITHUB</a>
                                 </div>
                             </div>
-                        </div>
+                        </Col>
                     
 
-                        <div class="col">
+                        <Col class="col">
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
                                     <h6>Thomas</h6>
@@ -52,9 +52,9 @@ const About = () => {
                                     <a href="https://github.com/thomasbolling87" class="btn gitBtns">GITHUB</a>
                                 </div>
                             </div>
-                        </div>
+                        </Col>
                         
-                        <div class="col">
+                        <Col class="col">
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
                                     <h6>Santos</h6>
@@ -64,11 +64,11 @@ const About = () => {
                                     <a href="https://github.com/smg061" class="btn gitBtns">GITHUB</a>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        </Col>
+                    </Row>
 
-                    <div class="row justify-content-center">
-                        <div class="col-4">
+                    <Row class="row justify-content-center">
+                        <Col class="col-4">
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
                                     <h6>Avi</h6>
@@ -78,9 +78,9 @@ const About = () => {
                                     <a href="https://github.com/avmancillas" class="btn gitBtns">GITHUB</a>
                                 </div>
                             </div>
-                        </div>
+                        </Col>
 
-                        <div class="col-4">
+                        <Col class="col-4">
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
                                     <h6>Christian</h6>
@@ -90,8 +90,8 @@ const About = () => {
                                     <a href="https://github.com/Clouis12" class="btn gitBtns">GITHUB</a>
                                 </div>
                             </div>
-                        </div>
-                    </div> 
+                        </Col>
+                    </Row> 
                 </Container>
             </article>    
         </>
