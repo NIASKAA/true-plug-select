@@ -1,7 +1,6 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
 import {Form, Card, Button, Container} from 'react-bootstrap'
-import backgroundVid from '../../videos/yikes.mp4'
 import './styles.css';
 const Login = () => {
     let history = useHistory()
@@ -13,7 +12,7 @@ const Login = () => {
             <section class="showcase">
                 <div class="videoContainer">
                     <video autoPlay loop muted id="loginVideo">
-                        <source src={backgroundVid} type="video/mp4"/>
+                        <source src='/video/yikes.mp4' type="video/mp4"/>
                     </video>
                 </div>
                 <Container className="content" id="loginContain">
