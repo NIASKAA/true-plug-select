@@ -1,6 +1,6 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
-import {Form, Card, Button} from 'react-bootstrap'
+import {Form, Card, Button, Container} from 'react-bootstrap'
 import backgroundVid from '../../videos/yikes.mp4'
 import './styles.css';
 const Login = () => {
@@ -16,36 +16,38 @@ const Login = () => {
                         <source src={backgroundVid} type="video/mp4"/>
                     </video>
                 </div>
-                <div class="content" id="loginContain">
-                    <Card class="card" id="cardLogin">
-                        <Card.Title class="card-header">
-                            <h3>Sign In</h3>
-                        </Card.Title>
-                        <Form>
-                            <Form.Group className="mb-3" controlId="email">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
-                                </Form.Text>
-                            </Form.Group>
+                <Container className="content" id="loginContain">
+                    <div className="d-flex justify-content-center">
+                        <Card id="cardLogin">
+                            <Card.Title class="card-header">
+                                <h3>Sign In</h3>
+                            </Card.Title>
+                            <Form className="loginForm">
+                                <Form.Group className="mb-3" controlId="email">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your email with anyone else.
+                                    </Form.Text>
+                                </Form.Group>
 
-                            <Form.Group className="mb-3" controlId="password">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="rememberCheckbox">
-                                <Form.Check type="checkbox" label="Remember Me" />
-                            </Form.Group>
-                            <Button className="loginBtn" type="submit">
-                                Submit
+                                <Form.Group className="mb-3" controlId="password">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group className="mb-3" controlId="rememberCheckbox">
+                                    <Form.Check type="checkbox" label="Remember Me" />
+                                </Form.Group>
+                                <Button className="loginBtn" type="submit">
+                                    Submit
+                                </Button>
+                            </Form>
+                            <Button onClick={redirect} className="loginBtn" type="submit">
+                                    Need User? Make an account here.
                             </Button>
-                        </Form>
-                        <Button onClick={redirect} className="loginBtn" type="submit">
-                                Need User? Make an account here.
-                        </Button>
-                    </Card>
-                </div>
+                        </Card>
+                    </div>
+                </Container>
             </section>
         </>
     )

@@ -18,7 +18,7 @@ const Navigation = () => {
                   <Nav.Link className="navBtns" as={Link} to={'/'}>Home</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/bids'}>Bids</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/about'}>About</Nav.Link>
-                  <NavDropdown title="Top Brands" id="navbarScrollingDropdown"className="navBtns" as={Link} to={'/brands'}>
+                  <NavDropdown title="Top Brands"id="navbarDropdown" className="navBtns" as={Link} to={'/brands'}>
                     <NavDropdown.Item>  
                       <Card>
                         <Row class="row">

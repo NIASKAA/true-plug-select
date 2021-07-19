@@ -4,7 +4,9 @@ import './style.css'
 
 const About = () => {
     const cardStyle = {
-        visibility: "visible"
+        visibility: "visible",
+        animationDelay: '0.2s',
+        animationName: "fadeInUp"
     }
     return (
         <>

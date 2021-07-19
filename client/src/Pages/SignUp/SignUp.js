@@ -1,5 +1,5 @@
-import React, {Video, Source} from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
+import React from 'react'
+import { Card, Form, Button, Container } from 'react-bootstrap'
 import backgroundVid from '../../videos/yikes.mp4'
 import './styles.css'
 const SignUp = () => {
@@ -7,13 +7,13 @@ const SignUp = () => {
         <>
             <section class="showcase">
                 <div class="videoContainer">
-                    <video autoplay loop muted id="loginVideo">
+                    <video autoPlay loop muted id="loginVideo">
                         <source src={backgroundVid} type="video/mp4"/>
                     </video>
                 </div>
-                <div class="content" id="SignUpContain">
-                    <div class="d-flex justify-content-center">
-                        <Card class="card" id="cardLogin">
+                <Container className="content" id="SignUpContain">
+                    <div className="d-flex justify-content-center">
+                        <Card classNem="signupForm" id="cardLogin">
                             <Card.Title class="card-header">
                                 <h3>Sign Up</h3>
                             </Card.Title>
@@ -40,7 +40,7 @@ const SignUp = () => {
                             </Button>
                         </Card>
                     </div>
-                </div>
+                </Container>
             </section>
         </>
     )

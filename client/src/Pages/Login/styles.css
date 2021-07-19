@@ -38,3 +38,16 @@
   #loginContain {
     z-index: 2;
   } 
+
+.content {
+  margin: 15%;
+}
+
+.loginForm {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 30%;
+}
