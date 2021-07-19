@@ -1,0 +1,46 @@
+.addBid {
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    font-family: "Bangers";
+    margin: 1%;
+  }
+  
+  .regularFont {
+    font-family: "Bangers";
+    font-size: 20px;
+  }
+  .titleFont {
+    font-family: "Bangers";
+    font-size: 40px;
+  }
+  .addBid:hover {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+  
+  .basicFont {
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    font-family: "Bangers";
+  }
+
+  .basicFont:hover {
+    background-color: #ffc312;
+  }
+  
+  .postCard {
+    max-width: 50%;
+  }
+  
+  .formLabel {
+    font-family: "Bangers";
+  }
+  
+  .addBtn {
+    margin: 3px;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    font-family: "Bangers";
+  }
