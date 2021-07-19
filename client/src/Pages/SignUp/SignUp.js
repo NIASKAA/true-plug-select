@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Form, Button, Container } from 'react-bootstrap'
-import backgroundVid from '../../videos/yikes.mp4'
+//import backgroundVid from '/videos/yikes.mp4'
 import './styles.css'
 const SignUp = () => {
     return (
@@ -8,7 +8,7 @@ const SignUp = () => {
             <section class="showcase">
                 <div class="videoContainer">
                     <video autoPlay loop muted id="loginVideo">
-                        <source src={backgroundVid} type="video/mp4"/>
+                        <source src="/video/yikes.mp4" type="video/mp4"/>
                     </video>
                 </div>
                 <Container className="content" id="SignUpContain">
