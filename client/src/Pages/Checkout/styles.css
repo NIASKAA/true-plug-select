@@ -1,0 +1,11 @@
+#checkoutContain {
+    margin: 5%;
+}
+
+.submitBtn {
+    background-color: #ffc312;
+    border-color: black;
+    border-style: solid;
+    border-width: 3px;
+    font-family: "Bangers";
+  }
