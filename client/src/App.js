@@ -1,6 +1,6 @@
 import './App.css';
 import {Navigation, Footer}from './Components'
-import {Home, About, TopBrands, Login, SignUp, Bids} from './Pages'
+import {Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout} from './Pages'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 function App() {
@@ -15,6 +15,8 @@ function App() {
             <Route path='/brands' component={TopBrands}/>
             <Route exact path='/login' component={Login}/>
             <Route exact path='/signup' component={SignUp}/>
+            <Route exact path='/chatroom' component={Chatroom}/>
+            <Route exact path='/checkout' component={Checkout}/>
           </Switch>
         <Footer/>
       </Router>
