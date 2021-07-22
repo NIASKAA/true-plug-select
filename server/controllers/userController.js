@@ -1,0 +1,1 @@
+const profileSchema = require('../models/profileSchema')
