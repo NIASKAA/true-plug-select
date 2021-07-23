@@ -1,10 +1,15 @@
 import React from 'react'
 import {useHistory} from 'react-router-dom'
 import {Form, Card, Button, Container} from 'react-bootstrap'
-import './styles.css';
+import Auth from '../../utils/auth'
+import {Login_User} from '../../utils/mutations'
+import {useMutation} from '@apollo/client'
+import './styles.css'
+
 const Login = () => {
     const [userFormData, setUserFormData] = useState({email: '', password: ''})
     const [validated] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -39,6 +44,9 @@ const Login = () => {
                                 <h3>Sign In</h3>
                             </Card.Title>
                             <Form onSubmit={handleFormSubmit} className="loginForm" noValidate validated={validated}>
+                                <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                                    wRonG SHiT bRo
+                                </Alert>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control 

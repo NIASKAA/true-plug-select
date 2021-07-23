@@ -1,6 +1,7 @@
 import React from 'react'
 import { Card, Form, Button, Container } from 'react-bootstrap'
 //import backgroundVid from '/videos/yikes.mp4'
+import Auth from '../../utils/auth'
 import './styles.css'
 const SignUp = () => {
     const [userFormData, setUserFormData] = useState({username: '', email: '', password: ''})
