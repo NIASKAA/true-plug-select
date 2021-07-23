@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { Navbar, Container, Nav, NavDropdown, Card, Button, Row, Col} from 'react-bootstrap';
 import {Link, useHistory} from 'react-router-dom'; 
+import Auth from '../../utils/auth';
 import './styles.css';
 
 const Navigation = () => {
@@ -38,7 +39,14 @@ const Navigation = () => {
                       </Card>
                     </NavDropdown.Item>
                   </NavDropdown>
-                  <Nav.Link className="navBtns" as={Link} to={'/login'}>Login</Nav.Link>
+                  {Auth.loggedIn() ? (
+                    <>
+                      <Nav.Link className="navBtns" as={Link} to={"/profile"}>Profile</Nav.Link>
+                      <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
+                    </>
+                  ) : (
+                    <Nav.Link className="navBtns" as={Link} to={'/login'}>Login</Nav.Link>
+                  )}
                 </Nav>
               </Navbar.Collapse>
             </Container>
