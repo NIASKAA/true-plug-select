@@ -7,21 +7,6 @@ export const Login_User = gql`
             user {
                 _id
                 username
-                email
-                auction {
-                    itemName
-                    description
-                    image
-                    seller
-                    created
-                    bidStart
-                    bidEnd
-                    bids {
-                        bidder
-                        bid
-                        time
-                    }
-                }
             }
         }
     }
@@ -38,7 +23,7 @@ export const Add_User = gql`
         }
     }`
 
-export const Add_Post = gql``
+/*export const Add_Post = gql``
 
 
-export const Remove_Post = gql``
+export const Remove_Post = gql``*/

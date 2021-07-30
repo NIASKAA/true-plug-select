@@ -1,4 +1,4 @@
-const { Profile, Auction } = require("../models");
+const { profileData, Auction } = require("../models");
 const db = require("../config/connection");
 const auctionSeeds = [
    {
@@ -46,7 +46,7 @@ const auctionSeeds = [
 const seedAuctions = async () => {
    try {
       await Auction.deleteMany({});
-      const users = await Profile.find({});
+      const users = await profileData.find({});
       const auctions = await Auction.insertMany(auctionSeeds);
       for (auction of auctions) {
          const tempUser = users[Math.floor(Math.random() * users.length)]; // random user to assign as the seller
