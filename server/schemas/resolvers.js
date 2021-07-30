@@ -1,20 +1,23 @@
-const { Profile, Auction } = require('../models');
+const { profileData, Auction } = require('../models');
+const {AuthenticationError} = require('apollo-server-express')
 
 const resolvers = {
    Query: {
       users: async () => {
-         return await Profile.findOne({});
+         return await profileData.findOne({});
       },
       auctions: async () => {
          return await Auction.findOne({}).populate("bids");
       },
    },
    Mutation: {
-      addUser: async (parent, { userID, email, fistName, lastName, profilePic }) => {
-         return await School.create({ userID, email, fistName, lastName, profilePic });
-      },
+     addUser: async (parent, args) => {
+        const user = await profileData.create(args);
+        const token = signToken(user)
+        return {token, user}
+     },
       login: async (parent, {email, password}) => {
-         const user = await Profile.findOne({email});
+         const user = await profileData.findOne({email});
          if (!user) {
             throw new AuthenticationError('Incorrect')
          }

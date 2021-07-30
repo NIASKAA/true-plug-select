@@ -1,4 +1,4 @@
-const { Profile, Auction } = require("../models");
+const { profileData, Auction } = require("../models");
 
 const userSeeds = [
    {

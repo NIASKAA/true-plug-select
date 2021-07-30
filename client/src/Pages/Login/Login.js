@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {Form, Card, Button, Container} from 'react-bootstrap'
+import {Form, Card, Button, Container, Alert} from 'react-bootstrap'
 import Auth from '../../utils/auth'
 import {Login_User} from '../../utils/mutations'
 import {useMutation} from '@apollo/client'
@@ -10,6 +10,7 @@ const Login = () => {
     const [userFormData, setUserFormData] = useState({email: '', password: ''})
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [login, {error}] = useMutation(Login_User)
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -18,11 +19,14 @@ const Login = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        
-        const form = event.currentTarget;
-        if(form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+        try {
+            const mutationResponse = await login({
+                variables: {email: userFormData.email, password: userFormData.password}
+            })
+            const token = mutationResponse.data.login.token
+            Auth.login(token)
+        } catch (err) {
+            console.log(err)
         }
     }
     let history = useHistory()

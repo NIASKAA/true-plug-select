@@ -10,7 +10,7 @@ const auctionSchema = new mongoose.Schema({
    bidEnd: { type: Date, default: Date.now },
    bids: [
       {
-         bidder: { type: mongoose.Schema.ObjectId, ref: "ProfileData" },
+         bidder: { type: mongoose.Schema.ObjectId, ref: "profileData" },
          bid: Number,
          time: Date,
       },
