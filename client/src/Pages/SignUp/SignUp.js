@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import { Card, Form, Button, Container } from 'react-bootstrap'
 //import backgroundVid from '/videos/yikes.mp4'
 import {useMutation} from '@apollo/client'
@@ -26,6 +27,10 @@ const SignUp = (props) => {
         })
         const token = mutationResponse.data.addUser.token
         Auth.login(token)
+    }
+    let history = useHistory()
+    const redirect = () => {
+        history.push('/login')
     }
     return (
         <>
@@ -74,13 +79,13 @@ const SignUp = (props) => {
                                     />
                                 </Form.Group>
                                 <Button 
-                                    disabled={userFormData.email && userFormData.password}
                                     variant="primary" 
-                                    type="submit">
+                                    type="submit"
+                                    bsPrefix="signupBtn">
                                     Sign-Up
                                 </Button>
                             </Form>
-                            <Button variant="primary" type="submit">
+                            <Button onClick={redirect} variant="warning" style={{fontFamily: "Bangers", borderColor: "black", borderStyle: "solid", borderWidth: "3px"}} type="submit">
                                     Already have an account? Login here.
                             </Button>
                         </Card>
