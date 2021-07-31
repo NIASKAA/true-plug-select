@@ -8,6 +8,7 @@ const socketio = require('socket.io')
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
 async function startServer() {
   server = new ApolloServer({
     typeDefs,
