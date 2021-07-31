@@ -16,14 +16,15 @@ const typeDefs = gql`
       description: String
    }
 
-   type Query {
-      users: [profileData]
-      auctions: [Auction]
-   }
-
    type Auth {
       token: ID
       user: profileData
+   }
+
+   type Query {
+      users: [profileData]
+      auctions: [Auction]
+      auction(id: String): Auction
    }
 
    type Mutation {
