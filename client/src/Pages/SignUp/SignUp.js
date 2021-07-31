@@ -7,7 +7,7 @@ import Auth from '../../utils/auth'
 import {Add_User} from '../../utils/mutations'
 import './styles.css'
 const SignUp = (props) => {
-    const [userFormData, setUserFormData] = useState({username: '', email: '', password: ''})
+    const [userFormData, setUserFormData] = useState({username: '', email: '', password: '', firstName: "sdfsdf", lastName: "sdfsdfsdf"})
     const [validated] = useState(false);
     const [addUser] = useMutation(Add_User);
 
@@ -22,7 +22,9 @@ const SignUp = (props) => {
             variables: {
                 email: userFormData.email,
                 password: userFormData.password,
-                username: userFormData.username
+                username: userFormData.username,
+                lastName: userFormData.username,
+                firstName: userFormData.firstName
             },
         })
         const token = mutationResponse.data.addUser.token
