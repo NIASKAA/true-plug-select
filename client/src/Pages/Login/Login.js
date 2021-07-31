@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {Form, Card, Button, Container} from 'react-bootstrap'
+import {Form, Card, Button, Container, Alert} from 'react-bootstrap'
 import Auth from '../../utils/auth'
 import {Login_User} from '../../utils/mutations'
 import {useMutation} from '@apollo/client'
@@ -10,6 +10,7 @@ const Login = () => {
     const [userFormData, setUserFormData] = useState({email: '', password: ''})
     const [validated] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
+    const [login, {error}] = useMutation(Login_User)
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -18,11 +19,14 @@ const Login = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-        
-        const form = event.currentTarget;
-        if(form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+        try {
+            const mutationResponse = await login({
+                variables: {email: userFormData.email, password: userFormData.password}
+            })
+            const token = mutationResponse.data.login.token
+            Auth.login(token)
+        } catch (err) {
+            console.log(err)
         }
     }
     let history = useHistory()
@@ -31,8 +35,8 @@ const Login = () => {
     }
     return (
         <>
-            <section class="showcase">
-                <div class="videoContainer">
+            <section className="showcase">
+                <div className="videoContainer">
                     <video autoPlay loop muted id="loginVideo">
                         <source src='/video/yikes.mp4' type="video/mp4"/>
                     </video>
@@ -41,7 +45,7 @@ const Login = () => {
                     <div className="d-flex justify-content-center">
                         <Card id="cardLogin">
                             <Card.Title class="card-header">
-                                <h3>Sign In</h3>
+                                <h3 style={{fontFamily: "Bangers"}}>Sign In</h3>
                             </Card.Title>
                             <Form onSubmit={handleFormSubmit} className="loginForm" noValidate validated={validated}>
                                 <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
@@ -76,12 +80,12 @@ const Login = () => {
                                 </Form.Group>
                                 <Button 
                                     disabled={!(userFormData.email && userFormData.password)}
-                                    className="loginBtn"
+                                    bsPrefix="loginBtn"
                                     type="submit">
                                     Submit
                                 </Button>
                             </Form>
-                            <Button onClick={redirect} className="loginBtn" type="submit">
+                            <Button onClick={redirect} variant="warning" style={{fontFamily: "Bangers", borderColor: "black", borderStyle: "solid", borderWidth: "3px"}} type="submit">
                                     Need User? Make an account here.
                             </Button>
                         </Card>

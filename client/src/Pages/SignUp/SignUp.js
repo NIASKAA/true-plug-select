@@ -1,11 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
+import {useHistory} from 'react-router-dom'
 import { Card, Form, Button, Container } from 'react-bootstrap'
 //import backgroundVid from '/videos/yikes.mp4'
+import {useMutation} from '@apollo/client'
 import Auth from '../../utils/auth'
+import {Add_User} from '../../utils/mutations'
 import './styles.css'
-const SignUp = () => {
+const SignUp = (props) => {
     const [userFormData, setUserFormData] = useState({username: '', email: '', password: ''})
     const [validated] = useState(false);
+    const [addUser] = useMutation(Add_User);
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -14,12 +18,19 @@ const SignUp = () => {
 
     const handleFormSubmit = async(event) => {
         event.preventDefault();
-
-        const form = event.currentTargetl
-        if(form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
+        const mutationResponse = await addUser({
+            variables: {
+                email: userFormData.email,
+                password: userFormData.password,
+                username: userFormData.username
+            },
+        })
+        const token = mutationResponse.data.addUser.token
+        Auth.login(token)
+    }
+    let history = useHistory()
+    const redirect = () => {
+        history.push('/login')
     }
     return (
         <>
@@ -68,13 +79,13 @@ const SignUp = () => {
                                     />
                                 </Form.Group>
                                 <Button 
-                                    disabled={userFormData.email && userFormData.password}
                                     variant="primary" 
-                                    type="submit">
+                                    type="submit"
+                                    bsPrefix="signupBtn">
                                     Sign-Up
                                 </Button>
                             </Form>
-                            <Button variant="primary" type="submit">
+                            <Button onClick={redirect} variant="warning" style={{fontFamily: "Bangers", borderColor: "black", borderStyle: "solid", borderWidth: "3px"}} type="submit">
                                     Already have an account? Login here.
                             </Button>
                         </Card>
