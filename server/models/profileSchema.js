@@ -2,8 +2,8 @@ const mongoose = require("mongoose")
 const bcrypt = require('bcrypt')
 
 const profileSchema = new mongoose.Schema({
-   userID: { type: String, require: true, unique: true },
-   username: { type: String, required: true },
+   username: { type: String, require: true, unique: true },
+   firstName: { type: String, required: true },
    email: { type: String, unique: true, required: true , match: [/.+@.+\..+/, 'Must use a valid email address']},
    password: {type: String, required: true},
    lastName: { type: String, required: true },
@@ -20,7 +20,6 @@ profileSchema.pre('save', async function (next) {
      const saltRounds = 10;
      this.password = await bcrypt.hash(this.password, saltRounds);
    }
- 
    next();
  });
  

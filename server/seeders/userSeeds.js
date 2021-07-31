@@ -3,18 +3,22 @@ const { profileData, Auction } = require("../models");
 const userSeeds = [
    {
       email: "test@test.com",
+      username: "test",
       firstName: "Fuckme",
       lastName: "yikes",
-      userID: "test",
+      username: "test",
+      password:"test12345",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
       posts: ["Your product sucks bro lol"],
    },
    {
       email: "santos@test.com",
+      username: "test",
       firstName: "Santos",
       lastName: "Gonzalez",
-      userID: "santos_test",
+      password:"test12345",
+      username: "santos_test",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
       posts: ["Your product sucks bro lol"],
@@ -22,8 +26,9 @@ const userSeeds = [
    {
       email: "alan@test.com",
       firstName: "Alan",
+      password:"test12345",
       lastName: "Man",
-      userID: "alan_test",
+      username: "alan_test",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
       posts: ["Your product sucks bro lol"],
@@ -31,8 +36,9 @@ const userSeeds = [
    {
       email: "avi@test.com",
       firstName: "Avi",
+      password:"test12345",
       lastName: "Mancillas",
-      userID: "avi_test",
+      username: "avi_test",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
       posts: ["Your product sucks bro lol"],
@@ -40,18 +46,19 @@ const userSeeds = [
    {
       email: "thomas@test.com",
       firstName: "Thomas",
+      username: "test3",
+      password:"test12345",
       lastName: "Bolling",
-      userID: "thomas_test",
+      username: "thomas_test",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
       posts: ["Your product sucks bro lol"],
    },
 ];
-
 const seedUsers = async () => {
    try {
-      await Profile.deleteMany({});
-      await Profile.insertMany(userSeeds);
+      await profileData.deleteMany({});
+      await profileData.insertMany(userSeeds);
       return;
    } catch (err) {
       console.log(err);
