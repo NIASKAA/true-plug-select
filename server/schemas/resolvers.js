@@ -7,8 +7,13 @@ const resolvers = {
          return await profileData.findOne({});
       },
       auctions: async () => {
-         return await Auction.findOne({}).populate("bids");
+         return await Auction.find({}).populate("bids");
       },
+
+      auction: async ({id})=> {
+         return await Auction.findById(id).populate("bids");
+      },
+
    },
    Mutation: {
      addUser: async (parent, args) => {
