@@ -4,8 +4,8 @@ const typeDefs = gql`
    type profileData {
       _id: ID
       email: String
-      userID: String
       username: String
+      firstName: String
       lastName: String
       profilePic: String
    }
@@ -28,7 +28,7 @@ const typeDefs = gql`
    }
 
    type Mutation {
-      addUser(userID: String!, email:String!, username:String!, password:String!, lastName: String!, profilePic: String!): Auth
+      addUser(username: String!, email:String!, username:String!, password:String!, lastName: String!, profilePic: String!): Auth
       login(email: String!, password: String!): Auth
    }
 `;
