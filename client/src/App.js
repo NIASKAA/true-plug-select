@@ -1,6 +1,6 @@
 import './App.css';
 import {Navigation, Footer}from './Components'
-import {Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support} from './Pages'
+import {Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support, RecentlySold, Profile} from './Pages'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -39,6 +39,8 @@ function App() {
               <Route exact path='/chatroom' component={Chatroom}/>
               <Route exact path='/checkout' component={Checkout}/>
               <Route exact path="/support" component={Support}/>
+              <Route exact path="/recentlysold" component={RecentlySold}/>
+              <Route exact path="/profile" component={Profile}/>
             </Switch>
           <Footer/>
         </Router>
