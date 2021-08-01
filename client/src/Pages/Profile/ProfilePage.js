@@ -152,7 +152,6 @@ const Profile = () => {
                     </Container>
                 </Row>
             </Container>
-
         </>
     )
 }
