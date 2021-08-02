@@ -1,156 +1,92 @@
 import React from 'react'
-import {Container, Row, Card, Col, Tabs, Button, Form} from 'react-bootstrap'
+import {Container, Row, Card, Col, Tabs, Tab, Button, Form, Table} from 'react-bootstrap'
+import './styles.css'
 const Profile = () => {
     return (
         <>
-            <Container>
-                <Row class="row my-2">
+            <Container className="profileContainer">
+                <Row>
                     <Col class="col-lg-8 order-lg-2">
-                        <ul class="nav nav-tabs">
-                            <li class="nav-item">
-                                <a href="" data-target="#profile" data-toggle="tab" class="nav-link profileTab">Info</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-target="#messages" data-toggle="tab" class="nav-link profileTab">Messages</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-target="#edit" data-toggle="tab" class="nav-link profileTab">Edit</a>
-                            </li>
-                        </ul>
-                        <div class="tab-content py-4">
-                            <div class="tab-pane active" id="profile">
-                            <h4 class="mb-3 profileInfo">User Info</h4>
-                            <Row class="row">
-                                <Col class="col-md-6">
-                                    <h5 class="profileInfo">
-                                        About
-                                    </h5>
-                                    <div class="card">
+                        <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+                            <Tab eventKey="Info" title="Info">
+                                <Row>
+                                    <Col className="col-md-6">
+                                        <Card className="infoCard">
+                                        <h4 class="mt-2 cardInfo">User Info</h4>
+                                            <Card.Img className="card-img-top" src="" />
+                                            <Row>
+                                                <Card.Title className="cardInfo">
+                                                    Name:
+                                                </Card.Title>
+                                            </Row>
+                                            <Row>
+                                                <Card.Title className="cardInfo">
+                                                    Email: 
+                                                </Card.Title>
+                                            </Row>
+                                        </Card>
+                                    </Col>
+                                    <Col className="col-md-12">
+                                        <Card>
+                                        <h4 class="mt-2 profileInfo">Recent Bids</h4>
+                                            <Table class="table table-sm table-hover table-striped">
+                                                <tbody className="tableInfo">
+                                                <tr>
+                                                    <td>Product: </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Price: </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Date: </td>
+                                                </tr>
+                                                </tbody>
+                                            </Table>
+                                        </Card>
+                                    </Col>
+                                </Row>
+                            </Tab>
 
-                                        <img class="card-img-top" src="{{userData.profile_picture}}" />
-                                    </div>
-                                    <p class="profileInfo">
-                                        Name:
-                                    </p>
-                                    <p class="profileInfo">
-                                        Email: 
-                                    </p>
-                                </Col>
-                                <div class="col-md-12">
-                                    <h4 class="mt-2 profileInfo">Recent Bids</h4>
-                                    <table class="table table-sm table-hover table-striped">
-                                        <tbody>
-                                            <Card class="card">
-                                                <img src="" class="card-img-top" />
-                                                <p class="profileInfo">
-                                                    Product:
-                                                </p>
-                                                <p class="profileInfo">
-                                                    Description:
-                                                </p>
-                                                <p>
-                                                </p>
-                                            </Card>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </Row>
-                            </div>
-                            <div class="tab-pane" id="messages">
+                            <Tab eventKey="Edit" title="Edit">
+                                <Form>
+                                    <Form.Group className="mb-3" controlId="firstName">
+                                        <Form.Label>First Name</Form.Label>
+                                        <Form.Control type="firstName" placeholder="Enter first name" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="lastName">
+                                        <Form.Label>Last Name</Form.Label>
+                                        <Form.Control type="lastName" placeholder="Enter last name" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="email">
+                                        <Form.Label>Email</Form.Label>
+                                        <Form.Control type="email" placeholder="Enter email" />
+                                    </Form.Group>
 
-                            </div>
-                            <div class="tab-pane" id="edit">
-                            <Form role="form">
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label">First name</Form.Label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="text" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label">Last name</Form.Label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="text" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label">Email</Form.Label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="email" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label">Address</Form.Label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="text" value="" placeholder="Street"/>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label"></Form.Label>
-                                    <div class="col-lg-6">
-                                        <input
-                                        class="form-control"
-                                        type="text"
-                                        value=""
-                                        placeholder="City"
-                                        />
-                                    </div>
-                                    <div class="col-lg-3">
-                                        <input
-                                        class="form-control"
-                                        type="text"
-                                        value=""
-                                        placeholder="State"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label">Username</Form.Label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="text" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <Form.Label
-                                        class="col-lg-3 col-form-label form-control-label">Password</Form.Label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="password" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-lg-3 col-form-label form-control-label">Confirm
-                                        password</label>
-                                    <div class="col-lg-9">
-                                        <input class="form-control" type="password" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <Form.Label class="col-lg-3 col-form-label form-control-label"></Form.Label>
-                                    <div class="col-lg-9">
-                                        <input type="reset" class="btn bg-light" value="Cancel" />
-                                        <input type="button" class="btn saveBtn" value="Save Changes" />
-                                    </div>
-                                </div>
-                            </Form>
-                            </div>
-                        </div>
+                                    <Form.Group className="mb-3" controlId="username">
+                                        <Form.Label>Username</Form.Label>
+                                        <Form.Control type="username" placeholder="Enter username" />
+                                    </Form.Group>
+                                    <Form.Group className="mb-3" controlId="password">
+                                        <Form.Label>Password</Form.Label>
+                                        <Form.Control type="password" placeholder="Enter password" />
+                                    </Form.Group>
+                                    <Button>Submit</Button>
+                                </Form>
+                            </Tab>
+                        </Tabs>
                     </Col>
-                    <Container className="col-lg-8 order-lg-2">
-                        <Card class="uploadCard">
-                            <Form enctype="multipart/form-data" method="post" class="col-lg-4 order-lg-1 text-center">
-                                <h6 class="mt-2">Upload a profile photo</h6>
-                                <Form.Label class="custom-file">
-                                    <input type="text" name="title" /><br />
-                                    <input type="file" name="upload" multiple="multiple" id="file" /><br />
-                                    <div class="text-center">
-                                        <Button type="submit" class="btn addBtn">Upload image</Button>
-                                    </div>
-                                </Form.Label>
-                            </Form>
-                        </Card>
-                    </Container>
                 </Row>
+            </Container>
+            <Container className="col-lg-8 order-lg-2">
+                <Card class="uploadCard">
+                    <Form enctype="multipart/form-data" method="post" class="col-lg-4 order-lg-1 text-center">
+                        <Card.Title class="mt-2">Upload a profile photo</Card.Title>
+                        <Form.Group controlId="formFileLg" className="mb-3">
+                            <Form.Label></Form.Label>
+                            <Form.Control type="file" size="lg" />
+                        </Form.Group>
+                    </Form>
+                </Card>
             </Container>
         </>
     )
