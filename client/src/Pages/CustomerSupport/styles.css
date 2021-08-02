@@ -2,22 +2,14 @@
     margin: 5%;
   }
   
-  #name {
-    width: 40%;
-  } 
-  
-  #email {
-    width: 40%;
-  }
-  
-  #message {
-    width: 40%;
-  }
 
-  .submitBtns {
-    font-family: "Bangers";
-    font-size: 150%;
-    z-index: 1;
-    text-decoration: none;
-  }
-  
+.title {
+  float: left;  
+}
+
+.submitBtns {
+  font-family: "Bangers";
+  font-size: 150%;
+  z-index: 1;
+  background-color: #ffc312;
+}

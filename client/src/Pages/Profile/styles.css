@@ -1,83 +1,12 @@
-.profileContain {
-    margin: 8%;
+.profileContainer {
+    margin: 6%;
 }
-.profileTab {
-    color: black;
-    font-size: 20px;
-  }
-  
-  .profileTab:hover {
-    color: black;
-  }
-  
-  .profileInfo {
-  
-      font-family: "Bangers";
-      font-size: xx-large;
-  
-  }
-  
-  .form-control-label {
-    font-family: "Bangers";
-    color: black;
-  }
-  
-  .bg-light {
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-  }
-  
-  .saveBtn {
-    background-color: #ffc312;
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-  }
-  
-  .addBid {
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-  }
-  
-  .regularFont {
-    font-family: "Bangers";
-    font-size: 20px;
-  }
-  .titleFont {
-    font-family: "Bangers";
-    font-size: 40px;
-  }
-  .addBid:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .basicFont {
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-  }
-  .basicFont:hover,.addBid:hover {
-    background-color: #ffc312;
-  }
-  
-  .postCard {
-    max-width: 50%;
-  }
-  
-  .formLabel {
-    font-family: "Bangers";
-  }
-  
-  .addBtn {
-    margin: 3px;
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-  }
-  
+
+.cardInfo {
+    float: left;
+    width: 20% !important;
+}
+
+.tableInfo {
+    float: left;
+}
