@@ -16,14 +16,6 @@ const Profile = () => {
         }) 
     }
 
-    /*const Image = ({data: {loading, getImage}}) => {
-        if(loading) {
-            return <h1>Loading...</h1>
-        }
-
-        const {publicId} = getImage
-    }*/
-
     return (
         <>
             <Container className="profileContainer">
