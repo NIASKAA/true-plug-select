@@ -12,8 +12,16 @@ export const Login_User = gql`
     }
 `;
 
+export const Profile_Upload = gql`
+  mutation profileUpload($publicId: String!) {
+    profileUpload(publicId: $publicId) {
+      id
+    }
+  }
+`
+
 export const Add_User = gql`
-mutation addUser($username:String!, $firstName: String!, $lastName: String!, $password: String!, $email: String!) {
+  mutation addUser($username:String!, $firstName: String!, $lastName: String!, $password: String!, $email: String!) {
     addUser(username: $username, firstName: $firstName, lastName:$lastName, password: $password,  email: $email) {
       token
       user {
@@ -21,8 +29,8 @@ mutation addUser($username:String!, $firstName: String!, $lastName: String!, $pa
         username
           }
       }
-    }
-  `
+  }
+`
 
 /*export const Add_Post = gql``
 
