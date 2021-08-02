@@ -21,6 +21,11 @@ const typeDefs = gql`
       user: profileData
    }
 
+   type Image {
+      id: Int!
+      publicId: String!
+   }
+
    type Query {
       users: [profileData]
       auctions: [Auction]
@@ -30,6 +35,7 @@ const typeDefs = gql`
    type Mutation {
       addUser(username: String!, email:String!, firstName:String!, password:String!, lastName: String!, profilePic: String): Auth
       login(email: String!, password: String!): Auth
+      profileUpload(publicId: String!): Image
    }
 `;
 

@@ -29,15 +29,15 @@ const Support = () => {
           <Form onSubmit={onSubmit} className="contactForm">
                 <Form.Group className="mb-3 name" controlId="nameInput">
                     <Form.Label className="title">Name</Form.Label>
-                    <Form.Control onChange={handleChange} type="name" name="fromName" value={toSend.fromName} placeholder='name...'/>
+                    <Form.Control onChange={handleChange} type="name" name="fromName" value={toSend.fromName} placeholder='name...' className="nameInput"/>
                 </Form.Group>
                 <Form.Group className="mb-3 email" controlId="emailInput">
                     <Form.Label className="title">Email address</Form.Label>
-                    <Form.Control onChange={handleChange} type="email"name="replyTo"value={toSend.replyTo} placeholder="example@example.com..." />
+                    <Form.Control onChange={handleChange} type="email"name="replyTo"value={toSend.replyTo} placeholder="example@example.com..." className="emailInput"/>
                 </Form.Group>
                 <Form.Group className="mb-3 message" controlId="exampleForm.ControlTextarea1">
                     <Form.Label className="title">Message</Form.Label>
-                    <Form.Control onChange={handleChange} value={toSend.message} name="message" as="textarea" rows={3} placeholder="message..."/>
+                    <Form.Control onChange={handleChange} value={toSend.message} name="message" as="textarea" rows={3} placeholder="message..." className="textInput"/>
                 </Form.Group>
                 <Button type="submit" bsPrefix="submitBtns" id="sendIt">Send It</Button>
             </Form>

@@ -13,7 +13,6 @@ const resolvers = {
       auction: async ({id})=> {
          return await Auction.findById(id).populate("bids");
       },
-
    },
    Mutation: {
      addUser: async (parent, args) => {
