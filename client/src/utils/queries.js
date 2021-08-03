@@ -8,4 +8,3 @@ export const Get_Me = gql`
         }
     }
 }`
-

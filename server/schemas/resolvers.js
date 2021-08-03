@@ -15,6 +15,7 @@ const resolvers = {
     auction: async ({ id }) => {
       return await Auction.findById(id).populate("bids");
     },
+    messages: () => messages,
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -44,7 +45,15 @@ const resolvers = {
       // Store the file in the filesystem.
       return args;
     },
-
+    postMessage: (parent, { user, content }) => {
+      const id = messages.length;
+      messages.push({
+        id,
+        user,
+        content
+      });
+      return id;
+    },
     addBid: async (parent, args, context) => {
       const { bidAmount, auctionId, userId } = args;
       const bid = await Bid.create({
