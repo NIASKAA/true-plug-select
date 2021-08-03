@@ -10,6 +10,7 @@ const typeDefs = gql`
       profilePic: String
    }
 
+
    type File {
       filename: String!
       mimetype: String!
@@ -19,7 +20,20 @@ const typeDefs = gql`
    type Auction {
       _id: ID
       itemName: String
+      image: String
       description: String
+      seller: profileData
+
+   }
+
+   type Bid {
+
+      _id: ID
+      auction: Auction
+      bidAmount: Float
+      timeCreated: String
+      bidder: ID
+
    }
 
    type Auth {
@@ -43,6 +57,7 @@ const typeDefs = gql`
       auctions: [Auction]
       auction(id: String): Auction
       messages: [Message!]
+      _: Boolean
    }
 
    type Mutation {
@@ -54,7 +69,15 @@ const typeDefs = gql`
       profileUpload(publicId: String!): Image
 
       postMessage(user: String!, content: String!): ID!
+      uploadImage(file: Upload!): File
+      createAuction(itemName: String! description: String, image: String, seller: ID!): Auction
+      deleteAuction(id: ID!): Auction
+      updateAuction(id: ID!): Auction
+      updateUser(id: ID!): profileData
+      addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
+      profileUpload(photo: String): String
    }
+
 `;
 
 module.exports = typeDefs;

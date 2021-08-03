@@ -1,6 +1,7 @@
 const profileData = require('./profileSchema')
 const Product = require('./products')
 const Auction = require('./auction');
-//const Bids = require('./bids')
+const {Bid} = require('./bids')
 
-module.exports = {profileData, Product, Auction};
+module.exports = {profileData, Product, Auction, Bid};
+
