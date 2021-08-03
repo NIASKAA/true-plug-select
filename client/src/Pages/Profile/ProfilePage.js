@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import Axios from "axios";
+import {useMutation} from '@apollo/client'
+import {Profile_Upload} from '../../utils/mutations'
 import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table } from "react-bootstrap";
 import "./styles.css";
+
 const Profile = () => {
   let CLOUD_NAME = process.env.CLOUD_NAME;
+
   const [imageSelected, setImageSelected] = useState("");
+  const [profileUpload, {error}] = useMutation(Profile_Upload)
+
   const uploadImage = () => {
     const imageData = new FormData();
     imageData.append("file", imageSelected);

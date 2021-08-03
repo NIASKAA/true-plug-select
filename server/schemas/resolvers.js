@@ -38,6 +38,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
+    
     uploadImage: async (parent, args) => {
       console.log(args);
       const { stream, filename, mimetype, encoding } = await args.file;
@@ -45,6 +46,7 @@ const resolvers = {
       // Store the file in the filesystem.
       return args;
     },
+
     postMessage: (parent, { user, content }) => {
       const id = messages.length;
       messages.push({
@@ -81,7 +83,7 @@ const resolvers = {
       return await profileData.findOneAndUpdate({ _id: args.id }, args);
     },
 
-    profileUpload: async (_, { photo }) => {
+    profileUpload: async (parent, { photo }) => {
       
       cloudinary.config({
         cloud_name: process.env.CLOUD_NAME,
