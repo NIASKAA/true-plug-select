@@ -3,6 +3,7 @@ const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
 const uploadFile = require("../utils/fileUpload");
 const { createWriteStream } = require("fs");
+const { runInNewContext } = require("vm");
 
 const resolvers = {
   Query: {
@@ -22,21 +23,18 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    createAuction: async (parent, body) => {
-      return await Auction.create(body);
+    createAuction: async (parent, args) => {
+      return await Auction.create(args);
     },
     login: async (parent, { email, password }) => {
       const user = await profileData.findOne({ email });
       if (!user) {
         throw new AuthenticationError("Incorrect");
       }
-
       const correctPass = await user.isCorrectPassword(password);
-
       if (!correctPass) {
         throw new AuthenticationError("Incorrect");
       }
-
       const token = signToken(user);
       return { token, user };
     },
@@ -48,25 +46,31 @@ const resolvers = {
       return args;
     },
 
-    addBid: async (parent, { id, body }) => {
-      const bid = await Bid.create(body);
+    addBid: async (parent, args, context) => {
+      const { bidAmount, auctionId, userId } = args;
+      const bid = await Bid.create({
+        bidder: context._id,
+        bidAmount: bidAmount,
+        auction: auctionId,
+        bidder: userId
+      });
       const product = await Auction.findOneAndUpdate(
-        { _id: id },
+        { _id: args.auctionId },
         {
           $push: { bids: bid },
         }
       );
-
-      return product;
+      console.log(product);
+      return bid;
     },
     deleteAuction: async (parent, { id }) => {
       return await Auction.findOneAndDelete({ _id: id });
     },
-    updateAuction: async (parent, { id, body }) => {
-      return await Auction.findOneAndUpdate({ _id: id }, body);
+    updateAuction: async (parent, args) => {
+      return await Auction.findOneAndUpdate({ _id: args.id }, { args });
     },
-    updateUser: async (parent, { id, body }) => {
-      return await profileData.findOneAndUpdate({_id: id}, body);
+    updateUser: async (parent, args) => {
+      return await profileData.findOneAndUpdate({ _id: args.id }, args);
     },
   },
 };

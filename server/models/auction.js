@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // import bid schema to set up the bids field
-const {bidSchema} = require("./bids");
+const { bidSchema } = require("./bids");
 
 const auctionSchema = new mongoose.Schema({
   itemName: { type: String, trim: true, required: "No item name was entered" },
@@ -12,6 +12,7 @@ const auctionSchema = new mongoose.Schema({
   bidStart: { type: Date, default: Date.now() },
   bidEnd: { type: Date, default: Date.now() },
   bids: [bidSchema],
+  startingPrice: { type: Number, default: 0 },
 });
 
 const model = mongoose.model("Auction", auctionSchema);
