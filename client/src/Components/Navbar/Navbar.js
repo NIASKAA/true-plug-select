@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Navbar, Container, Nav, NavDropdown, Card, Button, Row, Col} from 'react-bootstrap';
 import {Link, useHistory} from 'react-router-dom'; 
 import Auth from '../../utils/auth';
@@ -42,6 +42,7 @@ const Navigation = () => {
                   {Auth.loggedIn() ? (
                     <>
                       <Nav.Link className="navBtns" as={Link} to={"/profile"}>Profile</Nav.Link>
+                      <Nav.Link className="navBtns" as={Link} to={"/recentlysold"}>Recently Sold</Nav.Link>
                       <Nav.Link onClick={Auth.logout}>Logout</Nav.Link>
                     </>
                   ) : (

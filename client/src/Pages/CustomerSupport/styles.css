@@ -1,0 +1,15 @@
+.contactForm {
+    margin: 5%;
+  }
+  
+
+.title {
+  float: left;  
+}
+
+.submitBtns {
+  font-family: "Bangers";
+  font-size: 150%;
+  z-index: 1;
+  background-color: #ffc312;
+}
