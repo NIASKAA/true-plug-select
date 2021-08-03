@@ -1,14 +1,24 @@
 .navBtns {
-    font-family: "Bangers";
-    font-size: 150%;
-    z-index: 1;
-    text-decoration: none;
-  }
-  
-  .navBtns:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.navBtns:hover {
+  background-color: #ffc312;
+}
 
 #navbarDropdown::after {
-  content: none;  
+content: none;  
+}
+
+.logoIcon{
+height: 55px;
+float: left;
+margin-left: -140px;
 }

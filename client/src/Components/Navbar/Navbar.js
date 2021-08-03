@@ -11,14 +11,17 @@ const Navigation = () => {
   }
     return (
         <>
-          <Navbar collapseOnSelect fixed="top" expand="sm" bg='dark' variant="dark">
+          <Navbar collapseOnSelect fixed="top" expand="sm" bg='light' variant="light">
             <Container>
               <Navbar.Toggle className='navbar-header' aria-controls="basic-navbar-nav" />
               <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mx-auto">
+                  <Link to={'/'}>
+                   <img className= "logoIcon" src='/logo.png' alt="Logo"/> 
+                  </Link>
                   <Nav.Link className="navBtns" as={Link} to={'/'}>Home</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/bids'}>Bids</Nav.Link>
-                  <Nav.Link className="navBtns" as={Link} to={'/about'}>About</Nav.Link>
+                  <Nav.Link className="navBtns" as={Link} to={'/about'}>About Us</Nav.Link>
                   <NavDropdown title="Top Brands"id="navbarDropdown" className="navBtns" as={Link} to={'/brands'}>
                     <NavDropdown.Item>  
                       <Card>
