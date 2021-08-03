@@ -1,0 +1,12 @@
+.profileContainer {
+    margin: 6%;
+}
+
+.cardInfo {
+    float: left;
+    width: 20% !important;
+}
+
+.tableInfo {
+    float: left;
+}

@@ -13,7 +13,7 @@ const AuctionSubmitForm = () => {
       />
       <label htmlFor="icon-button-file">
         <Button variant="contained" color="secondary" component="span">
-          Upload Logo <FileUpload />
+          Upload Logo 
         </Button>
       </label>
       <span>{values.image ? values.image.name : ""}</span>
