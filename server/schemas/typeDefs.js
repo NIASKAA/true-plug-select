@@ -10,6 +10,8 @@ const typeDefs = gql`
       profilePic: String
    }
 
+
+
    type File {
       filename: String!
       mimetype: String!
@@ -20,6 +22,17 @@ const typeDefs = gql`
       _id: ID
       itemName: String
       description: String
+      seller: profileData
+
+   }
+   type Bid {
+
+      _id: ID
+      auction: Auction
+      bidAmount: Float
+      timeCreated: String
+      bidder: profileData
+
    }
 
    type Auth {
@@ -41,9 +54,12 @@ const typeDefs = gql`
    type Mutation {
       addUser(username: String!, email:String!, firstName:String!, password:String!, lastName: String!, profilePic: String): Auth
       login(email: String!, password: String!): Auth
-
       uploadImage(file: Upload!): File
-
+      createAuction(itemName: String!): Auction
+      deleteAuction: Auction
+      updateAuction: Auction
+      updateUser: profileData
+      addBid: Bid
       profileUpload(publicId: String!): Image
    }
 `;
