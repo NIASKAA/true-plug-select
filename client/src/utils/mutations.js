@@ -13,9 +13,9 @@ export const Login_User = gql`
 `;
 
 export const Profile_Upload = gql`
-  mutation profileUpload($publicId: String!) {
-    profileUpload(  publicId: $publicId) {
-      id
+  mutation profileUpload($photo: String!) {
+    profileUpload(photo: $photo) {
+      _id
     }
   }
 `;

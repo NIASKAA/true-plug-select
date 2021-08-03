@@ -56,8 +56,7 @@ const typeDefs = gql`
       users: [profileData]
       auctions: [Auction]
       auction(id: String): Auction
-      messages: [Message!]
-      _: Boolean
+      messages: [Message!] 
    }
 
    type Mutation {
@@ -65,11 +64,7 @@ const typeDefs = gql`
       login(email: String!, password: String!): Auth
       auction(itemName: String!, id: ID!, description: String!): Auth
       uploadImage(file: Upload!): File
-
-      profileUpload(publicId: String!): Image
-
       postMessage(user: String!, content: String!): ID!
-      uploadImage(file: Upload!): File
       createAuction(itemName: String! description: String, image: String, seller: ID!): Auction
       deleteAuction(id: ID!): Auction
       updateAuction(id: ID!): Auction
