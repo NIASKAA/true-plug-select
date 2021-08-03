@@ -18,10 +18,9 @@ export const Profile_Upload = gql`
       id
     }
   }
-`
+`;
 
 export const Add_User = gql`
-
   mutation addUser(
     $username: String!
     $firstName: String!
@@ -36,28 +35,22 @@ export const Add_User = gql`
       password: $password
       email: $email
     ) {
-  mutation addUser($username:String!, $firstName: String!, $lastName: String!, $password: String!, $email: String!) {
-    addUser(username: $username, firstName: $firstName, lastName:$lastName, password: $password,  email: $email) {
-
       token
       user {
         _id
         username
       }
-
-    }
   }
+}
 `;
 
 export const Upload_ProfilePic = gql`
   mutation uploadImage($file: Upload!) {
     uploadImage(file: $file) {
-      filename 
+      filename
     }
   }
 `;
-
-
 
 /*export const Add_Post = gql``
 

@@ -21,6 +21,7 @@ const typeDefs = gql`
    type Auction {
       _id: ID
       itemName: String
+      image: String
       description: String
       seller: profileData
 
@@ -31,7 +32,7 @@ const typeDefs = gql`
       auction: Auction
       bidAmount: Float
       timeCreated: String
-      bidder: profileData
+      bidder: ID
 
    }
 
@@ -55,13 +56,14 @@ const typeDefs = gql`
       addUser(username: String!, email:String!, firstName:String!, password:String!, lastName: String!, profilePic: String): Auth
       login(email: String!, password: String!): Auth
       uploadImage(file: Upload!): File
-      createAuction(itemName: String!): Auction
-      deleteAuction: Auction
-      updateAuction: Auction
-      updateUser: profileData
-      addBid: Bid
+      createAuction(itemName: String! description: String, image: String, seller: ID!): Auction
+      deleteAuction(id: ID!): Auction
+      updateAuction(id: ID!): Auction
+      updateUser(id: ID!): profileData
+      addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
       profileUpload(publicId: String!): Image
    }
+
 `;
 
 module.exports = typeDefs;
