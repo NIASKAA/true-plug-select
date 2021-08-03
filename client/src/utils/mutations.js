@@ -21,21 +21,6 @@ export const Profile_Upload = gql`
 `
 
 export const Add_User = gql`
-
-  mutation addUser(
-    $username: String!
-    $firstName: String!
-    $lastName: String!
-    $password: String!
-    $email: String!
-  ) {
-    addUser(
-      username: $username
-      firstName: $firstName
-      lastName: $lastName
-      password: $password
-      email: $email
-    ) {
   mutation addUser($username:String!, $firstName: String!, $lastName: String!, $password: String!, $email: String!) {
     addUser(username: $username, firstName: $firstName, lastName:$lastName, password: $password,  email: $email) {
 

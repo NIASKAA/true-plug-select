@@ -5,9 +5,8 @@ const { signToken } = require("../utils/auth");
 const uploadFile = require("../utils/fileUpload");
 const { createWriteStream } = require("fs");
 
-const { profileData, Auction } = require('../models');
-const {AuthenticationError} = require('apollo-server-express')
-const {signToken} = require('../utils/auth');
+const messages = [];
+
 const resolvers = {
    Query: {
       users: async () => {
@@ -20,6 +19,8 @@ const resolvers = {
       auction: async ({id})=> {
          return await Auction.findById(id).populate("bids");
       },
+
+      messages: () => messages,
    },
    Mutation: {
      addUser: async (parent, args) => {
@@ -51,6 +52,15 @@ const resolvers = {
       console.log(args.file);
       // Store the file in the filesystem.
       return args;
+    },
+    postMessage: (parent, { user, content }) => {
+      const id = messages.length;
+      messages.push({
+        id,
+        user,
+        content
+      });
+      return id;
     },
   },
 };
