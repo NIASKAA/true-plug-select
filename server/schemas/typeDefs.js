@@ -11,7 +11,6 @@ const typeDefs = gql`
    }
 
 
-
    type File {
       filename: String!
       mimetype: String!
@@ -26,6 +25,7 @@ const typeDefs = gql`
       seller: profileData
 
    }
+
    type Bid {
 
       _id: ID
@@ -50,6 +50,7 @@ const typeDefs = gql`
       users: [profileData]
       auctions: [Auction]
       auction(id: String): Auction
+      _: Boolean
    }
 
    type Mutation {
@@ -61,7 +62,7 @@ const typeDefs = gql`
       updateAuction(id: ID!): Auction
       updateUser(id: ID!): profileData
       addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
-      profileUpload(publicId: String!): Image
+      profileUpload(photo: String): String
    }
 
 `;

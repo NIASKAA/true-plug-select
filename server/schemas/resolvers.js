@@ -1,9 +1,8 @@
 const { profileData, Auction, Bid } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-const uploadFile = require("../utils/fileUpload");
-const { createWriteStream } = require("fs");
-const { runInNewContext } = require("vm");
+const cloudinary = require("cloudinary")
+require('dotenv').config();
 
 const resolvers = {
   Query: {
@@ -72,6 +71,27 @@ const resolvers = {
     updateUser: async (parent, args) => {
       return await profileData.findOneAndUpdate({ _id: args.id }, args);
     },
+
+    profileUpload: async (_, { photo }) => {
+      
+      cloudinary.config({
+        cloud_name: process.env.CLOUD_NAME,
+        api_key: process.env.API_KEY,
+        api_secret: process.env.API_SECRET,
+      });
+
+      try {
+        const result = await cloudinary.v2.uploader.upload(photo, {
+          allowed_formats: ["jpg", "png"],
+          public_id: "",
+          folder: "test",
+          
+        });
+        return `Successful-Photo URL: ${result.url}`;
+      } catch (e) {
+        return `Image could not be uploaded:${e.message}`;
+      }
+    }
   },
 };
 
