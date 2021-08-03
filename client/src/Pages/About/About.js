@@ -16,7 +16,9 @@ const About = () => {
                 </div>
                 <p class="aboutText">
                     The Plug Select was made by 5 passionate individuals that just want a better community to purchase premium goods.
+                    
                 </p>
+        
 
                 <Container>
                     <Row class="row justify-content-center">
@@ -54,17 +56,6 @@ const About = () => {
                             </div>
                         </Col>
                         
-                        <Col class="col">
-                            <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
-                                <div class="teamInfo">
-                                    <h6>Santos</h6>
-                                    <p class="designation">Back-End Developer</p>
-                                    <p class="favBrand">Favorite Brand: Gucci </p>
-                                    <p class= "funFact">Fun Fact: "I play guitar. My favorite brand is Fender" </p>
-                                    <a href="https://github.com/smg061" class="btn gitBtns">GITHUB</a>
-                                </div>
-                            </div>
-                        </Col>
                     </Row>
 
                     <Row class="row justify-content-center">
@@ -79,15 +70,14 @@ const About = () => {
                                 </div>
                             </div>
                         </Col>
-
-                        <Col class="col-4">
+                        <Col class="col">
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
-                                    <h6>Christian</h6>
-                                    <p class="designation">Front-End Developer</p>
-                                    <p class="favBrand">Favorite Brand: </p>
-                                    <p class="funBrand">Fun Fact:</p>
-                                    <a href="https://github.com/Clouis12" class="btn gitBtns">GITHUB</a>
+                                    <h6>Santos</h6>
+                                    <p class="designation">Back-End Developer</p>
+                                    <p class="favBrand">Favorite Brand: Gucci </p>
+                                    <p class= "funFact">Fun Fact: "I play guitar. My favorite brand is Fender" </p>
+                                    <a href="https://github.com/smg061" class="btn gitBtns">GITHUB</a>
                                 </div>
                             </div>
                         </Col>

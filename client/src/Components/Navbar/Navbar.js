@@ -21,7 +21,7 @@ const Navigation = () => {
                   </Link>
                   <Nav.Link className="navBtns" as={Link} to={'/'}>Home</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/bids'}>Bids</Nav.Link>
-                  <Nav.Link className="navBtns" as={Link} to={'/about'}>About</Nav.Link>
+                  <Nav.Link className="navBtns" as={Link} to={'/about'}>About Us</Nav.Link>
                   <NavDropdown title="Top Brands"id="navbarDropdown" className="navBtns" as={Link} to={'/brands'}>
                     <NavDropdown.Item>  
                       <Card>
