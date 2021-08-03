@@ -14,7 +14,7 @@ export const Login_User = gql`
 
 export const Profile_Upload = gql`
   mutation profileUpload($publicId: String!) {
-    profileUpload(publicId: $publicId) {
+    profileUpload(  publicId: $publicId) {
       id
     }
   }
