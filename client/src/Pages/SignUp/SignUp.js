@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import { Card, Form, Button, Container } from 'react-bootstrap'
+import { Card, Form, Button, Container, Alert} from 'react-bootstrap'
 //import backgroundVid from '/videos/yikes.mp4'
 import {useMutation} from '@apollo/client'
 import Auth from '../../utils/auth'
@@ -9,7 +9,8 @@ import './styles.css'
 const SignUp = (props) => {
     const [userFormData, setUserFormData] = useState({username: '', email: '', password: '', firstName: "sdfsdf", lastName: "sdfsdfsdf"})
     const [validated] = useState(false);
-    const [addUser] = useMutation(Add_User);
+    const [showAlert, setShowAlert] = useState(false);
+    const [addUser, {error}] = useMutation(Add_User);
 
     const handleInputChange = (event) => {
         const {name, value} = event.target;
@@ -87,6 +88,11 @@ const SignUp = (props) => {
                                     Sign-Up
                                 </Button>
                             </Form>
+                            {error ? (
+                                <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                                    wRonG SHiT bRo
+                                </Alert>
+                            ) : null}
                             <Button onClick={redirect} variant="light" className="loginBtn" type="submit">
                                     Already have an account? Login here.
                             </Button>
