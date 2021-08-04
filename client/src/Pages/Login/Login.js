@@ -48,9 +48,6 @@ const Login = () => {
                                 <h3 style={{fontFamily: "Work Sans, sans-serif"}}>Login</h3>
                             </Card.Title>
                             <Form onSubmit={handleFormSubmit} className="loginForm" noValidate validated={validated}>
-                                <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                                    wRonG SHiT bRo
-                                </Alert>
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control 
@@ -75,6 +72,11 @@ const Login = () => {
                                         placeholder="Password" 
                                     />
                                 </Form.Group>
+                                {error ? (
+                                    <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
+                                        wRonG SHiT bRo
+                                    </Alert>
+                                ) : null}
                                 <Button 
                                     disabled={!(userFormData.email && userFormData.password)}
                                     variant="light"
