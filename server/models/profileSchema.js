@@ -1,4 +1,5 @@
 const mongoose = require("mongoose")
+const { bidSchema } = require("./bids");
 const bcrypt = require('bcrypt')
 
 const profileSchema = new mongoose.Schema({
@@ -13,6 +14,8 @@ const profileSchema = new mongoose.Schema({
          type: String,
       },
    ],
+   bids: [bidSchema],
+
 });
 
 profileSchema.pre('save', async function (next) {
