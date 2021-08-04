@@ -52,6 +52,16 @@ export const Upload_ProfilePic = gql`
   }
 `;
 
+export const Add_Profile_Pic = gql`
+  mutation Add_Pic($imageURL: String!) {
+    addProfilePic(imageURL: $imageURL) {
+      user {
+        profilePic
+      }
+    }
+  }
+`
+
 /*export const Add_Post = gql``
 
 
