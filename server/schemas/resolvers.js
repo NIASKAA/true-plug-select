@@ -29,9 +29,14 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await profileData.create(args);
-      const token = signToken(user);
-      return { token, user };
+      try {
+        const user = await profileData.create(args);
+        const token = signToken(user);
+        return { token, user };
+      } catch {
+        console.log(err)
+        res.send('TAKEN')
+      }
     },
     createAuction: async (parent, args) => {
       return await Auction.create(args);

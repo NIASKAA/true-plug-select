@@ -39,7 +39,7 @@ const Support = () => {
                     <Form.Label className="title">Message</Form.Label>
                     <Form.Control onChange={handleChange} value={toSend.message} name="message" as="textarea" rows={3} placeholder="message..." className="textInput"/>
                 </Form.Group>
-                <Button type="submit" bsPrefix="submitBtns" id="sendIt">Send It</Button>
+                <Button variant="light" type="submit" className="submitBtn" id="sendIt">Send It</Button>
             </Form>
         </>
     )

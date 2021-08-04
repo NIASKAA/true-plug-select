@@ -12,7 +12,7 @@
 }
 
 .navBtns:hover {
-  background-color: #ffc312;
+  background-color: #ffc312 !important;
 }
 
 #navbarDropdown::after {
