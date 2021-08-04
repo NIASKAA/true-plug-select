@@ -4,6 +4,8 @@ const { signToken } = require("../utils/auth");
 const cloudinary = require("cloudinary")
 require('dotenv').config();
 
+const messages = [];
+
 const resolvers = {
   Query: {
     users: async () => {
