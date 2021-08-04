@@ -11,6 +11,14 @@ const resolvers = {
     users: async () => {
       return await profileData.find({});
     },
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await profileData.findById(context.user._id).populate("bids")
+        return user;
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
     auctions: async () => {
       return await Auction.find({}).populate("bids");
     },
@@ -61,7 +69,6 @@ const resolvers = {
     addBid: async (parent, args, context) => {
       const { bidAmount, auctionId, userId } = args;
       const bid = await Bid.create({
-        bidder: context._id,
         bidAmount: bidAmount,
         auction: auctionId,
         bidder: userId
@@ -85,8 +92,11 @@ const resolvers = {
       return await profileData.findOneAndUpdate({ _id: args.id }, args);
     },
 
+    addProfilePic: async(parent, {imageURL}, context)=> {
+      const user = await profileData.findOneAndUpdate({_id: context._id}, {profilePic: imageURL});
+      return user;
+    },
     profileUpload: async (parent, { photo }) => {
-      
       cloudinary.config({
         cloud_name: process.env.CLOUD_NAME,
         api_key: process.env.API_KEY,
