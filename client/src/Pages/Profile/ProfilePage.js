@@ -7,17 +7,18 @@ import "./styles.css";
 
 const Profile = () => {
   let CLOUD_NAME = process.env.CLOUD_NAME;
-
   const [imageSelected, setImageSelected] = useState("");
-  const [profileUpload, {error}] = useMutation(Profile_Upload)
-  const {photo} = profileUpload;
-
+  
   const uploadImage = () => {
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
     
-    const response = Axios.post(`https://api.cloudinary.com/v1_1/ + ${CLOUD_NAME} + /image/upload`, imageData)
+    Axios.post(`https://api.cloudinary.com/v1_1/ + ${CLOUD_NAME} + /image/upload`, imageData).then(
+      (response) => {
+        console.log(response);
+      }
+    );
   };
 
   return (
@@ -31,7 +32,7 @@ const Profile = () => {
                   <Col className="col-md-6">
                     <Card className="infoCard">
                       <h4 class="mt-2 cardInfo">User Info</h4>
-                      <Card.Img className="card-img-top" cloudName={CLOUD_NAME} profileUpload={photo}/>
+                      <Card.Img className="card-img-top" cloudName={CLOUD_NAME} />
                       <Row>
                         <Card.Title className="cardInfo">Name:</Card.Title>
                       </Row>
