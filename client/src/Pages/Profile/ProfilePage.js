@@ -44,10 +44,8 @@ const Profile = () => {
                         <h4 class="mt-2 cardInfo">User Info</h4>
                         <Card.Img className="card-img-top" cloudName={CLOUD_NAME} />
                         <Row>
-                          <Card.Title className="cardInfo">Name {profileData.user.firstName}:</Card.Title>
-                        </Row>
-                        <Row>
-                          <Card.Title className="cardInfo">Email:</Card.Title>
+                          <Card.Title className="float-left">Email: {profileData.user.email}</Card.Title>
+                          <Card.Title className="float-left">Name: {profileData.user.firstName}</Card.Title>
                         </Row>
                       </Card>
                     </Col>
@@ -97,7 +95,7 @@ const Profile = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Enter password" />
                   </Form.Group>
-                  <Button>Submit</Button>
+                  <Button variant="light" className="submitBtn">Submit</Button>
                 </Form>
               </Tab>
             </Tabs>
@@ -117,7 +115,7 @@ const Profile = () => {
                   setImageSelected(event.target.files[0]);
                 }}
               />
-              <Button onClick={uploadImage}>Upload Image</Button>
+              <Button variant="light" className="profileBtns" onClick={uploadImage}>Upload Image</Button>
             </Form.Group>
           </Form>
         </Card>

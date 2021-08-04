@@ -81,13 +81,13 @@ const SignUp = (props) => {
                                     />
                                 </Form.Group>
                                 <Button 
-                                    variant="primary" 
+                                    variant="light" 
                                     type="submit"
-                                    bsPrefix="signupBtn">
+                                    className="signupBtn">
                                     Sign-Up
                                 </Button>
                             </Form>
-                            <Button onClick={redirect} variant="warning" style={{fontFamily: "Bangers", borderColor: "black", borderStyle: "solid", borderWidth: "3px"}} type="submit">
+                            <Button onClick={redirect} variant="light" className="loginBtn" type="submit">
                                     Already have an account? Login here.
                             </Button>
                         </Card>

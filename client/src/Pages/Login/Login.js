@@ -45,7 +45,7 @@ const Login = () => {
                     <div className="d-flex justify-content-center">
                         <Card id="cardLogin">
                             <Card.Title class="card-header">
-                                <h3 style={{fontFamily: "Bangers"}}>Sign In</h3>
+                                <h3 style={{fontFamily: "Work Sans, sans-serif"}}>Login</h3>
                             </Card.Title>
                             <Form onSubmit={handleFormSubmit} className="loginForm" noValidate validated={validated}>
                                 <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
@@ -75,17 +75,15 @@ const Login = () => {
                                         placeholder="Password" 
                                     />
                                 </Form.Group>
-                                <Form.Group className="mb-3" controlId="rememberCheckbox">
-                                    <Form.Check type="checkbox" label="Remember Me" />
-                                </Form.Group>
                                 <Button 
                                     disabled={!(userFormData.email && userFormData.password)}
-                                    bsPrefix="loginBtn"
+                                    variant="light"
+                                    className="loginBtn"
                                     type="submit">
                                     Submit
                                 </Button>
                             </Form>
-                            <Button onClick={redirect} variant="warning" style={{fontFamily: "Bangers", borderColor: "black", borderStyle: "solid", borderWidth: "3px"}} type="submit">
+                            <Button onClick={redirect} variant="light" className="signupBtn"type="submit">
                                     Need User? Make an account here.
                             </Button>
                         </Card>

@@ -39,7 +39,7 @@ const Navigation = () => {
                             </Link>
                         </Col>
                       </Row>
-                      <Button bsPrefix="navBtns" onClick={toBrands}>See More!</Button>
+                      <Button variant="light" className="navBtns" onClick={toBrands}>See More!</Button>
                     </NavDropdown.Item>
                   </NavDropdown>
                   {Auth.loggedIn() ? (
