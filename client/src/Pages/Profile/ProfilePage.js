@@ -28,6 +28,7 @@ const Profile = () => {
       },
     });
     console.log(mutResponse);
+
   };
   return (
     <>

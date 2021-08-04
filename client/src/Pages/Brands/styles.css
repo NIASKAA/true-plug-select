@@ -5,6 +5,10 @@
     border-width: 2px;
 }
 
+.bigCard {
+    height: 300%;
+}
+
 .imgBrand {
     color: black;
 }
