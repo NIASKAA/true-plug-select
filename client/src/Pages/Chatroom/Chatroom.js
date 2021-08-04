@@ -3,6 +3,7 @@ import {Container, Button, Row, Col, Card} from 'react-bootstrap';
 import { useMutation, useQuery, gql } from '@apollo/client';
 import './styles.css'
 
+// Query built on page to pull chat messages from server
 const GET_MESSAGES = gql`
     query {
         messages {
@@ -13,11 +14,12 @@ const GET_MESSAGES = gql`
     }
 `;
 
-const POST_MESSAGE = gql`
-    mutation($user: String!, $content: String!) {
-        postMessage(user: $user, content: $content)
-    }
-`;
+// Mutation that post bi-directional messages
+// const POST_MESSAGE = gql`
+//     mutation($user: String!, $content: String!) {
+//         postMessage(user: $user, content: $content)
+//     }
+// `;
 
 const Messages = ({ user }) => {
     const { data } = useQuery(GET_MESSAGES);
@@ -26,19 +28,23 @@ const Messages = ({ user }) => {
     } 
     return (
         <>
+        {/* This return code takes the mesages from GET_MESSAGES query to display them in Messages */}
             {data.messages.map(({ id, user: messageUser, content }) => (
                 <div
                     style={{
                         display: 'flex',
+                        // If the message is from the logged in user than message displays at the beginning of window if other user display at the front of window
                         justifyContent: user === messageUser ? 'flex-end' : 'flex-start',
-                        padding: "1rem"
+                        padding: "1em"
                     }}
                 >
                     <div
                         style={{
+                            // Styling for the chat messages.
                             background: user === messageUser ? "#58bf56" : "#e5e6ea",
                             color: user === messageUser ? "black" : "blue",
-                            padding: "1rem"
+                            padding: "1em",
+                            borderRadius: '1em'
                         }}
                     >
                         {content}
@@ -75,7 +81,6 @@ const Chatroom = () => {
                 <div className="timer-two"> Time left until auction ends:
                     <span id="bid-timer" style={auctionStyle}>00:00:00</span>
                 </div>
-                {/* <div><Messages user="Thomas" /></div> */}
             </div>
 
             <Container className="chatroomContain">
@@ -119,7 +124,8 @@ const Chatroom = () => {
                                         <Card.Img src="" className="rounded-circle" style={imgStyle}/>
                                     </div>
                                     <Container className="chatContainer">
-                                        <Messages user="Thomas" />
+                                        {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
+                                        <Messages user="Paul" />
                                     </Container>
                                 </div>
                             </Card.Body>
