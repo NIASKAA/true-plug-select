@@ -16,6 +16,27 @@ export const Query_User = gql`
         username
         firstName
         email
+        profilePic
       }
   }
 `;
+
+
+export const Get_All_Products = gql`
+query AllAuctions {
+  auctions {
+  	itemName
+    image
+    description
+    seller {
+      username
+    }
+    bids{
+      bidAmount
+    }
+       
+  }
+}
+
+
+`

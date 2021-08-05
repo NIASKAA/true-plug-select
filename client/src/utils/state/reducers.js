@@ -8,16 +8,20 @@ import {
    UPDATE_CURRENT_CATEGORY,
    CLEAR_CART,
    TOGGLE_CART,
+   GET_ALL_PRODUCTS,
 } from "./actions";
 
 
-export const reducers = (state, action) => {
+
+export const reducers = async(state, action) => {
    switch (action.type) {
-      case UPDATE_PRODUCTS:
+      case GET_ALL_PRODUCTS:
+      const products = ["whateber"]
          return {
             ...state,
-            products: [...action.products],
+            auctions: [...products],
          };
+
 
       case ADD_TO_CART:
          return {
