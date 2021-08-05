@@ -3,34 +3,49 @@ import Axios from "axios";
 import { useMutation, useQuery, useLazyQuery } from "@apollo/client";
 import { Query_User, Get_Me } from "../../utils/queries";
 import { Profile_Upload, Add_Profile_Pic } from "../../utils/mutations";
-import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table } from "react-bootstrap";
+import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } from "react-bootstrap";
 import "./styles.css";
 
 const Profile = () => {
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
   const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
-  const [profileData, setProfileData] = useState({ user: { email: " ", username: " ", profilePic: " " } });
-  const { loading, data } =  useQuery(Query_User);
+  const [profileData, setProfileData] = useState({ email: " ", username: " ", profilePic: " " });
+  const { loading, data } = useQuery(Query_User);
   useEffect(() => {
-    setProfileData(data);
-    console.log(data)
-    console.log(profileData);
-  }, [loading]);
+    if (loading == false && data) {
+      setProfileData(data.user);
+      console.log(data);
+      console.log(profileData);
+    }
+  }, [loading, data]);
 
+
+  if (loading) return <Spinner></Spinner>;
   const uploadImage = async () => {
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
-    const response = await Axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, imageData);
-    console.log(response.data.secure_url);
+    const response = await Axios.post(
+      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+      imageData
+    );
     const mutResponse = await addProfilePic({
       variables: {
         imageURL: response.data.secure_url,
       },
     });
+
+    setProfileData({ ...profileData, profilePic: response.data.secure_url });
     console.log(mutResponse);
   };
+
+
+
+  if(!loading) {
+    const {user} = data
+  
+  }
   return (
     <>
       <Container className="profileContainer">
@@ -39,16 +54,15 @@ const Profile = () => {
             <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
               <Tab eventKey="Info" title="Info">
                 <Row>
-                  {profileData && (
+                  {!loading && profileData && (
                     <Col className="col-md-6">
                       <Card className="infoCard">
                         <h4 class="mt-2 cardInfo">User Info</h4>
                         <Card.Img className="card-img-top" cloudName={CLOUD_NAME} />
                         <Row>
-                          <img src={profileData.user.profilePic}></img>
-                          <Card.Title className="float-left">Email: {profileData.user.email}</Card.Title>
-                          <Card.Title className="float-left">Name: {profileData.user.username}</Card.Title>
-
+                          <img src={profileData.profilePic}></img>
+                          <Card.Title className="float-left">Email: {profileData.email}</Card.Title>
+                          <Card.Title className="float-left">Name: {profileData.username}</Card.Title>
                         </Row>
                       </Card>
                     </Col>
@@ -98,7 +112,9 @@ const Profile = () => {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Enter password" />
                   </Form.Group>
-                  <Button variant="light" className="submitBtn">Submit</Button>
+                  <Button variant="light" className="submitBtn">
+                    Submit
+                  </Button>
                 </Form>
               </Tab>
             </Tabs>
@@ -118,7 +134,9 @@ const Profile = () => {
                   setImageSelected(event.target.files[0]);
                 }}
               />
-              <Button variant="light" className="profileBtns" onClick={uploadImage}>Upload Image</Button>
+              <Button variant="light" className="profileBtns" onClick={uploadImage}>
+                Upload Image
+              </Button>
             </Form.Group>
           </Form>
         </Card>
