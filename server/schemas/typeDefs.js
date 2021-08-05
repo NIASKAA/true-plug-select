@@ -1,6 +1,7 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
+   scalar Upload
    type profileData {
       _id: ID
       email: String
@@ -50,6 +51,10 @@ const typeDefs = gql`
       id: ID!
       user: String!
       content: String!
+   }
+
+   type Subscription {
+      messages: [Message!]
    }
 
    type Query {

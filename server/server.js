@@ -1,26 +1,49 @@
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
-const { ApolloServer } = require('apollo-server-express');
+const { ApolloServer, PubSub } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
-const socketio = require('socket.io')
+const { SubscriptionServer } = require('subscriptions-transport-ws');
+const { createServer } = require('http');
+const { execute, subscribe } = require('graphql');
+const { makeExecutableSchema } = require('@graphql-tools/schema');
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+const pubsub = new PubSub();
 
-server = new ApolloServer({
-  typeDefs,
-  resolvers,
+// In order for the chat to work the schemas had to be added to ApolloServer via makeExecutableSchema
+const schema = makeExecutableSchema({ typeDefs, resolvers });
+
+// Chat doesn't work without the listen beint an httpServer setup instead of app. Sending app through httpServer.
+const httpServer = createServer(app);
+
+const server = new ApolloServer({
+  schema,
+  context: {pubsub},
   context: authMiddleware,
 });
-server.applyMiddleware({ app });
 
+const subscriptionServer = SubscriptionServer.create({
+  schema,
+  execute,
+  subscribe,
+}, {
+  server: httpServer,
+  path: server.graphqlPath,
+});
+
+['SIGINT', 'SIGTERM'].forEach(signal => {
+  process.on(signal, () => subscriptionServer.close());
+});
+
+server.applyMiddleware({ app });
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -31,9 +54,8 @@ app.get('*', (req, res) => {
 });
 
 db.once('open', () => {
-  app.listen(PORT, () => {
+  httpServer.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
-
   });
 });

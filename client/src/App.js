@@ -2,11 +2,20 @@ import './App.css';
 import {Navigation, Footer}from './Components'
 import {Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support, RecentlySold, Profile} from './Pages'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from '@apollo/client';
+import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { WebSocketLink } from "@apollo/client/link/ws";
 
 const httpLink = createHttpLink({
   uri: '/graphql',
+});
+
+// Websocket link that conects subscriber to graphql for 2 way chatting
+const wsLink = new WebSocketLink({
+  uri: 'ws://localhost:3001/graphql',
+  options: {
+    reconnect: true,
+  },
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -21,6 +30,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
+  link: authLink.concat(wsLink),
   cache: new InMemoryCache(),
 });
 function App() {
