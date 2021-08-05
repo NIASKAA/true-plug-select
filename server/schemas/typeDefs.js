@@ -73,7 +73,7 @@ const typeDefs = gql`
       updateUser(id: ID!): profileData
       addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
       profileUpload(photo: String): String
-      addProfilePic(imageURL: String): profileData
+      addProfilePic(imageURL: String! id: ID): profileData
    }
 
 `;
