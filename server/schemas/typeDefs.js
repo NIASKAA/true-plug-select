@@ -19,23 +19,21 @@ const typeDefs = gql`
       encoding: String!
     }
 
-   type Auction {
-      _id: ID
-      itemName: String
-      image: String
-      description: String
-      seller: profileData
-
-   }
-
    type Bid {
-
       _id: ID
       auction: Auction
       bidAmount: Float
       timeCreated: String
       bidder: ID
 
+   }
+   type Auction {
+      _id: ID
+      itemName: String
+      image: String
+      description: String
+      seller: profileData
+      bids: [Bid]
    }
 
    type Auth {
