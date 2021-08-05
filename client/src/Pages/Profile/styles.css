@@ -2,11 +2,38 @@
     margin: 6%;
 }
 
-.cardInfo {
-    float: left;
-    width: 20% !important;
-}
-
 .tableInfo {
     float: left;
+}
+
+.profileBtns {
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 300px;
+    font-size: 100%;
+    color:black;
+    z-index: 1;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.profileBtns:hover {
+    background-color: #ffc312 !important;
+}
+
+.submitBtn {
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 300px;
+    font-size: 100%;
+    color:black;
+    z-index: 1;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitBtn:hover {
+    background-color: #ffc312 !important;
 }

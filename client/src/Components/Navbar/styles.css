@@ -7,10 +7,12 @@
   z-index: 1;
   text-decoration: none;
   margin-right: 10px;
+  justify-content: center;
+  align-items: center;
 }
 
 .navBtns:hover {
-  background-color: #ffc312;
+  background-color: #ffc312 !important;
 }
 
 #navbarDropdown::after {

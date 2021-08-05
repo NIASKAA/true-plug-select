@@ -43,23 +43,63 @@
     margin: 15%;
   }
   
-  .signupForm {
-    position: absolute;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    max-width: 30%;
-  }
+.signupForm {
+  position: absolute;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 30%;
+}
 
-  .signupBtn {
-    color: black;
-    background-color: #ffc312;
-    font-family: "Bangers";
-    width: 100px;
-    margin: 8px;
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-  }
+.signupBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+}
 
+.signupBtn:hover {
+  background-color: #ffc312 !important;
+}
+
+.loginBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+}
+
+.loginBtn:hover {
+  background-color: #ffc312 !important;
+}
+
+.redirectBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+}
+
+.redirectBtn:hover {
+  background-color: #ffc312 !important;
+}
+
+.error {
+  color: rgb(228, 46, 1)
+}

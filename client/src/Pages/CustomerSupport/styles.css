@@ -7,9 +7,18 @@
   float: left;  
 }
 
-.submitBtns {
-  font-family: "Bangers";
-  font-size: 150%;
+.submitBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
   z-index: 1;
-  background-color: #ffc312;
+  margin: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.submitBtn:hover {
+  background-color: #ffc312 !important;
 }

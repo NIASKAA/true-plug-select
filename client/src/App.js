@@ -6,6 +6,8 @@ import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apo
 import { setContext } from '@apollo/client/link/context';
 import { WebSocketLink } from "@apollo/client/link/ws";
 
+import {Provider} from 'react-redux';
+import store from './utils/state/store';
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -36,6 +38,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <Provider store={store}>
       <div className="App">
         <Router>
           <Navigation/>
@@ -55,6 +58,7 @@ function App() {
           <Footer/>
         </Router>
       </div>
+      </Provider>
     </ApolloProvider>
   );
 }

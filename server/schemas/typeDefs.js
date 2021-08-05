@@ -9,6 +9,7 @@ const typeDefs = gql`
       firstName: String
       lastName: String
       profilePic: String
+      bids: [Bid]
    }
 
 
@@ -59,6 +60,7 @@ const typeDefs = gql`
 
    type Query {
       users: [profileData]
+      user: profileData
       auctions: [Auction]
       auction(id: String): Auction
       messages: [Message!] 
@@ -76,6 +78,7 @@ const typeDefs = gql`
       updateUser(id: ID!): profileData
       addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
       profileUpload(photo: String): String
+      addProfilePic(imageURL: String! id: ID): profileData
    }
 
 `;

@@ -1,46 +1,63 @@
-.addBid {
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-    margin: 1%;
-  }
-  
-  .regularFont {
-    font-family: "Bangers";
-    font-size: 20px;
-  }
-  .titleFont {
-    font-family: "Bangers";
-    font-size: 40px;
-  }
-  .addBid:hover {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-  
-  .basicFont {
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-  }
+.regularFont {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 20px;
+}
+.titleFont {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 40px;
+}
 
-  .basicFont:hover {
-    background-color: #ffc312;
-  }
-  
-  .postCard {
-    max-width: 50%;
-  }
-  
-  .formLabel {
-    font-family: "Bangers";
-  }
-  
-  .addBtn {
-    margin: 3px;
-    border-color: black;
-    border-style: solid;
-    border-width: 3px;
-    font-family: "Bangers";
-  }
+.redirectBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  margin: 2%;
+  justify-content: center;
+  align-items: center;
+}
+
+.redirectBtn:hover {
+  background-color: #ffc312 !important;
+}
+.toBidBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  margin: 2%;
+  justify-content: center;
+  align-items: center;
+}
+
+.toBidBtn:hover {
+  background-color: #ffc312 !important;
+}
+
+.postCard {
+  max-width: 50%;
+}
+
+.formLabel {
+  font-family: "Bangers";
+}
+
+.addBid {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  margin: 2%;
+  justify-content: center;
+  align-items: center;
+}
+
+.addBid:hover {
+  background-color: #ffc312 !important;
+}

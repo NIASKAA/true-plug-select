@@ -2,8 +2,8 @@ const { profileData, Auction, Bid } = require("../models");
 const { AuthenticationError, PubSub } = require("apollo-server-express");
 const { GraphQLUpload } = require("graphql-upload");
 const { signToken } = require("../utils/auth");
-const cloudinary = require("cloudinary")
-require('dotenv').config();
+const cloudinary = require("cloudinary");
+require("dotenv").config();
 
 // These 3 lines contain the messages array, subscribers contains the channels that are made for chat in apollo-server, and onMessagesUpdates pushes the messages
 const messages = [];
@@ -16,6 +16,14 @@ const resolvers = {
     users: async () => {
       return await profileData.find({});
     },
+    user: async (parent, args, context) => {
+      if (context.user) {
+        const user = await profileData.findById(context.user._id).populate("bids");
+        return user;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
     auctions: async () => {
       return await Auction.find({}).populate("bids");
     },
@@ -26,9 +34,14 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await profileData.create(args);
-      const token = signToken(user);
-      return { token, user };
+      try {
+        const user = await profileData.create(args);
+        const token = signToken(user);
+        return { token, user };
+      } catch {
+        console.log(err);
+        res.send("TAKEN");
+      }
     },
     createAuction: async (parent, args) => {
       return await Auction.create(args);
@@ -45,7 +58,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    
+
     uploadImage: async (parent, args) => {
       console.log(args);
       const { stream, filename, mimetype, encoding } = await args.file;
@@ -59,7 +72,7 @@ const resolvers = {
       messages.push({
         id,
         user,
-        content
+        content,
       });
       // Alerts server that there is a new message
       subscribers.forEach((fn) => fn())
@@ -68,10 +81,9 @@ const resolvers = {
     addBid: async (parent, args, context) => {
       const { bidAmount, auctionId, userId } = args;
       const bid = await Bid.create({
-        bidder: context._id,
         bidAmount: bidAmount,
         auction: auctionId,
-        bidder: userId
+        bidder: userId,
       });
       const product = await Auction.findOneAndUpdate(
         { _id: args.auctionId },
@@ -92,8 +104,15 @@ const resolvers = {
       return await profileData.findOneAndUpdate({ _id: args.id }, args);
     },
 
-    profileUpload: async (parent, { photo }) => {
+    addProfilePic: async (parent, { imageURL, id }, context) => {
+        console.log(context);
+        let userId = context.user._id? context.user._id : id;
+        console.log(userId);
+        const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
+        return user;
       
+    },
+    profileUpload: async (parent, { photo }) => {
       cloudinary.config({
         cloud_name: process.env.CLOUD_NAME,
         api_key: process.env.API_KEY,
@@ -105,13 +124,12 @@ const resolvers = {
           allowed_formats: ["jpg", "png"],
           public_id: "",
           folder: "test",
-          
         });
         return `Successful-Photo URL: ${result.url}`;
       } catch (e) {
         return `Image could not be uploaded:${e.message}`;
       }
-    }
+    },
   },
   // Real time chat update for messages to be posted so that I don't have to use a pollInterval to constantly ping the server for new messages
   // Uses generated channels to create chat sessions.
