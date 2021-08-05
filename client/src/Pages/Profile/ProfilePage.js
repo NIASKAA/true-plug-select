@@ -7,7 +7,7 @@ import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table } from "react
 import "./styles.css";
 
 const Profile = () => {
-  let CLOUD_NAME = process.env.CLOUD_NAME;
+  let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
   const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
   const [profileData, setProfileData] = useState({ user: { email: " ", username: " ", profilePic: " " } });
@@ -21,7 +21,7 @@ const Profile = () => {
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
-    const response = await Axios.post(`https://api.cloudinary.com/v1_1/+${CLOUD_NAME}/image/upload`, imageData);
+    const response = await Axios.post(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, imageData);
     console.log(response.data.secure_url);
     const mutResponse = await addProfilePic({
       variables: {
