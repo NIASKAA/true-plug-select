@@ -1,12 +1,17 @@
 const { profileData, Auction, Bid } = require("../models");
-const { AuthenticationError } = require("apollo-server-express");
+const { AuthenticationError, PubSub } = require("apollo-server-express");
+const { GraphQLUpload } = require("graphql-upload");
 const { signToken } = require("../utils/auth");
 const cloudinary = require("cloudinary");
 require("dotenv").config();
 
+// These 3 lines contain the messages array, subscribers contains the channels that are made for chat in apollo-server, and onMessagesUpdates pushes the messages
 const messages = [];
+const subscribers = [];
+const onMessagesUpdates = (fn) => subscribers.push(fn);
 
 const resolvers = {
+  Upload: GraphQLUpload,
   Query: {
     users: async () => {
       return await profileData.find({});
@@ -69,6 +74,8 @@ const resolvers = {
         user,
         content,
       });
+      // Alerts server that there is a new message
+      subscribers.forEach((fn) => fn())
       return id;
     },
     addBid: async (parent, args, context) => {
@@ -123,6 +130,18 @@ const resolvers = {
       }
     },
   },
+  // Real time chat update for messages to be posted so that I don't have to use a pollInterval to constantly ping the server for new messages
+  // Uses generated channels to create chat sessions.
+  Subscription: {
+    messages: {
+      subscribe: (parent, args, { pubsub = new PubSub() }) => {
+        const channel = Math.random().toString(36).slice(2,15);
+        onMessagesUpdates(() => pubsub.publish(channel, { messages }));
+        setTimeout(() => pubsub.publish(channel, { messages }), 0);
+        return pubsub.asyncIterator(channel);
+      } 
+    }
+  }
 };
 
 module.exports = resolvers;

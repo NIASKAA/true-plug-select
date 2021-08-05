@@ -58,11 +58,17 @@ const Profile = () => {
                     <Col className="col-md-6">
                       <Card className="infoCard">
                         <h4 class="mt-2 cardInfo">User Info</h4>
-                        <Card.Img className="card-img-top" cloudName={CLOUD_NAME} />
                         <Row>
+
                           <img src={profileData.profilePic}></img>
                           <Card.Title className="float-left">Email: {profileData.email}</Card.Title>
                           <Card.Title className="float-left">Name: {profileData.username}</Card.Title>
+
+                          <Card.Img src={profileData.user.profilePic} style={{width: "70%", margin: '2%'}}></Card.Img>
+                          <Card.Title className="float-left">Email: {profileData.user.email}</Card.Title>
+                          <Card.Title className="float-left">Name: {profileData.user.username}</Card.Title>
+
+
                         </Row>
                       </Card>
                     </Col>

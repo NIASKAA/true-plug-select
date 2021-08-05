@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
-import {Container, Button, Row, Col, Card} from 'react-bootstrap';
-import { useMutation, useQuery, gql } from '@apollo/client';
+import React, { useState, useEffect } from 'react'
+import {Container, Button, Row, Col, Card, Form} from 'react-bootstrap';
+import { Query_User } from "../../utils/queries";
+import { useMutation, useQuery, useSubscription, gql } from '@apollo/client';
 import './styles.css'
 
 // Query built on page to pull chat messages from server
 const GET_MESSAGES = gql`
-    query {
+    subscription getMessages {
         messages {
             id
             content
@@ -15,20 +16,21 @@ const GET_MESSAGES = gql`
 `;
 
 // Mutation that post bi-directional messages
-// const POST_MESSAGE = gql`
-//     mutation($user: String!, $content: String!) {
-//         postMessage(user: $user, content: $content)
-//     }
-// `;
+const POST_MESSAGE = gql`
+    mutation($user: String!, $content: String!) {
+        postMessage(user: $user, content: $content)
+    }
+`;
 
 const Messages = ({ user }) => {
-    const { data } = useQuery(GET_MESSAGES);
+    const { data } = useSubscription(GET_MESSAGES);
     if (!data) {
         return null;
-    } 
+    }
+    
     return (
         <>
-        {/* This return code takes the mesages from GET_MESSAGES query to display them in Messages */}
+        {/* This return code takes the mesages from GET_MESSAGES subscription to display them in Messages */}
             {data.messages.map(({ id, user: messageUser, content }) => (
                 <div
                     style={{
@@ -38,6 +40,23 @@ const Messages = ({ user }) => {
                         padding: "1em"
                     }}
                 >
+                    {/* Displays which user the message originates from */}
+                    {user !== messageUser && (
+                        <div
+                            style={{
+                                height: 50,
+                                width: 50,
+                                marginRight: '0.3em',
+                                border: "2px solid #e5e6ea",
+                                borderRadius: 25,
+                                textAlign: "center",
+                                fontSize: "18px",
+                                paddingTop: 5
+                            }}
+                        >
+                         {messageUser.slice(0,2).toUpperCase()}   
+                        </div>
+                    )}
                     <div
                         style={{
                             // Styling for the chat messages.
@@ -56,6 +75,34 @@ const Messages = ({ user }) => {
 }
 
 const Chatroom = () => {
+    const [message, messageSet] = React.useState({
+        user: "Thomas",
+        content: '',
+    });
+
+    // Need to get the user name to load in instead of the manual input I have for line 79
+    // const { load, data } = useQuery(Query_User);
+
+    // useEffect(() => {
+    //     messageSet(data);
+    //     console.log(data)
+    //     console.log(message);
+    // }, [load]);
+
+    const [postMessage] = useMutation(POST_MESSAGE);
+
+    const onSend = () => {
+        if (message.content.length > 0) {
+            postMessage({
+                variables: message
+            })
+        }
+        messageSet({
+            ...message,
+            content: "",
+        });
+    };
+
     const itemNameStyle = {
         fontFamily: "Bangers"
     }
@@ -125,7 +172,7 @@ const Chatroom = () => {
                                     </div>
                                     <Container className="chatContainer">
                                         {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
-                                        <Messages user="Paul" />
+                                        <Messages user={message.user} />
                                     </Container>
                                 </div>
                             </Card.Body>
@@ -133,16 +180,36 @@ const Chatroom = () => {
 
                             <Card.Footer className="card-footer cardEnd">                              
                                 <div className="chat-form-container">
-                                    <form className="chat-form d-flex msgBody scroll">
-                                        <input 
-                                            className="chat-input"
-                                            type="text"
-                                            placeholder="Enter Message"
-                                            required
-                                            autoComplete="off"
-                                        />
-                                        <Button className="btn chatBtn"><i className="fas fa-paper-plane"></i>Send</Button>
-                                    </form>
+                                    <Form className="chat-form d-flex msgBody scroll">
+                                        <Row>
+                                            <Col xs={3} style={{ padding: 0 }}>
+                                                <input
+                                                label="User"
+                                                value={message.user}
+                                                onChange={(evt) => messageSet({
+                                                    ...message,
+                                                    user: evt.target.value
+                                                })}
+                                                />
+                                            </Col>
+                                            <Col xs={8}>
+                                                <input
+                                                label="Content"
+                                                value={message.content}
+                                                onChange={(evt) => messageSet({
+                                                    ...message,
+                                                    content: evt.target.value
+                                                })}
+                                                onKeyUp={(evt) => {
+                                                    if (evt.keyDown === 13) {
+                                                        onSend();
+                                                    }
+                                                }}
+                                                />
+                                            </Col>
+                                        </Row>
+                                        <Button className="btn chatBtn" onClick={() => onSend()}>Send</Button>
+                                    </Form>
                                 </div>
 
                                 <div className="bidDescript text-center" style={itemNameStyle}>
