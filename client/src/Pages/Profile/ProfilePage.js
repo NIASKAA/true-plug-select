@@ -14,6 +14,7 @@ const Profile = () => {
   const { loading, data } =  useQuery(Query_User);
   useEffect(() => {
     setProfileData(data);
+    console.log(data)
     console.log(profileData);
   }, [loading]);
 
@@ -44,8 +45,10 @@ const Profile = () => {
                         <h4 class="mt-2 cardInfo">User Info</h4>
                         <Card.Img className="card-img-top" cloudName={CLOUD_NAME} />
                         <Row>
+                          <img src={profileData.user.profilePic}></img>
                           <Card.Title className="float-left">Email: {profileData.user.email}</Card.Title>
                           <Card.Title className="float-left">Name: {profileData.user.username}</Card.Title>
+
                         </Row>
                       </Card>
                     </Col>

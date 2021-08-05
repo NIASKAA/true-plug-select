@@ -4,7 +4,8 @@ import {Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-
+import {Provider} from 'react-redux';
+import store from './utils/state/store';
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -26,6 +27,7 @@ const client = new ApolloClient({
 function App() {
   return (
     <ApolloProvider client={client}>
+      <Provider store={store}>
       <div className="App">
         <Router>
           <Navigation/>
@@ -45,6 +47,7 @@ function App() {
           <Footer/>
         </Router>
       </div>
+      </Provider>
     </ApolloProvider>
   );
 }
