@@ -99,3 +99,7 @@
 .redirectBtn:hover {
   background-color: #ffc312 !important;
 }
+
+.error {
+  color: rgb(228, 46, 1)
+}

@@ -7,9 +7,7 @@ import Auth from '../../utils/auth'
 import {Add_User} from '../../utils/mutations'
 import './styles.css'
 const SignUp = (props) => {
-    const [userFormData, setUserFormData] = useState({username: '', email: '', password: '', firstName: "sdfsdf", lastName: "sdfsdfsdf"})
-    const [validated] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
+    const [userFormData, setUserFormData] = useState({username: '', email: '', password: '', firstName: " ", lastName: " "})
     const [addUser, {error}] = useMutation(Add_User);
 
     const handleInputChange = (event) => {
@@ -49,7 +47,7 @@ const SignUp = (props) => {
                             <Card.Title class="card-header">
                                 <h3>Sign Up</h3>
                             </Card.Title>
-                            <Form onSubmit={handleFormSubmit} noValidated validated={validated}>
+                            <Form onSubmit={handleFormSubmit}>
                                 <Form.Group className="mb-3" controlId="username">
                                     <Form.Label>Username</Form.Label>
                                     <Form.Control 
@@ -89,9 +87,9 @@ const SignUp = (props) => {
                                 </Button>
                             </Form>
                             {error ? (
-                                <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                                    wRonG SHiT bRo
-                                </Alert>
+                                <div>
+                                    <p className="error">The provided credentials are incorrect</p>
+                                </div>
                             ) : null}
                             <Button onClick={redirect} variant="light" className="loginBtn" type="submit">
                                     Already have an account? Login here.
