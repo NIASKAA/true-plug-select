@@ -23,7 +23,7 @@ const httpServer = createServer(app);
 
 const server = new ApolloServer({
   schema,
-  context: {pubsub},
+  //context: {pubsub},
   context: authMiddleware,
 });
 

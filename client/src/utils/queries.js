@@ -12,28 +12,27 @@ export const Get_Me = gql`
 export const Query_User = gql`
   {
     user {
-        _id
-        username
-        firstName
-        email
-        profilePic
-      }
+      _id
+      username
+      firstName
+      email
+      profilePic
+    }
   }
 `;
 
-
 export const Get_All_Products = gql`
-query AllAuctions {
-  auctions {
-  	itemName
-    image
-    description
-    seller {
-      username
+  query AllAuctions {
+    auctions {
+      itemName
+      image
+      description
+      seller {
+        username
+      }
+      bids {
+        bidAmount
+      }
     }
-    bids{
-      bidAmount
-    }
-    }    
-}
+  }
 `;

@@ -59,6 +59,7 @@ const typeDefs = gql`
    type Query {
       users: [profileData]
       user: profileData
+      userById(id: ID): profileData
       auctions: [Auction]
       auction(id: String): Auction
       messages: [Message!] 
@@ -68,7 +69,6 @@ const typeDefs = gql`
       addUser(username: String!, email:String!, firstName:String!, password:String!, lastName: String!, profilePic: String): Auth
       login(email: String!, password: String!): Auth
       auction(itemName: String!, id: ID!, description: String!): Auth
-      uploadImage(file: Upload!): File
       postMessage(user: String!, content: String!): ID!
       createAuction(itemName: String! description: String, image: String, seller: ID!): Auction
       deleteAuction(id: ID!): Auction
