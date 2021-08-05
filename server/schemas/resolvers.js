@@ -13,7 +13,7 @@ const resolvers = {
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await profileData.findById(context.user._id).populate("bids");
+        const user = await profileData.findById(context.user._id).populate("bids").populate("seller");
         return user;
       }
 
@@ -98,7 +98,6 @@ const resolvers = {
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
-        console.log(context);
         let userId = context.user._id? context.user._id : id;
         console.log(userId);
         const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
