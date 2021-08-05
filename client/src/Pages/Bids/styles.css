@@ -7,6 +7,21 @@
   font-size: 40px;
 }
 
+.redirectBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  margin: 2%;
+  justify-content: center;
+  align-items: center;
+}
+
+.redirectBtn:hover {
+  background-color: #ffc312 !important;
+}
 .toBidBtn {
   font-family: 'Work Sans', sans-serif;
   text-transform: uppercase;

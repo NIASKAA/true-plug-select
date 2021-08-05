@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import {Form, Card, Button, Container, Alert} from 'react-bootstrap'
+import {Form, Card, Button, Container} from 'react-bootstrap'
 import Auth from '../../utils/auth'
 import {Login_User} from '../../utils/mutations'
 import {useMutation} from '@apollo/client'
@@ -8,8 +8,6 @@ import './styles.css'
 
 const Login = () => {
     const [userFormData, setUserFormData] = useState({email: '', password: ''})
-    const [validated] = useState(false);
-    const [showAlert, setShowAlert] = useState(false);
     const [login, {error}] = useMutation(Login_User)
 
     const handleInputChange = (event) => {
@@ -47,7 +45,7 @@ const Login = () => {
                             <Card.Title class="card-header">
                                 <h3 style={{fontFamily: "Work Sans, sans-serif"}}>Login</h3>
                             </Card.Title>
-                            <Form onSubmit={handleFormSubmit} className="loginForm" noValidate validated={validated}>
+                            <Form onSubmit={handleFormSubmit} className="loginForm">
                                 <Form.Group className="mb-3" controlId="email">
                                     <Form.Label>Email address</Form.Label>
                                     <Form.Control 
@@ -73,9 +71,9 @@ const Login = () => {
                                     />
                                 </Form.Group>
                                 {error ? (
-                                    <Alert dismissible onClose={() => setShowAlert(false)} show={showAlert} variant='danger'>
-                                        wRonG SHiT bRo
-                                    </Alert>
+                                    <div>
+                                        <p className="error">The provided credentials are incorrect</p>
+                                    </div>
                                 ) : null}
                                 <Button 
                                     disabled={!(userFormData.email && userFormData.password)}

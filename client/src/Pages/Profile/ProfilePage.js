@@ -102,7 +102,7 @@ const Profile = () => {
           </Col>
         </Row>
       </Container>
-      <Container className="col-lg-8 order-lg-2">
+      <Container className="col-lg-8">
         <Card class="uploadCard">
           <Form enctype="multipart/form-data" method="post" class="col-lg-4 order-lg-1 text-center">
             <Card.Title class="mt-2">Upload a profile photo</Card.Title>
