@@ -21,14 +21,14 @@ const Profile = () => {
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
-    const response = await Axios.post(`https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`, imageData);
+    const response = await Axios.post(`https://api.cloudinary.com/v1_1/+${CLOUD_NAME}/image/upload`, imageData);
+    console.log(response.data.secure_url);
     const mutResponse = await addProfilePic({
       variables: {
-        imageURL: response.data.url,
+        imageURL: response.data.secure_url,
       },
     });
     console.log(mutResponse);
-
   };
   return (
     <>
@@ -45,7 +45,7 @@ const Profile = () => {
                         <Card.Img className="card-img-top" cloudName={CLOUD_NAME} />
                         <Row>
                           <Card.Title className="float-left">Email: {profileData.user.email}</Card.Title>
-                          <Card.Title className="float-left">Name: {profileData.user.firstName}</Card.Title>
+                          <Card.Title className="float-left">Name: {profileData.user.username}</Card.Title>
                         </Row>
                       </Card>
                     </Col>

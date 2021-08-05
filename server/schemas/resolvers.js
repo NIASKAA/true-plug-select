@@ -1,8 +1,8 @@
 const { profileData, Auction, Bid } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
 const { signToken } = require("../utils/auth");
-const cloudinary = require("cloudinary")
-require('dotenv').config();
+const cloudinary = require("cloudinary");
+require("dotenv").config();
 
 const messages = [];
 
@@ -13,11 +13,11 @@ const resolvers = {
     },
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await profileData.findById(context.user._id).populate("bids")
+        const user = await profileData.findById(context.user._id).populate("bids");
         return user;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     auctions: async () => {
       return await Auction.find({}).populate("bids");
@@ -34,8 +34,8 @@ const resolvers = {
         const token = signToken(user);
         return { token, user };
       } catch {
-        console.log(err)
-        res.send('TAKEN')
+        console.log(err);
+        res.send("TAKEN");
       }
     },
     createAuction: async (parent, args) => {
@@ -53,7 +53,7 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-    
+
     uploadImage: async (parent, args) => {
       console.log(args);
       const { stream, filename, mimetype, encoding } = await args.file;
@@ -67,7 +67,7 @@ const resolvers = {
       messages.push({
         id,
         user,
-        content
+        content,
       });
       return id;
     },
@@ -76,7 +76,7 @@ const resolvers = {
       const bid = await Bid.create({
         bidAmount: bidAmount,
         auction: auctionId,
-        bidder: userId
+        bidder: userId,
       });
       const product = await Auction.findOneAndUpdate(
         { _id: args.auctionId },
@@ -97,9 +97,13 @@ const resolvers = {
       return await profileData.findOneAndUpdate({ _id: args.id }, args);
     },
 
-    addProfilePic: async(parent, {imageURL}, context)=> {
-      const user = await profileData.findOneAndUpdate({_id: context._id}, {profilePic: imageURL});
-      return user;
+    addProfilePic: async (parent, { imageURL, id }, context) => {
+        console.log(context);
+        let userId = context.user._id? context.user._id : id;
+        console.log(userId);
+        const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
+        return user;
+      
     },
     profileUpload: async (parent, { photo }) => {
       cloudinary.config({
@@ -113,13 +117,12 @@ const resolvers = {
           allowed_formats: ["jpg", "png"],
           public_id: "",
           folder: "test",
-          
         });
         return `Successful-Photo URL: ${result.url}`;
       } catch (e) {
         return `Image could not be uploaded:${e.message}`;
       }
-    }
+    },
   },
 };
 

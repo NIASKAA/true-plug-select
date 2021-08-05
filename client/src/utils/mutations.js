@@ -53,14 +53,15 @@ export const Upload_ProfilePic = gql`
 `;
 
 export const Add_Profile_Pic = gql`
-  mutation Add_Pic($imageURL: String!) {
-    addProfilePic(imageURL: $imageURL) {
-      user {
-        profilePic
-      }
-    }
+mutation Add_Pic($imageURL: String! $id: ID) {
+  addProfilePic(imageURL: $imageURL id:$id) {
+    profilePic
+    username
+    email
   }
+}
 `
+
 
 /*export const Add_Post = gql``
 
