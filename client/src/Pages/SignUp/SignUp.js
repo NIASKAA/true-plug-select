@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {useHistory} from 'react-router-dom'
-import { Card, Form, Button, Container, Alert} from 'react-bootstrap'
+import { Card, Form, Button, Container} from 'react-bootstrap'
 //import backgroundVid from '/videos/yikes.mp4'
 import {useMutation} from '@apollo/client'
 import Auth from '../../utils/auth'
