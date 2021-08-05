@@ -24,6 +24,9 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+    userById: async(parent, args) => {
+      return await profileData.findById(args.id);
+    },
     auctions: async () => {
       return await Auction.find({}).populate("bids");
     },
@@ -38,7 +41,7 @@ const resolvers = {
         const user = await profileData.create(args);
         const token = signToken(user);
         return { token, user };
-      } catch {
+      } catch (err) {
         console.log(err);
         res.send("TAKEN");
       }
@@ -59,13 +62,6 @@ const resolvers = {
       return { token, user };
     },
 
-    uploadImage: async (parent, args) => {
-      console.log(args);
-      const { stream, filename, mimetype, encoding } = await args.file;
-      console.log(args.file);
-      // Store the file in the filesystem.
-      return args;
-    },
 
     postMessage: (parent, { user, content }) => {
       const id = messages.length;
@@ -105,6 +101,7 @@ const resolvers = {
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
+      console.log(context)
         let userId = context.user._id? context.user._id : id;
         console.log(userId);
         const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
