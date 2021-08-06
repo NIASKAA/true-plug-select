@@ -13,22 +13,22 @@ const RecentlySold = () => {
 
     return (
         <>
-            <Container className="text-center my-3">
+            <Container className="soldContainers">
                 <h2 className="font-weight-light">Recently Sold</h2>
-                <Row className="mx-auto my-auto justify-content-center">
+                <Row className="justify-content-center">
                     <Card style={cardStyle}>
                         <Card.Img
                         src=""
-                        class="card-img-top"
+                        className="card-img-top"
                         style={imgStyle}
                         />
                         <Card.Body>
-                        <Row class="row">
-                            <p class="titleFont">Name:</p>
-                            <p class="regularFont">Price: </p>
-                            <p class="regularFont">Size: </p>
-                            <p class="regularFont">Brand: </p>
-                        </Row>
+                            <Row>
+                                <p class="regularFont">Name:</p>
+                                <p class="regularFont">Price: </p>
+                                <p class="regularFont">Size: </p>
+                                <p class="regularFont">Brand: </p>
+                            </Row>
                         </Card.Body>
                     </Card>
                 </Row>
