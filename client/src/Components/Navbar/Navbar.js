@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navbar, Container, Nav, NavDropdown, Button, Row, Col} from 'react-bootstrap';
+import { Navbar, Container, Nav, NavDropdown, Button} from 'react-bootstrap';
 import {Link, useHistory} from 'react-router-dom'; 
 import Auth from '../../utils/auth';
 import './styles.css';

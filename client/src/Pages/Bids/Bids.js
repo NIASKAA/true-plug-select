@@ -1,10 +1,10 @@
 import React,  { useState, useEffect }  from 'react'
-import {Link, useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom'
 import { useQuery } from "@apollo/client";
 import { Get_All_Products, Query_User } from "../../utils/queries";
 import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
-import {Container, Button, Row, Card, Col} from 'react-bootstrap'
+import {Container, Button, Row, InputGroup, FormControl} from 'react-bootstrap'
 import ProductList from '../../Components/ProductList/ProductList';
 import Auth from '../../utils/auth';
 import './styles.css'
@@ -35,6 +35,14 @@ const Bids = () => {
         <>
             <Container className="container text-center my-3">
                 <h2 className="font-weight-light">Current Live Biddings</h2>
+                <InputGroup className="mb-3">
+                    <InputGroup.Text id="searchbar">@</InputGroup.Text>
+                    <FormControl
+                    placeholder="Search an item"
+                    aria-label="searchbar"
+                    aria-describedby="searchbar"
+                    />
+                </InputGroup>
                 {Auth.loggedIn() ? (
                 <Button onClick={auctionDirect} variant="light" className="addBid">Add new Bid</Button>
                 ) : (

@@ -87,7 +87,7 @@ const AuctionSubmitForm = () => {
             <Card.Body>
               <Card.Title>Some Rules Before You Post...</Card.Title>
               <Card.Text>
-                1. I dont know man, add whatever
+                1. I don't know man, add whatever
                 <br/>
                 2. Listen son, in this world you either yeet or be yeeted.
               </Card.Text>
