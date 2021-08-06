@@ -35,7 +35,7 @@ const About = () => {
                             <div class="teamMember wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <div class="teamInfo">
                                     <h6>Alan</h6>
-                                    <p class="designation">Leader, Designer</p>
+                                    <p class="designation">Leader, Front and Back-End Developer</p>
                                     <p class="favBrand">Favorite Brand: Off-White</p>
                                     <p class="funFact">Fun Fact: "I love Gundam."</p>
                                     <p class="btn gitBtns" id= ""><a href="https://github.com/NIASKAA">GITHUB </a></p>
@@ -50,7 +50,7 @@ const About = () => {
                                     <h6>Thomas</h6>
                                     <p class="designation">Back-End Developer</p>
                                     <p class="favBrand">Favorite Brand: Kith or Bodega </p>
-                                    <p class="funFact">Fun Fact: "At one point in time, my Manga/Anime podcast was top 40 in Ireland" </p>
+                                    <p class="funFact">Fun Fact: "At one point in time, my Manga podcast was top 40 in Ireland" </p>
                                     <p class="btn gitBtns" id= ""><a href="https://github.com/thomasbolling87">GITHUB </a></p>
                                 </div>
                             </div>
