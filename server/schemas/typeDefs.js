@@ -11,7 +11,6 @@ const typeDefs = gql`
       bids: [Bid]
    }
 
-
    type File {
       filename: String!
       mimetype: String!
