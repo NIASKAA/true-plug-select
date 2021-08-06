@@ -22,17 +22,12 @@ export const Query_User = gql`
 `;
 
 export const Get_All_Products = gql`
-  query AllAuctions {
-    auctions {
+{
+	auctions {
       itemName
       image
       description
-      seller {
-        username
-      }
-      bids {
-        bidAmount
-      }
-    }
-  }
+	} 
+}
+
 `;

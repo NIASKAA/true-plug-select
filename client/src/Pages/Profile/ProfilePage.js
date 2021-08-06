@@ -3,39 +3,33 @@ import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useMutation, useQuery } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
-import Auth from "../../utils/auth";
 import { Add_Profile_Pic } from "../../utils/mutations";
-import { Get_All_Products } from "../../utils/queries";
 import { GET_ALL_PRODUCTS, GET_USER_INFO, UPDATE_PRODUCTS } from "../../utils/state/actions";
 
 import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } from "react-bootstrap";
 import "./styles.css";
 
 const Profile = () => {
-  console.log(Auth.getProfile());
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
   const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
   const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture" });
   const { loading, data } = useQuery(Query_User);
 
-  const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-
   useEffect(() => {
     if (loading == false && data) {
       setProfileData(data.user);
-      dispatch({ type: GET_USER_INFO, payload: { ...data } });
+      dispatch({ type: GET_USER_INFO, payload: data.user });
+      console.log(state)
       console.log(data);
-      console.log(profileData);
     }
-    console.log(loading, data);
-    console.log(state);
   }, [loading, data]);
 
-  if (loading) return <Spinner></Spinner>;
 
-  const uploadImage = async () => {
+  const uploadImage = async (event) => {
+    event.preventDefault();
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
@@ -48,14 +42,14 @@ const Profile = () => {
         imageURL: response.data.secure_url,
       },
     });
-
     setProfileData({ ...profileData, profilePic: response.data.secure_url, id: "6109edaa114e8f542ceaa02d" });
-    console.log(mutResponse);
   };
 
-  
+  if (loading) return <Spinner></Spinner>;
+
   return (
     <>
+    
       <Container className="profileContainer">
         <Row>
           <Col class="col-lg-8 order-lg-2">
