@@ -11,7 +11,7 @@ const subscribers = [];
 const onMessagesUpdates = (fn) => subscribers.push(fn);
 
 const resolvers = {
-  Upload: GraphQLUpload,
+  //Upload: GraphQLUpload,
   Query: {
     users: async () => {
       return await profileData.find({});
