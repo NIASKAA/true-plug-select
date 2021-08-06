@@ -42,7 +42,7 @@ const Profile = () => {
         imageURL: response.data.secure_url,
       },
     });
-    setProfileData({ ...profileData, profilePic: response.data.secure_url, id: "6109edaa114e8f542ceaa02d" });
+    setProfileData({ ...profileData, profilePic: response.data.secure_url});
   };
 
   if (loading) return <Spinner></Spinner>;
@@ -63,7 +63,7 @@ const Profile = () => {
                         <Row>
                           <Card.Img
                             src={profileData.profilePic}
-                            style={{ width: "70%", margin: "2%" }}
+                            style={{ width: "95%", margin: "2%" }}
                           ></Card.Img>
                           <Card.Title className="float-left">Email: {profileData.email}</Card.Title>
                           <Card.Title className="float-left">Name: {profileData.username}</Card.Title>
