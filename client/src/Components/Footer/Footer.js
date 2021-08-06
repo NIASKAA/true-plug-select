@@ -11,7 +11,7 @@ const Footer = () => {
             <footer className="text-center">
                 <div className="text-center text-dark p-1">
                     © 2021 Copyright:
-                    <a className="text-dark" href="#">ThePlugSelect.com</a>
+                    <p className="text-dark">ThePlugSelect.com</p>
                     <Link style={{textDecoration: "none", color: "black"}} onClick={redirect}> Contact Us</Link>
                 </div>
             </footer>
