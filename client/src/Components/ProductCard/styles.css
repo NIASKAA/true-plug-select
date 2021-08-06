@@ -1,40 +1,35 @@
-.profileContainer {
-    margin: 6%;
+.infoCard {
+    width: 18rem;
 }
 
-.tableInfo {
-    float: left;
+.infoText {
+    font-size: 15px !important;
 }
 
-.profileBtns {
+.bidBtn {
     font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     font-weight: 300px;
     font-size: 100%;
     color:black;
     z-index: 1;
-    margin-right: 10px;
+    margin: 2%;
     justify-content: center;
     align-items: center;
 }
 
-.profileBtns:hover {
+.bidBtn:hover {
     background-color: #ffc312 !important;
-}
+  }
 
-.submitBtn {
+.deleteBtn {
     font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     font-weight: 300px;
     font-size: 100%;
     color:black;
     z-index: 1;
-    margin-right: 10px;
+    margin: 2%;
     justify-content: center;
     align-items: center;
 }
-
-.submitBtn:hover {
-    background-color: #ffc312 !important;
-}
-

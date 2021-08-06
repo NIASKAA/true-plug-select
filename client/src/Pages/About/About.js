@@ -37,7 +37,7 @@ const About = () => {
                                     <h6>Alan</h6>
                                     <p class="designation">Leader, Designer</p>
                                     <p class="favBrand">Favorite Brand: Off-White</p>
-                                    <p class="funFact">Fun Fact: "I collect collectibles"</p>
+                                    <p class="funFact">Fun Fact: "I love Gundam."</p>
                                     <p class="btn gitBtns" id= ""><a href="https://github.com/NIASKAA">GITHUB </a></p>
                                 </div>
                             </div>

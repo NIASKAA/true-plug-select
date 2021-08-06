@@ -1,13 +1,14 @@
 import React from "react";
+import {Col, Row} from 'react-bootstrap'
 import ProductCard from "../ProductCard/ProductCard";
 
 const ProductList = ({ products }) => {
   return (
-    <div>
+    <>
       {products.map((product) => (
         <ProductCard product={product} key={product.id} />
       ))}
-    </div>
+    </>
   );
 };
 

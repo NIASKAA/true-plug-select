@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { Get_All_Products, Query_User } from "../../utils/queries";
 import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
-import {Container, Button, Row, Card} from 'react-bootstrap'
+import {Container, Button, Row, Card, Col} from 'react-bootstrap'
 import ProductList from '../../Components/ProductList/ProductList';
 import Auth from '../../utils/auth';
 import './styles.css'
@@ -48,9 +48,8 @@ const Bids = () => {
                 ) : (
                     <Button onClick={redirect} variant="light" className="redirectBtn">You need to login before adding new post!</Button>
                 ) }
-                <Row class="mx-auto my-auto justify-content-center">
-                {!loading && data && <ProductList products={data.auctions} />}
-
+                <Row>
+                    {!loading && data && <ProductList products={data.auctions} />}
                 </Row>
             </Container>
         </>
