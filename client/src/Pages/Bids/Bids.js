@@ -1,6 +1,11 @@
-import React from 'react'
+import React,  { useState, useEffect }  from 'react'
 import {Link, useHistory} from 'react-router-dom'
+import { useQuery } from "@apollo/client";
+import { Get_All_Products, Query_User } from "../../utils/queries";
+import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
+import { useDispatch, useSelector } from "react-redux";
 import {Container, Button, Row, Card} from 'react-bootstrap'
+import ProductList from '../../Components/ProductList/ProductList';
 import Auth from '../../utils/auth';
 import './styles.css'
 const Bids = () => {
@@ -20,6 +25,19 @@ const Bids = () => {
         width: '18rem',
         maxHeight: '400px'
     }
+    const dispatch = useDispatch();
+    const state = useSelector((state) => state);
+    const { loading, data } = useQuery(Get_All_Products);
+  
+    useEffect(() => {
+      if (loading == false && data) {
+        dispatch({ type: GET_ALL_PRODUCTS, payload: data });
+      }
+    }, [loading, data]);
+    const [index, setIndex] = useState(0);
+    const handleSelect = (selectedIndex, e) => {
+      setIndex(selectedIndex);
+    };
     
     return (
         <>
@@ -31,19 +49,8 @@ const Bids = () => {
                     <Button onClick={redirect} variant="light" className="redirectBtn">You need to login before adding new post!</Button>
                 ) }
                 <Row class="mx-auto my-auto justify-content-center">
-                    <Card style={cardStyle}>
-                        <Card.Img src= "" className="card-img-top" style={imgStyle}/>
-                        <Card.Body className="card-body">
-                            <Row>
-                                <p className="titleFont"></p>
-                                <p className="regularFont">Price: </p>
-                                <p className="regularFont">Size:  </p>
-                                <p className="regularFont">Brand: </p>
-                            </Row>
-                            <Button variant="light" className="toBidBtn" as={Link} to="/product/:id" >Bid</Button>
-                        </Card.Body>
-                    </Card>
-                    
+                {!loading && data && <ProductList products={data.auctions} />}
+
                 </Row>
             </Container>
         </>
