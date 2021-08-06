@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {send} from 'emailjs-com'
-import {Form, Button} from 'react-bootstrap'
+import {Form,Container, Button} from 'react-bootstrap'
 import './styles.css'
 
 const Support = () => {
@@ -26,10 +26,11 @@ const Support = () => {
     }
     return (
         <>
+        <Container className="container text-center" id="customerSupport">
           <Form onSubmit={onSubmit} className="contactForm">
                 <Form.Group className="mb-3 name" controlId="nameInput">
                     <Form.Label className="title">Name</Form.Label>
-                    <Form.Control onChange={handleChange} type="name" name="fromName" value={toSend.fromName} placeholder='name...' className="nameInput"/>
+                    <Form.Control onChange={handleChange} type="name" name="fromName" value={toSend.fromName} placeholder='Name...' className="nameInput"/>
                 </Form.Group>
                 <Form.Group className="mb-3 email" controlId="emailInput">
                     <Form.Label className="title">Email address</Form.Label>
@@ -37,10 +38,11 @@ const Support = () => {
                 </Form.Group>
                 <Form.Group className="mb-3 message" controlId="exampleForm.ControlTextarea1">
                     <Form.Label className="title">Message</Form.Label>
-                    <Form.Control onChange={handleChange} value={toSend.message} name="message" as="textarea" rows={3} placeholder="message..." className="textInput"/>
+                    <Form.Control onChange={handleChange} value={toSend.message} name="message" as="textarea" rows={3} placeholder="Message..." className="textInput"/>
                 </Form.Group>
                 <Button variant="light" type="submit" className="submitBtn" id="sendIt">Send It</Button>
             </Form>
+            </Container>
         </>
     )
 }
