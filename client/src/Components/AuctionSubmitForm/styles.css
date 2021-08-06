@@ -1,0 +1,10 @@
+.bidForm {
+    width: 550px;
+}
+
+.itemInput {
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+    margin-left: 4%;
+}

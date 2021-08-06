@@ -17,14 +17,6 @@ const Bids = () => {
         history.push('/login')
     }
 
-    const cardStyle = {
-        width: "18rem"
-    }
-
-    const imgStyle = {
-        width: '18rem',
-        maxHeight: '400px'
-    }
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const { loading, data } = useQuery(Get_All_Products);
