@@ -1,5 +1,5 @@
 import "./App.css";
-import { Navigation, Footer } from "./Components";
+import { Navigation, Footer, AuctionSubmitForm } from "./Components";
 import {
   Home,
   About,
@@ -57,6 +57,7 @@ function App() {
               <Route exact path="/support" component={Support} />
               <Route exact path="/recentlysold" component={RecentlySold} />
               <Route exact path="/profile" component={Profile} />
+              <Route exact path="/auctionform" component={AuctionSubmitForm} />
             </Switch>
             <Footer />
           </Router>
