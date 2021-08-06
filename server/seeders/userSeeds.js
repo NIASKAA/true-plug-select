@@ -51,6 +51,16 @@ const userSeeds = [
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
       posts: ["Your product sucks bro lol"],
    },
+   {
+      email: "test@gmail.com",
+      username: "test",
+      firstName: "Fuckme",
+      lastName: "yikes",
+      password:"gundam",
+      profilePic:
+         "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628145913/j0wskkihx7y3mtlxhwma.png",
+      posts: ["Your product sucks bro lol"],
+   },
 ];
 const seedUsers = async () => {
    try {
