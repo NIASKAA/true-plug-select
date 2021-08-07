@@ -23,13 +23,12 @@ const Bids = () => {
   const { loading, data } = useQuery(Get_All_Products);
   const { auctions } = state;
   useEffect(() => {
-    if (loading == false && data) {
-      dispatch({ type: GET_ALL_PRODUCTS, payload: data });
-      console.log(state);
+    if (auctions.length === 0 && loading == false && data) {
+      dispatch({ type: GET_ALL_PRODUCTS, payload: data.auctions });
     }
   }, [loading, data]);
 
-  return (
+  return (  
     <>
       <Container className="container text-center my-3">
         <h2 className="font-weight-light">Current Live Biddings</h2>
@@ -46,7 +45,7 @@ const Bids = () => {
             You need to login before adding new post!
           </Button>
         )}
-        <Row>{!loading && data && <ProductList products={data.auctions} />}</Row>
+        <Row>{!loading && data && <ProductList products={auctions} />}</Row>
       </Container>
     </>
   );
