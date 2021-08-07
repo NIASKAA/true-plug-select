@@ -14,9 +14,9 @@ const Messages = ({ user }) => {
     }
     return (
         <>
-        {/* This return code takes the mesages from GET_MESSAGES subscription to display them in Messages */}
+        {/* This return code takes the messages from GET_MESSAGES subscription to display them in Messages */}
             {data.messages.map(({ id, user: messageUser, content }) => (
-                <div
+                <Container
                     style={{
                         display: 'flex',
                         // If the message is from the logged in user than message displays at the beginning of window if other user display at the front of window
@@ -26,7 +26,7 @@ const Messages = ({ user }) => {
                 >
                     {/* Displays which user the message originates from */}
                     {user !== messageUser && (
-                        <div
+                        <div 
                             style={{
                                 height: 50,
                                 width: 50,
@@ -43,8 +43,8 @@ const Messages = ({ user }) => {
                     )}
                     <div
                         style={{
-                            // Styling for the chat messages.
-                            background: user === messageUser ? "#58bf56" : "#e5e6ea",
+                            // Styling for the messages.
+                            background: user === messageUser ? "#4682B4" : "#A9A9A9",
                             color: user === messageUser ? "black" : "blue",
                             padding: "1em",
                             borderRadius: '1em'
@@ -52,7 +52,7 @@ const Messages = ({ user }) => {
                     >
                         {content}
                     </div> 
-                </div>
+                </Container>
             ))}
         </>
     );
@@ -91,13 +91,6 @@ const Chatroom = () => {
         });
     };
 
-    const timerStyle = {
-        color: 'red'
-    }
-
-    const auctionStyle = {
-        color: 'orange'
-    }
     const imgStyle = {
         width: "55px",
         height: '40px'
@@ -118,12 +111,12 @@ const Chatroom = () => {
         <>
             <div className="timer text-center">
                 <div className="timer">Bidding will start in : 
-                    <span id="timer" style={timerStyle}>
+                    <span id="timer" className="bidTimer">
                         00:00
                     </span> 
                 </div>
                 <div className="timer-two"> Time left until auction ends:
-                    <span id="bid-timer" style={auctionStyle}>00:00:00</span>
+                    <span id="bid-timer" className="endTimer">00:00:00</span>
                 </div>
             </div>
 
@@ -131,12 +124,12 @@ const Chatroom = () => {
                 <Row className="row justify-content-center">
                     <Col className="col-md-8 col-xl-6">
                         <Card className="imageCard">
-                            <Card.Body className="card-body border-0">
+                            <Card.Body>
                                 <Container>
-                                    <Card.Img src= "" className="rounded imageContain"/>
+                                    <Card.Img src= "./logo.png" className="rounded imageContain"/>
                                 </Container>
                             </Card.Body>
-                            <Card.Footer className="itemInfo">
+                            <Card.Footer>
                                 <div className="d-flex justify-content-start">
                                     <ul>
                                         <li className="infoList">Name:</li>
@@ -152,8 +145,8 @@ const Chatroom = () => {
                     </Col>
 
                     <Col className="col-md-8 col-xl-6">
-                        <Card className="card chatCard">
-                            <Card.Body className="card-body msgBody scroll">
+                        <Card className="chatCard">
+                            <Card.Body className="msgBody scroll">
                                 <div className="d-flex justify-content-start mb-4">
                                     <Card.Img src="" className="rounded-circle" style={imgStyle}/>
                                     <Container className="chatContainer">
@@ -184,7 +177,7 @@ const Chatroom = () => {
                                             />
                                             <InputGroup.Text onClick={() => onSend()} id="enterMessage" type="submit">Enter</InputGroup.Text>
                                         </InputGroup>
-                                        <InputGroup className="" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <InputGroup type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <InputGroup.Text id="basic-addon1">Custom Bid</InputGroup.Text>
                                             <FormControl
                                                 placeholder="enter custom bid number"

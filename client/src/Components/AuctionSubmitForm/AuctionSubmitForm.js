@@ -28,6 +28,7 @@ const AuctionSubmitForm = () => {
   const { profileData } = state;
   const { loading, data } = useQuery(Query_User);
   const [createAuction, { err }] = useMutation(Create_Auction);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
 
   useEffect(() => {
     if (!loading && data && profileData._id === undefined) {
@@ -44,6 +45,10 @@ const AuctionSubmitForm = () => {
       imageData
     );
     return await response.secure_url;
+  };
+
+  const onSwitchAction = () => {
+    setIsSwitchOn(!isSwitchOn);
   };
 
   const handleChange = (event) => {
@@ -144,7 +149,14 @@ const AuctionSubmitForm = () => {
                 </Dropdown.Menu>
               </Dropdown>
               <Form.Group className="mb-3 itemInput" controlId="agreeIt">
-                <Form.Check type="checkbox" label="By clicking this checkbox, you agreed to our policy" />
+                <Form.Switch 
+                  onChange={onSwitchAction}
+                  id="agreementSwitch"
+                  type="switch" 
+                  checked={isSwitchOn}
+                  label="By clicking this, you agreed to our policy" 
+                />
+                <Form.Control.Feedback type="invalid">You must agree before submitting.</Form.Control.Feedback>
               </Form.Group>
               <Button type="submit" variant="light" className="submitBtn">
                 Submit
