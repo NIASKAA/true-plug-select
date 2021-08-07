@@ -19,20 +19,38 @@ const Bids = ({products}) => {
         history.push("/login");
     };
     
-    const dispatch = useDispatch();
-    const state = useSelector((state) => state);
-    const { loading, data } = useQuery(Get_All_Products);
-  
-    useEffect(() => {
-      if (loading == false && data) {
-        dispatch({ type: GET_ALL_PRODUCTS, payload: data });
-      }
-    }, [loading, data]);
-    const [index, setIndex] = useState(0);
-    const [searchItem, setSearchItem] = useState("");
-    const handleSelect = (selectedIndex, e) => {
-      setIndex(selectedIndex);
-    };
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const { loading, data } = useQuery(Get_All_Products);
+  const { auctions } = state;
+  useEffect(() => {
+    if (auctions.length === 0 && loading == false && data) {
+      dispatch({ type: GET_ALL_PRODUCTS, payload: data.auctions });
+    }
+  }, [loading, data]);
+
+  return (  
+    <>
+      <Container className="container text-center my-3">
+        <h2 className="font-weight-light">Current Live Biddings</h2>
+        <InputGroup className="mb-3">
+          <InputGroup.Text id="searchbar">@</InputGroup.Text>
+          <FormControl placeholder="Search an item" aria-label="searchbar" aria-describedby="searchbar" />
+        </InputGroup>
+        {Auth.loggedIn() ? (
+          <Button onClick={auctionDirect} variant="light" className="addBid">
+            Add new Bid
+          </Button>
+        ) : (
+          <Button onClick={redirect} variant="light" className="redirectBtn">
+            You need to login before adding new post!
+          </Button>
+        )}
+        <Row>{!loading && data && <ProductList products={auctions} />}</Row>
+      </Container>
+    </>
+  );
+};
 
     /* {products.filter((product) => {
         if(searchItem == "") {
