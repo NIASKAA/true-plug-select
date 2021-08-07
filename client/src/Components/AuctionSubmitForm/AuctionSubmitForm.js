@@ -66,7 +66,7 @@ const AuctionSubmitForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
+
     setCreateProductLoading(true);
     const productImage = await uploadItemImage();
     console.log(productImage);
@@ -183,6 +183,7 @@ const AuctionSubmitForm = () => {
                   <Form.Control.Feedback type="invalid">
                     You must agree before submitting.
                   </Form.Control.Feedback>
+                  //{" "}
                 </Form.Group>
                 <Button type="submit" variant="light" className="submitBtn">
                   Submit
