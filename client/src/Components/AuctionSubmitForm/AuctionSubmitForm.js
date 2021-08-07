@@ -36,7 +36,6 @@ const AuctionSubmitForm = () => {
   },[loading, data]);
 
   const uploadItemImage = async (event) => {
-    event.preventDefault();
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz60ie8l");
@@ -44,17 +43,36 @@ const AuctionSubmitForm = () => {
       `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
       imageData
     );
-
+    return await response.secure_url;
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target;    
     setFormState({ ...formState, [name]: value, seller: profileData._id });
     console.log(formState);
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+git     const {itemName, description, startingPrice, bidEnd, seller, image} = formState;
+    const mutResponse = createAuction({
+      variables: {
+        itemName,
+        description,
+        startingPrice: Number(startingPrice.trim()),
+        bidEnd,
+        seller,
+        image,
+      }
+    })
+    console.log(mutResponse);
+    setFormState({
+      itemName: "",
+      description: "",
+      startingPrice: 0,
+      bidEnd: "",
+      image: "",
+    });
   };
 
   return (
@@ -63,14 +81,14 @@ const AuctionSubmitForm = () => {
         <Col>
           <Card className="bidForm">
             <Form
-              onSubmit={""}
+              onSubmit={handleFormSubmit}
               enctype="multipart/form-data"
               method="post"
               class="col-lg-4 order-lg-1 text-center"
             >
               <Form.Label>Upload Photo</Form.Label>
               <Form.Group controlId="formFileLg" className="mb-3">
-                <Form.Control type="file" size="lg" onChange={""} />
+                <Form.Control type="file" size="lg" onChange={(event) => setImageSelected(event.target.files[0])} />
               </Form.Group>
               <Form.Group className="mb-3 itemInput" controlId="name">
                 <Form.Label>Item Name:</Form.Label>
@@ -99,7 +117,7 @@ const AuctionSubmitForm = () => {
                   value={formState.startingPrice}
                   onChange={handleChange}
                   type="price"
-                  placeholder="Starting Size"
+                  placeholder="Starting price"
                 />
               </Form.Group>
               <Form.Group className="mb-3 itemInput" controlId="bidTime">
@@ -128,7 +146,7 @@ const AuctionSubmitForm = () => {
               <Form.Group className="mb-3 itemInput" controlId="agreeIt">
                 <Form.Check type="checkbox" label="By clicking this checkbox, you agreed to our policy" />
               </Form.Group>
-              <Button onClick={""} variant="light" className="submitBtn">
+              <Button type="submit" variant="light" className="submitBtn">
                 Submit
               </Button>
             </Form>
