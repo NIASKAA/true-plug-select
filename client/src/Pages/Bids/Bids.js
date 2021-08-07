@@ -8,6 +8,7 @@ import {Container, Button, Row, InputGroup, FormControl} from 'react-bootstrap'
 import ProductList from '../../Components/ProductList/ProductList';
 import Auth from '../../utils/auth';
 import './styles.css'
+
 const Bids = () => {
     let history = useHistory()
     const auctionDirect = () => {

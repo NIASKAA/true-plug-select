@@ -42,7 +42,7 @@ const resolvers = {
         return { token, user };
       } catch (err) {
         console.log(err);
-        res.send("TAKEN");
+        throw new AuthenticationError('Taken')
       }
     },
     createAuction: async (parent, args) => {
