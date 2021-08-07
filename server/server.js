@@ -1,14 +1,15 @@
 const express = require('express');
 const path = require('path');
 const db = require('./config/connection');
-const { ApolloServer, PubSub } = require('apollo-server-express');
+const { ApolloServer } = require('apollo-server-express');
 const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 const { SubscriptionServer } = require('subscriptions-transport-ws');
 const { createServer } = require('http');
 const { execute, subscribe } = require('graphql');
+const { PubSub, GraphQLServer } = require('graphql-yoga');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
-
+const { applyMiddleware } = require('graphql-middleware');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -18,17 +19,21 @@ const pubsub = new PubSub();
 // In order for the chat to work the schemas had to be added to ApolloServer via makeExecutableSchema
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
+const middleware = [];
+
+const schemaWithMiddleware = applyMiddleware(schema, ...middleware);
+
 // Chat doesn't work without the listen beint an httpServer setup instead of app. Sending app through httpServer.
 const httpServer = createServer(app);
 
 const server = new ApolloServer({
-  schema,
-  //context: {pubsub},
+  schema: schemaWithMiddleware,
+  context: {pubsub},
   context: authMiddleware,
 });
 
 const subscriptionServer = SubscriptionServer.create({
-  schema,
+  schema: schemaWithMiddleware,
   execute,
   subscribe,
 }, {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import {Container, Button, Row, Col, Card, Form} from 'react-bootstrap';
 import { Query_User } from "../../utils/queries";
-import { useMutation, useQuery, useSubscription, gql } from '@apollo/client';
+import { useMutation, useSubscription, gql } from '@apollo/client';
 import './styles.css'
 
 // Query built on page to pull chat messages from server

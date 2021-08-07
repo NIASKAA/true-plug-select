@@ -2,12 +2,13 @@ import './App.css';
 import {Navigation, Footer}from './Components'
 import {Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support, RecentlySold, Profile} from './Pages'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
-import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from '@apollo/client';
+import {ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, split } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { WebSocketLink } from "@apollo/client/link/ws";
-
+import { getMainDefinition } from '@apollo/client/utilities';
 import {Provider} from 'react-redux';
 import store from './utils/state/store';
+
 const httpLink = createHttpLink({
   uri: '/graphql',
 });
@@ -20,6 +21,19 @@ const wsLink = new WebSocketLink({
   },
 });
 
+// This divides the links so they do share the same link on line 48. This prevents conflicts from the websocket, and allows for queries
+const splitLink = split(
+  ({ query }) => {
+    const definition = getMainDefinition(query);
+    return (
+      definition.kind === 'OperationDefinition' &&
+      definition.operation === 'subscription'
+    );
+  },
+  wsLink,
+  httpLink,
+);
+
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem('id_token');
   return {
@@ -31,8 +45,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
-  link: authLink.concat(wsLink),
+  link: authLink.concat(splitLink),
   cache: new InMemoryCache(),
 });
 function App() {

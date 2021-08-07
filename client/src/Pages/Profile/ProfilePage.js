@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, gql } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
 import Auth from "../../utils/auth";
 import { Add_Profile_Pic } from "../../utils/mutations";
@@ -12,6 +12,8 @@ import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } fr
 import "./styles.css";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
   console.log(Auth.getProfile());
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
@@ -19,28 +21,24 @@ const Profile = () => {
   const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture" });
   const { loading, data } = useQuery(Query_User);
 
-  const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-
   useEffect(() => {
-    if (loading == false && data) {
+    if (loading === false && data) {
       setProfileData(data.user);
-      dispatch({ type: GET_USER_INFO, payload: { ...data } });
+      dispatch({ type: GET_USER_INFO, payload: data.user });
+      console.log(state)
       console.log(data);
-      console.log(profileData);
     }
-    console.log(loading, data);
-    console.log(state);
-  }, [loading, data]);
+  }, [loading, data]);  
 
   if (loading) return <Spinner></Spinner>;
 
-  const uploadImage = async () => {
+  const uploadImage = async (event) => {
+    event.preventDefault();
     const imageData = new FormData();
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
     const response = await Axios.post(
-      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+      `https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`,
       imageData
     );
     const mutResponse = await addProfilePic({
@@ -48,11 +46,8 @@ const Profile = () => {
         imageURL: response.data.secure_url,
       },
     });
-
     setProfileData({ ...profileData, profilePic: response.data.secure_url, id: "6109edaa114e8f542ceaa02d" });
-    console.log(mutResponse);
   };
-
   
   return (
     <>
