@@ -34,6 +34,7 @@ const AuctionSubmitForm = () => {
   // on reload, sometimes state gets wipped out so this is in case that happens
   const { loading, data } = useQuery(Query_User);
   const [createAuction, { err }] = useMutation(Create_Auction);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
 
   useEffect(() => {
     // only dispatch if the profileData has been cleared
@@ -55,6 +56,10 @@ const AuctionSubmitForm = () => {
     return response.data.secure_url;
   };
 
+  const onSwitchAction = () => {
+    setIsSwitchOn(!isSwitchOn);
+  };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value, seller: profileData._id });
@@ -65,7 +70,7 @@ const AuctionSubmitForm = () => {
     event.preventDefault();
     const productImage = await uploadItemImage(event);
     console.log(productImage)
-    const { itemName, description, startingPrice, bidEnd, seller, image } = formState;
+    const {itemName, description, startingPrice, bidEnd, seller, image} = formState;
     const mutResponse = createAuction({
       variables: {
         itemName,
@@ -160,7 +165,14 @@ const AuctionSubmitForm = () => {
                 </Dropdown.Menu>
               </Dropdown>
               <Form.Group className="mb-3 itemInput" controlId="agreeIt">
-                <Form.Check type="checkbox" label="By clicking this checkbox, you agreed to our policy" />
+                <Form.Switch 
+                  onChange={onSwitchAction}
+                  id="agreementSwitch"
+                  type="switch" 
+                  checked={isSwitchOn}
+                  label="By clicking this, you agreed to our policy" 
+                />
+                <Form.Control.Feedback type="invalid">You must agree before submitting.</Form.Control.Feedback>
               </Form.Group>
               <Button type="submit" variant="light" className="submitBtn">
                 Submit

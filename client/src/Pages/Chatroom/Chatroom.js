@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {Container, Button, Row, Col, Card, Form} from 'react-bootstrap';
-import { Query_User } from "../../utils/queries";
+import {Container, Button, Row, Col, Card, InputGroup, FormControl} from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
+//import { Query_User } from "../../utils/queries";
 import {GET_MESSAGES, POST_MESSAGE} from '../../utils/mutations'
+import Auth from '../../utils/auth';
 import { useMutation, useSubscription, gql } from '@apollo/client';
 import './styles.css'
 
@@ -10,12 +12,11 @@ const Messages = ({ user }) => {
     if (!data) {
         return null;
     }
-    
     return (
         <>
-        {/* This return code takes the mesages from GET_MESSAGES subscription to display them in Messages */}
+        {/* This return code takes the messages from GET_MESSAGES subscription to display them in Messages */}
             {data.messages.map(({ id, user: messageUser, content }) => (
-                <div
+                <Container
                     style={{
                         display: 'flex',
                         // If the message is from the logged in user than message displays at the beginning of window if other user display at the front of window
@@ -25,7 +26,7 @@ const Messages = ({ user }) => {
                 >
                     {/* Displays which user the message originates from */}
                     {user !== messageUser && (
-                        <div
+                        <div 
                             style={{
                                 height: 50,
                                 width: 50,
@@ -42,8 +43,8 @@ const Messages = ({ user }) => {
                     )}
                     <div
                         style={{
-                            // Styling for the chat messages.
-                            background: user === messageUser ? "#58bf56" : "#e5e6ea",
+                            // Styling for the messages.
+                            background: user === messageUser ? "#4682B4" : "#A9A9A9",
                             color: user === messageUser ? "black" : "blue",
                             padding: "1em",
                             borderRadius: '1em'
@@ -51,7 +52,7 @@ const Messages = ({ user }) => {
                     >
                         {content}
                     </div> 
-                </div>
+                </Container>
             ))}
         </>
     );
@@ -62,6 +63,10 @@ const Chatroom = () => {
         user: "Thomas",
         content: '',
     });
+    let history = useHistory();
+    const redirect = () => {
+        history.push('/login')
+    }
 
     // Need to get the user name to load in instead of the manual input I have for line 79
     // const { load, data } = useQuery(Query_User);
@@ -86,55 +91,53 @@ const Chatroom = () => {
         });
     };
 
-    const itemNameStyle = {
-        fontFamily: 'Work Sans, sans-serif'
-    }
-
-    const timerStyle = {
-        color: 'red'
-    }
-
-    const auctionStyle = {
-        color: 'orange'
-    }
     const imgStyle = {
         width: "55px",
         height: '40px'
     }
 
+    /*<Col xs={3} style={{ padding: 0 }}>
+    <input
+    label="User"
+    className="msgUser"
+    value={message.user}
+    onChange={(evt) => messageSet({
+        ...message,
+        user: evt.target.value
+    })}
+    />
+    </Col>*/
     return (
         <>
             <div className="timer text-center">
                 <div className="timer">Bidding will start in : 
-                    <span id="timer" style={timerStyle}>
+                    <span id="timer" className="bidTimer">
                         00:00
                     </span> 
                 </div>
                 <div className="timer-two"> Time left until auction ends:
-                    <span id="bid-timer" style={auctionStyle}>00:00:00</span>
+                    <span id="bid-timer" className="endTimer">00:00:00</span>
                 </div>
             </div>
 
             <Container className="chatroomContain">
                 <Row className="row justify-content-center">
                     <Col className="col-md-8 col-xl-6">
-                        <Card className="card imageCard">
-                            <div className="card-header border-bottom-0 infoHeader">
-                                <h4 className="itemName text-center" style={itemNameStyle}></h4>
-                            </div>
-                            <Card.Body className="card-body border-0">
+                        <Card className="imageCard">
+                            <Card.Body>
                                 <Container>
-                                    <Card.Img src= "" className="rounded imageContain"/>
+                                    <Card.Img src= "./logo.png" className="rounded imageContain"/>
                                 </Container>
                             </Card.Body>
-                            <Card.Footer className="card-footer itemInfo">
+                            <Card.Footer>
                                 <div className="d-flex justify-content-start">
                                     <ul>
-                                        <li className="infoList">Category: </li>
-                                        <li className="infoList">Brand: </li>
+                                        <li className="infoList">Name:</li>
                                         <li className="infoList">Description: </li>
                                         <li className="infoList" id="price">Price:  </li>
                                         <li className="infoList">Size: </li>
+                                        <li className="infoList">Brand: </li>
+                                        <li className="infoList">Category: </li>
                                     </ul>
                                 </div>
                             </Card.Footer>
@@ -142,19 +145,10 @@ const Chatroom = () => {
                     </Col>
 
                     <Col className="col-md-8 col-xl-6">
-                        <Card className="card chatCard">
-                            <div className="card-header chatHeader">
-                                <div className="d-flex bd-highlight mb-3">
-                                    <div className="p-2 bd-highlight userImg">
-                                        <Card.Img src="" className="rounded-circle" style={imgStyle}/>
-                                    </div>
-                                </div>
-                            </div>
-                            <Card.Body className="card-body msgBody scroll">
+                        <Card className="chatCard">
+                            <Card.Body className="msgBody scroll">
                                 <div className="d-flex justify-content-start mb-4">
-                                    <div>
-                                        <Card.Img src="" className="rounded-circle" style={imgStyle}/>
-                                    </div>
+                                    <Card.Img src="" className="rounded-circle" style={imgStyle}/>
                                     <Container className="chatContainer">
                                         {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
                                         <Messages user={message.user} />
@@ -162,24 +156,14 @@ const Chatroom = () => {
                                 </div>
                             </Card.Body>
                             
-
-                            <Card.Footer className="card-footer cardEnd">                              
-                                <div className="chat-form-container">
-                                    <Form className="chat-form d-flex msgBody scroll">
-                                        <Row>
-                                            <Col xs={3} style={{ padding: 0 }}>
-                                                <input
-                                                label="User"
-                                                value={message.user}
-                                                onChange={(evt) => messageSet({
-                                                    ...message,
-                                                    user: evt.target.value
-                                                })}
-                                                />
-                                            </Col>
-                                            <Col xs={8}>
-                                                <input
+                            <Card.Footer className="cardEnd">                              
+                            <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>  
+                                {Auth.loggedIn() ? (
+                                    <Container className="d-flex justify-content-center" id="bitBtns">
+                                        <InputGroup>
+                                            <FormControl
                                                 label="Content"
+                                                className="msgBox"
                                                 value={message.content}
                                                 onChange={(evt) => messageSet({
                                                     ...message,
@@ -190,41 +174,24 @@ const Chatroom = () => {
                                                         onSend();
                                                     }
                                                 }}
-                                                />
-                                            </Col>
-                                        </Row>
-                                        <Button className="btn chatBtn" onClick={() => onSend()}>Send</Button>
-                                    </Form>
-                                </div>
-
-                                <div className="bidDescript text-center" style={itemNameStyle}>
-                                    <h5>To start bidding, click the amount you wish to drop it</h5>
-                                </div>
-                                
-                                <div className="d-flex justify-content-center" id="bitBtns">
-                                    <Button className="btn bidBtns" type="submit">100</Button>
-                                    <Button className="btn bidBtns" type="submit">200</Button>
-                                    <Button className="btn bidBtns" type="submit">300</Button>
-                                    <Button className="btn bidBtns" type="submit">400</Button>
-                                    <Button className="btn bidBtns" type="submit">500</Button>
-                                    <Button className="btn bidBtns" type="submit">1000</Button>
-                                    <div className="dropdown" data-toggle="dropdown">
-                                        <Button className=" btn customBidBtn" type="Button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Custom Bid
+                                            />
+                                            <InputGroup.Text onClick={() => onSend()} id="enterMessage" type="submit">Enter</InputGroup.Text>
+                                        </InputGroup>
+                                        <InputGroup type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <InputGroup.Text id="basic-addon1">Custom Bid</InputGroup.Text>
+                                            <FormControl
+                                                placeholder="enter custom bid number"
+                                                aria-label="customBid"
+                                                aria-describedby="customBid"
+                                            />
+                                            <InputGroup.Text id="enterBid" type="submit">Enter</InputGroup.Text>
+                                        </InputGroup>
+                                    </Container>
+                                ) : (
+                                        <Button onClick={redirect} variant="light" className="redirectBtn">
+                                            You need to login before you can start bidding!
                                         </Button>
-                                        <div className="dropdown-menu">
-                                            <form className="customBid-form">
-                                                <div className="form-group">
-                                                    <label className="customBidLabel" for="custom-Bid">Bid:</label>
-                                                    <input className="form-control" type="text" id="bid-form" />
-                                                </div>
-                                                <div className="form-group">
-                                                    <Button className="customBidBtn" id="customBidBtn" type="submit">Enter</Button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                )}    
                             </Card.Footer>
                         </Card>
                     </Col>
