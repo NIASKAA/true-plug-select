@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Get_All_Products, Query_User } from "../../utils/queries";
+import { Get_All_Products} from "../../utils/queries";
 import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Button, Row, InputGroup, FormControl } from "react-bootstrap";
 import ProductList from "../../Components/ProductList/ProductList";
-import ProductCard from "../../Components/ProductCard/ProductCard";
 import Auth from "../../utils/auth";
 import "./styles.css";
 

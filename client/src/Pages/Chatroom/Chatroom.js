@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import {Container, Button, Row, Col, Card, Form, InputGroup, FormControl} from 'react-bootstrap';
-import { Query_User } from "../../utils/queries";
+import {Container, Button, Row, Col, Card, InputGroup, FormControl} from 'react-bootstrap';
+import { useHistory } from "react-router-dom";
+//import { Query_User } from "../../utils/queries";
 import {GET_MESSAGES, POST_MESSAGE} from '../../utils/mutations'
+import Auth from '../../utils/auth';
 import { useMutation, useSubscription, gql } from '@apollo/client';
 import './styles.css'
 
@@ -10,7 +12,6 @@ const Messages = ({ user }) => {
     if (!data) {
         return null;
     }
-    
     return (
         <>
         {/* This return code takes the mesages from GET_MESSAGES subscription to display them in Messages */}
@@ -62,6 +63,10 @@ const Chatroom = () => {
         user: "Thomas",
         content: '',
     });
+    let history = useHistory();
+    const redirect = () => {
+        history.push('/login')
+    }
 
     // Need to get the user name to load in instead of the manual input I have for line 79
     // const { load, data } = useQuery(Query_User);
@@ -159,35 +164,41 @@ const Chatroom = () => {
                             </Card.Body>
                             
                             <Card.Footer className="cardEnd">                              
-                            <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>      
-                                <Container className="d-flex justify-content-center" id="bitBtns">
-                                    <InputGroup>
-                                        <FormControl
-                                            label="Content"
-                                            className="msgBox"
-                                            value={message.content}
-                                            onChange={(evt) => messageSet({
-                                                ...message,
-                                                content: evt.target.value
-                                            })}
-                                            onKeyUp={(evt) => {
-                                                if (evt.keyDown === 13) {
-                                                    onSend();
-                                                }
-                                            }}
-                                        />
-                                        <InputGroup.Text onClick={() => onSend()} id="enterMessage" type="submit">Enter</InputGroup.Text>
-                                    </InputGroup>
-                                    <InputGroup className="" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <InputGroup.Text id="basic-addon1">Custom Bid</InputGroup.Text>
-                                        <FormControl
-                                            placeholder="enter custom bid number"
-                                            aria-label="customBid"
-                                            aria-describedby="customBid"
-                                        />
-                                        <InputGroup.Text id="enterBid" type="submit">Enter</InputGroup.Text>
-                                    </InputGroup>
-                                </Container>
+                            <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>  
+                                {Auth.loggedIn() ? (
+                                    <Container className="d-flex justify-content-center" id="bitBtns">
+                                        <InputGroup>
+                                            <FormControl
+                                                label="Content"
+                                                className="msgBox"
+                                                value={message.content}
+                                                onChange={(evt) => messageSet({
+                                                    ...message,
+                                                    content: evt.target.value
+                                                })}
+                                                onKeyUp={(evt) => {
+                                                    if (evt.keyDown === 13) {
+                                                        onSend();
+                                                    }
+                                                }}
+                                            />
+                                            <InputGroup.Text onClick={() => onSend()} id="enterMessage" type="submit">Enter</InputGroup.Text>
+                                        </InputGroup>
+                                        <InputGroup className="" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <InputGroup.Text id="basic-addon1">Custom Bid</InputGroup.Text>
+                                            <FormControl
+                                                placeholder="enter custom bid number"
+                                                aria-label="customBid"
+                                                aria-describedby="customBid"
+                                            />
+                                            <InputGroup.Text id="enterBid" type="submit">Enter</InputGroup.Text>
+                                        </InputGroup>
+                                    </Container>
+                                ) : (
+                                        <Button onClick={redirect} variant="light" className="redirectBtn">
+                                            You need to login before you can start bidding!
+                                        </Button>
+                                )}    
                             </Card.Footer>
                         </Card>
                     </Col>

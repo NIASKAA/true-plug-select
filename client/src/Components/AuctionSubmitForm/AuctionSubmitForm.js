@@ -54,7 +54,7 @@ const AuctionSubmitForm = () => {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-git     const {itemName, description, startingPrice, bidEnd, seller, image} = formState;
+    const {itemName, description, startingPrice, bidEnd, seller, image} = formState;
     const mutResponse = createAuction({
       variables: {
         itemName,
