@@ -4,10 +4,11 @@ import { useQuery } from "@apollo/client";
 import { Get_All_Products, Query_User } from "../../utils/queries";
 import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Button, Row, InputGroup, FormControl } from "react-bootstrap";
-import ProductList from "../../Components/ProductList/ProductList";
-import Auth from "../../utils/auth";
-import "./styles.css";
+import {Container, Button, Row, InputGroup, FormControl} from 'react-bootstrap'
+import ProductList from '../../Components/ProductList/ProductList';
+import Auth from '../../utils/auth';
+import './styles.css'
+
 const Bids = () => {
   let history = useHistory();
   const auctionDirect = () => {

@@ -55,8 +55,8 @@ const userSeeds = [
       email: "test@gmail.com",
       username: "Callul",
       firstName: "Fuckme",
-      lastName: "yikes",
       password:"gundam",
+      lastName: "yikes",
       profilePic:
          "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628145913/j0wskkihx7y3mtlxhwma.png",
       posts: ["Your product sucks bro lol"],
