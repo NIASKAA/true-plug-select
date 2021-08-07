@@ -8,9 +8,10 @@ import {
   CLEAR_CART,
   TOGGLE_CART,
   GET_ALL_PRODUCTS,
+  ADD_AUCTION  
 } from "./actions";
 
-export const reducers = async (state, action) => {
+export const reducers = (state, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS:
       return {
@@ -21,9 +22,15 @@ export const reducers = async (state, action) => {
     case GET_USER_INFO:
       return {
         ...state,
-        profileData: {...action.payload },
+        profileData: { ...action.payload },
       };
 
+    case ADD_AUCTION:
+      return {
+        ...state,
+        auctions: [...state.auctions, action.payload],
+      };
+  
     case ADD_MULTIPLE_TO_CART:
       return {
         ...state,
