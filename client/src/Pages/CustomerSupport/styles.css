@@ -5,6 +5,7 @@
 
 .title {
   float: left;  
+  font-size: 150%;
 }
 
 .submitBtn {
@@ -21,4 +22,12 @@
 
 .submitBtn:hover {
   background-color: #ffc312 !important;
+}
+
+#customerSupport{
+  width: 500px;
+  height:400px;
+  border:1px;
+  padding:10px;
+  box-shadow: 5px 10px 18px #ffc312;
 }

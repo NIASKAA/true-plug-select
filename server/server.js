@@ -7,7 +7,7 @@ const { authMiddleware } = require('./utils/auth');
 const { SubscriptionServer } = require('subscriptions-transport-ws');
 const { createServer } = require('http');
 const { execute, subscribe } = require('graphql');
-const { PubSub, GraphQLServer } = require('graphql-yoga');
+const { PubSub } = require('graphql-yoga');
 const { makeExecutableSchema } = require('@graphql-tools/schema');
 const { applyMiddleware } = require('graphql-middleware');
 
@@ -47,8 +47,10 @@ const subscriptionServer = SubscriptionServer.create({
 
 server.applyMiddleware({ app });
 
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../client/build')));
@@ -59,7 +61,7 @@ app.get('*', (req, res) => {
 });
 
 db.once('open', () => {
-  httpServer.listen(PORT, () => {
+  app.listen(PORT, () => {
     console.log(`API server running on port ${PORT}!`);
     console.log(`Use GraphQL at http://localhost:${PORT}${server.graphqlPath}`);
   });

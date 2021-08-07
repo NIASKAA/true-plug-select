@@ -3,9 +3,7 @@ import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useMutation, useQuery, gql } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
-import Auth from "../../utils/auth";
 import { Add_Profile_Pic } from "../../utils/mutations";
-import { Get_All_Products } from "../../utils/queries";
 import { GET_ALL_PRODUCTS, GET_USER_INFO, UPDATE_PRODUCTS } from "../../utils/state/actions";
 
 import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } from "react-bootstrap";
@@ -14,7 +12,6 @@ import "./styles.css";
 const Profile = () => {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
-  console.log(Auth.getProfile());
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
   const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
@@ -30,7 +27,6 @@ const Profile = () => {
     }
   }, [loading, data]);  
 
-  if (loading) return <Spinner></Spinner>;
 
   const uploadImage = async (event) => {
     event.preventDefault();
@@ -46,11 +42,14 @@ const Profile = () => {
         imageURL: response.data.secure_url,
       },
     });
-    setProfileData({ ...profileData, profilePic: response.data.secure_url, id: "6109edaa114e8f542ceaa02d" });
+    setProfileData({ ...profileData, profilePic: response.data.secure_url});
   };
-  
+
+  if (loading) return <Spinner></Spinner>;
+
   return (
     <>
+    
       <Container className="profileContainer">
         <Row>
           <Col class="col-lg-8 order-lg-2">
@@ -64,7 +63,7 @@ const Profile = () => {
                         <Row>
                           <Card.Img
                             src={profileData.profilePic}
-                            style={{ width: "70%", margin: "2%" }}
+                            style={{ width: "95%", margin: "2%" }}
                           ></Card.Img>
                           <Card.Title className="float-left">Email: {profileData.email}</Card.Title>
                           <Card.Title className="float-left">Name: {profileData.username}</Card.Title>

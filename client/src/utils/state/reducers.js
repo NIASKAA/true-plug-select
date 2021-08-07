@@ -1,6 +1,4 @@
-import { AccordionToggle } from "react-bootstrap";
 import {
-  UPDATE_PRODUCTS,
   GET_USER_INFO,
   UPDATE_CART_QUANTITY,
   REMOVE_FROM_CART,
@@ -17,13 +15,13 @@ export const reducers = async (state, action) => {
     case GET_ALL_PRODUCTS:
       return {
         ...state,
-        auctions: [...action.payload],
+        auctions: action.payload,
       };
 
     case GET_USER_INFO:
       return {
         ...state,
-        profileData: { ...action.payload },
+        profileData: {...action.payload },
       };
 
     case ADD_MULTIPLE_TO_CART:

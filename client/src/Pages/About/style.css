@@ -19,12 +19,12 @@
     background-color: #ffc312;
     border-color: black;
     border-style: solid;
-    border-width: 10px;
+    border-width: 5px;
     margin: 5%;
   }
   
   #aboutTitle {
-    font-size: 70px;
+    font-size: 50px;
     font-weight: 300px;
     text-decoration: underline;
     text-decoration-color: #ffc312;
@@ -36,7 +36,7 @@
     font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     text-align: center;
-    font-size: 10px;
+    font-size: 11px;
     left: 50%;
     margin-right: 10%;
     
@@ -144,6 +144,7 @@
     margin-bottom: 0.25rem;
     -webkit-transition-duration: 500ms;
     transition-duration: 500ms;
+    font-size: 20px;
   }
   
   @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -206,3 +207,6 @@
     background-color: seashell;
   }
   
+  .gitBtns {
+    color:black;
+  }

@@ -63,7 +63,11 @@ mutation Add_Pic($imageURL: String! $id: ID) {
 `
 
 
-/*export const Add_Post = gql``
+/*export const Create_Auction = gql``
+  mutation addBidForm($itemName: String! $description: String, $image: String, $seller: ID!) {
+    createAuction(itemName: $itemName description: $description image: $image seller: $seller) {
+      username
+    }
+  }
 
-
-export const Remove_Post = gql``*/
+export const Remove_Bid = gql``*/

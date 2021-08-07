@@ -1,7 +1,6 @@
 const { gql } = require('apollo-server-express');
 
 const typeDefs = gql`
-   
    type profileData {
       _id: ID
       email: String
@@ -11,7 +10,6 @@ const typeDefs = gql`
       profilePic: String
       bids: [Bid]
    }
-
 
    type File {
       filename: String!

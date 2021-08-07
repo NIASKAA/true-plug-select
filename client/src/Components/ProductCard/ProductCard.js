@@ -1,15 +1,20 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button, Col} from "react-bootstrap";
+import './styles.css'
 
-const ProductCard = (props) => {
+const ProductCard = ({product}) => {
   return (
     <>
-      <Card className="infoCard">
-        <h4 class="mt-2 cardInfo">Product Info</h4>
-        <Card.Img src={props.image} style={{ width: "70%", margin: "2%" }}></Card.Img>
-        <Card.Title className="float-left">Name: {props.itemName}</Card.Title>
-        <Card.Title className="float-left">Description: {props.description}</Card.Title>
-      </Card>
+      <Col>
+        <Card className="infoCard">
+          <Card.Img src={product.image} style={{ width: "17.9rem", height: "230px", marginBottom: '2%'}}></Card.Img>
+          <Card.Title className="infoText">Name: {product.itemName}</Card.Title>
+          <Card.Title className="infoText">Description: {product.description}</Card.Title>
+          <Card.Title className="infoText">Seller: </Card.Title>
+          <Button variant="light" className="bidBtn">Bid</Button>
+          <Button variant="danger" className="deleteBtn">Delete Bid</Button>
+        </Card>
+      </Col>
     </>
   );
 };
