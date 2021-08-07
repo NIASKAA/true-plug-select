@@ -13,6 +13,8 @@ import { valueFromASTUntyped } from "graphql";
 const AuctionSubmitForm = () => {
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
+
+  // initial state of the form
   const [formState, setFormState] = useState({
     itemName: "",
     description: "",
@@ -22,50 +24,58 @@ const AuctionSubmitForm = () => {
     image: "",
   });
 
-  const [errors, setErrors] = useState([]); // for front end form validation
+  const [errors, setErrors] = useState([]); // for front end form validation; not implemented yet
+  // get the global state to get the logged in user's info
   const state = useSelector((state) => state);
+  // to make global state changes
   const dispatch = useDispatch();
+  // extract the user's infor from global state
   const { profileData } = state;
+  // on reload, sometimes state gets wipped out so this is in case that happens
   const { loading, data } = useQuery(Query_User);
   const [createAuction, { err }] = useMutation(Create_Auction);
 
   useEffect(() => {
+    // only dispatch if the profileData has been cleared
     if (!loading && data && profileData._id === undefined) {
       dispatch({ type: GET_USER_INFO, payload: data.user });
     }
-  },[loading, data]);
+  }, [loading, data]);
 
   const uploadItemImage = async (event) => {
+    event.preventDefault();
     const imageData = new FormData();
     imageData.append("file", imageSelected);
-    imageData.append("upload_preset", "lz60ie8l");
+    imageData.append("upload_preset", "wscdfhar");
+    console.log(imageData.get("file"), imageData.get("upload_preset"));
     const response = await Axios.post(
       `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
       imageData
     );
-    return await response.secure_url;
+    return response.data.secure_url;
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;    
+    const { name, value } = event.target;
     setFormState({ ...formState, [name]: value, seller: profileData._id });
     console.log(formState);
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-git     const {itemName, description, startingPrice, bidEnd, seller, image} = formState;
+    const productImage = await uploadItemImage(event);
+    console.log(productImage)
+    const { itemName, description, startingPrice, bidEnd, seller, image } = formState;
     const mutResponse = createAuction({
       variables: {
         itemName,
         description,
-        startingPrice: Number(startingPrice.trim()),
+        startingPrice: Number(startingPrice),
         bidEnd,
         seller,
-        image,
-      }
-    })
-    console.log(mutResponse);
+        image: productImage,
+      },
+    });
     setFormState({
       itemName: "",
       description: "",
@@ -81,14 +91,20 @@ git     const {itemName, description, startingPrice, bidEnd, seller, image} = fo
         <Col>
           <Card className="bidForm">
             <Form
-              onSubmit={handleFormSubmit}
+              onSubmit={(event)=>handleFormSubmit(event)}
               enctype="multipart/form-data"
               method="post"
               class="col-lg-4 order-lg-1 text-center"
             >
               <Form.Label>Upload Photo</Form.Label>
               <Form.Group controlId="formFileLg" className="mb-3">
-                <Form.Control type="file" size="lg" onChange={(event) => setImageSelected(event.target.files[0])} />
+                <Form.Control
+                  type="file"
+                  size="lg"
+                  onChange={(event) => {
+                    setImageSelected(event.target.files[0]);
+                  }}
+                />
               </Form.Group>
               <Form.Group className="mb-3 itemInput" controlId="name">
                 <Form.Label>Item Name:</Form.Label>
