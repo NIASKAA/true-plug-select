@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useQuery, gql } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
 import { Add_Profile_Pic } from "../../utils/mutations";
 import { GET_ALL_PRODUCTS, GET_USER_INFO, UPDATE_PRODUCTS } from "../../utils/state/actions";
@@ -19,13 +19,13 @@ const Profile = () => {
   const { loading, data } = useQuery(Query_User);
 
   useEffect(() => {
-    if (loading == false && data) {
+    if (loading === false && data) {
       setProfileData(data.user);
       dispatch({ type: GET_USER_INFO, payload: data.user });
       console.log(state)
       console.log(data);
     }
-  }, [loading, data]);
+  }, [loading, data]);  
 
 
   const uploadImage = async (event) => {
