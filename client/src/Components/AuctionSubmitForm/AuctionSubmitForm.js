@@ -3,7 +3,7 @@ import Axios from "axios";
 import { useMutation, useQuery } from "@apollo/client";
 import { useSelector, useDispatch } from "react-redux";
 //import {Create_Auction} from '../../utils/mutations'
-import { Button, Card, Container, Form, Row, Col} from "react-bootstrap";
+import { Button, Card, Container, Form, Row, Col, Dropdown} from "react-bootstrap";
 import './styles.css'
 const AuctionSubmitForm = () => {
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
@@ -76,9 +76,23 @@ const AuctionSubmitForm = () => {
                   placeholder="Bidding Time"
                 />
               </Form.Group>
+              <Dropdown className="categoryDropdown">
+                <Dropdown.Toggle variant="light" id="categoryID">
+                  Category
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">Shirts</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Pants</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Outerwear</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">Shoes</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
               <Form.Group className="mb-3 itemInput" controlId="agreeIt">
                 <Form.Check type="checkbox" label="By clicking this checkbox, you agreed to our policy" />
               </Form.Group>
+              <Button onClick={""}variant="light" className="submitBtn">Submit</Button>
             </Form>
           </Card>
         </Col>
