@@ -8,7 +8,7 @@ import {
   CLEAR_CART,
   TOGGLE_CART,
   GET_ALL_PRODUCTS,
-  ADD_AUCTION  
+  ADD_AUCTION,
 } from "./actions";
 
 export const reducers = (state, action) => {
