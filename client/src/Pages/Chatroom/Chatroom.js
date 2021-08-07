@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Container, Button, Row, Col, Card, Form} from 'react-bootstrap';
+import {Container, Button, Row, Col, Card, Form, InputGroup, FormControl} from 'react-bootstrap';
 import { Query_User } from "../../utils/queries";
 import {GET_MESSAGES, POST_MESSAGE} from '../../utils/mutations'
 import { useMutation, useSubscription, gql } from '@apollo/client';
@@ -86,10 +86,6 @@ const Chatroom = () => {
         });
     };
 
-    const itemNameStyle = {
-        fontFamily: 'Work Sans, sans-serif'
-    }
-
     const timerStyle = {
         color: 'red'
     }
@@ -102,6 +98,17 @@ const Chatroom = () => {
         height: '40px'
     }
 
+    /*<Col xs={3} style={{ padding: 0 }}>
+    <input
+    label="User"
+    className="msgUser"
+    value={message.user}
+    onChange={(evt) => messageSet({
+        ...message,
+        user: evt.target.value
+    })}
+    />
+    </Col>*/
     return (
         <>
             <div className="timer text-center">
@@ -118,23 +125,21 @@ const Chatroom = () => {
             <Container className="chatroomContain">
                 <Row className="row justify-content-center">
                     <Col className="col-md-8 col-xl-6">
-                        <Card className="card imageCard">
-                            <div className="card-header border-bottom-0 infoHeader">
-                                <h4 className="itemName text-center" style={itemNameStyle}></h4>
-                            </div>
+                        <Card className="imageCard">
                             <Card.Body className="card-body border-0">
                                 <Container>
                                     <Card.Img src= "" className="rounded imageContain"/>
                                 </Container>
                             </Card.Body>
-                            <Card.Footer className="card-footer itemInfo">
+                            <Card.Footer className="itemInfo">
                                 <div className="d-flex justify-content-start">
                                     <ul>
-                                        <li className="infoList">Category: </li>
-                                        <li className="infoList">Brand: </li>
+                                        <li className="infoList">Name:</li>
                                         <li className="infoList">Description: </li>
                                         <li className="infoList" id="price">Price:  </li>
                                         <li className="infoList">Size: </li>
+                                        <li className="infoList">Brand: </li>
+                                        <li className="infoList">Category: </li>
                                     </ul>
                                 </div>
                             </Card.Footer>
@@ -143,18 +148,9 @@ const Chatroom = () => {
 
                     <Col className="col-md-8 col-xl-6">
                         <Card className="card chatCard">
-                            <div className="card-header chatHeader">
-                                <div className="d-flex bd-highlight mb-3">
-                                    <div className="p-2 bd-highlight userImg">
-                                        <Card.Img src="" className="rounded-circle" style={imgStyle}/>
-                                    </div>
-                                </div>
-                            </div>
                             <Card.Body className="card-body msgBody scroll">
                                 <div className="d-flex justify-content-start mb-4">
-                                    <div>
-                                        <Card.Img src="" className="rounded-circle" style={imgStyle}/>
-                                    </div>
+                                    <Card.Img src="" className="rounded-circle" style={imgStyle}/>
                                     <Container className="chatContainer">
                                         {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
                                         <Messages user={message.user} />
@@ -162,69 +158,36 @@ const Chatroom = () => {
                                 </div>
                             </Card.Body>
                             
-
-                            <Card.Footer className="card-footer cardEnd">                              
-                                <div className="chat-form-container">
-                                    <Form className="chat-form d-flex msgBody scroll">
-                                        <Row>
-                                            <Col xs={3} style={{ padding: 0 }}>
-                                                <input
-                                                label="User"
-                                                value={message.user}
-                                                onChange={(evt) => messageSet({
-                                                    ...message,
-                                                    user: evt.target.value
-                                                })}
-                                                />
-                                            </Col>
-                                            <Col xs={8}>
-                                                <input
-                                                label="Content"
-                                                value={message.content}
-                                                onChange={(evt) => messageSet({
-                                                    ...message,
-                                                    content: evt.target.value
-                                                })}
-                                                onKeyUp={(evt) => {
-                                                    if (evt.keyDown === 13) {
-                                                        onSend();
-                                                    }
-                                                }}
-                                                />
-                                            </Col>
-                                        </Row>
-                                        <Button className="btn chatBtn" onClick={() => onSend()}>Send</Button>
-                                    </Form>
-                                </div>
-
-                                <div className="bidDescript text-center" style={itemNameStyle}>
-                                    <h5>To start bidding, click the amount you wish to drop it</h5>
-                                </div>
-                                
-                                <div className="d-flex justify-content-center" id="bitBtns">
-                                    <Button className="btn bidBtns" type="submit">100</Button>
-                                    <Button className="btn bidBtns" type="submit">200</Button>
-                                    <Button className="btn bidBtns" type="submit">300</Button>
-                                    <Button className="btn bidBtns" type="submit">400</Button>
-                                    <Button className="btn bidBtns" type="submit">500</Button>
-                                    <Button className="btn bidBtns" type="submit">1000</Button>
-                                    <div className="dropdown" data-toggle="dropdown">
-                                        <Button className=" btn customBidBtn" type="Button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            Custom Bid
-                                        </Button>
-                                        <div className="dropdown-menu">
-                                            <form className="customBid-form">
-                                                <div className="form-group">
-                                                    <label className="customBidLabel" for="custom-Bid">Bid:</label>
-                                                    <input className="form-control" type="text" id="bid-form" />
-                                                </div>
-                                                <div className="form-group">
-                                                    <Button className="customBidBtn" id="customBidBtn" type="submit">Enter</Button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                            <Card.Footer className="cardEnd">                              
+                            <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>      
+                                <Container className="d-flex justify-content-center" id="bitBtns">
+                                    <InputGroup>
+                                        <FormControl
+                                            label="Content"
+                                            className="msgBox"
+                                            value={message.content}
+                                            onChange={(evt) => messageSet({
+                                                ...message,
+                                                content: evt.target.value
+                                            })}
+                                            onKeyUp={(evt) => {
+                                                if (evt.keyDown === 13) {
+                                                    onSend();
+                                                }
+                                            }}
+                                        />
+                                        <InputGroup.Text onClick={() => onSend()} id="enterMessage" type="submit">Enter</InputGroup.Text>
+                                    </InputGroup>
+                                    <InputGroup className="" type="submit"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <InputGroup.Text id="basic-addon1">Custom Bid</InputGroup.Text>
+                                        <FormControl
+                                            placeholder="enter custom bid number"
+                                            aria-label="customBid"
+                                            aria-describedby="customBid"
+                                        />
+                                        <InputGroup.Text id="enterBid" type="submit">Enter</InputGroup.Text>
+                                    </InputGroup>
+                                </Container>
                             </Card.Footer>
                         </Card>
                     </Col>
