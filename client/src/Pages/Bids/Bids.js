@@ -1,5 +1,5 @@
-import React,  { useState, useEffect}  from 'react'
-import {useHistory} from 'react-router-dom'
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import ProductCard from "../../Components/ProductCard/ProductCard"
 import { Get_All_Products, Query_User } from "../../utils/queries";
@@ -10,14 +10,25 @@ import ProductList from '../../Components/ProductList/ProductList';
 import Auth from '../../utils/auth';
 import './styles.css'
 
-const Bids = ({products}) => {
-    let history = useHistory()
-    const auctionDirect = () => {
-        history.push('/auctionform')
+const Bids = () => {
+  let history = useHistory();
+  const auctionDirect = () => {
+    history.push("/auctionform");
+  };
+  const redirect = () => {
+    history.push("/login");
+  };
+
+  const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  const { loading, data } = useQuery(Get_All_Products);
+  const { auctions } = state;
+  useEffect(() => {
+    if (loading == false && data) {
+      dispatch({ type: GET_ALL_PRODUCTS, payload: data });
+      console.log(state);
     }
-    const redirect = () => {
-        history.push('/login')
-    }
+  }, [loading, data]);
 
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
@@ -72,4 +83,4 @@ const Bids = ({products}) => {
     )
 }
 
-export default Bids
+export default Bids;

@@ -29,5 +29,4 @@ export const Get_All_Products = gql`
       description
 	} 
 }
-
 `;
