@@ -1,26 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {Container, Button, Row, Col, Card, Form} from 'react-bootstrap';
 import { Query_User } from "../../utils/queries";
+import {GET_MESSAGES, POST_MESSAGE} from '../../utils/mutations'
 import { useMutation, useSubscription, gql } from '@apollo/client';
 import './styles.css'
-
-// Query built on page to pull chat messages from server
-const GET_MESSAGES = gql`
-    subscription getMessages {
-        messages {
-            id
-            content
-            user
-        }
-    }
-`;
-
-// Mutation that post bi-directional messages
-const POST_MESSAGE = gql`
-    mutation($user: String!, $content: String!) {
-        postMessage(user: $user, content: $content)
-    }
-`;
 
 const Messages = ({ user }) => {
     const { data } = useSubscription(GET_MESSAGES);
@@ -104,8 +87,9 @@ const Chatroom = () => {
     };
 
     const itemNameStyle = {
-        fontFamily: "Bangers"
+        fontFamily: 'Work Sans, sans-serif'
     }
+
     const timerStyle = {
         color: 'red'
     }
@@ -117,12 +101,13 @@ const Chatroom = () => {
         width: "55px",
         height: '40px'
     }
+
     return (
         <>
             <div className="timer text-center">
                 <div className="timer">Bidding will start in : 
-                    <span id="timer" style={timerStyle}>0
-                        0:00
+                    <span id="timer" style={timerStyle}>
+                        00:00
                     </span> 
                 </div>
                 <div className="timer-two"> Time left until auction ends:
