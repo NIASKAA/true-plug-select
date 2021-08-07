@@ -1,4 +1,4 @@
-const { profileData, Auction } = require("../models");
+const { profileData } = require("../models");
 
 const userSeeds = [
    {
@@ -53,7 +53,7 @@ const userSeeds = [
    },
    {
       email: "test@gmail.com",
-      username: "test",
+      username: "Callul",
       firstName: "Fuckme",
       lastName: "yikes",
       password:"gundam",
