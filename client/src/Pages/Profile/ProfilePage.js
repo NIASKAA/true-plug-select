@@ -34,7 +34,7 @@ const Profile = () => {
     imageData.append("file", imageSelected);
     imageData.append("upload_preset", "lz6oie8l");
     const response = await Axios.post(
-      `https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`,
+      `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
       imageData
     );
     const mutResponse = await addProfilePic({
