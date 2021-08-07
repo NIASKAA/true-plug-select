@@ -1,6 +1,7 @@
-import React,  { useState, useEffect }  from 'react'
+import React,  { useState, useEffect}  from 'react'
 import {useHistory} from 'react-router-dom'
 import { useQuery } from "@apollo/client";
+import ProductCard from "../../Components/ProductCard/ProductCard"
 import { Get_All_Products, Query_User } from "../../utils/queries";
 import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,7 @@ import ProductList from '../../Components/ProductList/ProductList';
 import Auth from '../../utils/auth';
 import './styles.css'
 
-const Bids = () => {
+const Bids = ({products}) => {
     let history = useHistory()
     const auctionDirect = () => {
         history.push('/auctionform')
@@ -28,29 +29,43 @@ const Bids = () => {
       }
     }, [loading, data]);
     const [index, setIndex] = useState(0);
+    const [searchItem, setSearchItem] = useState("")
     const handleSelect = (selectedIndex, e) => {
       setIndex(selectedIndex);
     };
-    
+
+    /*<Row>
+        {products.filter((product) => {
+            if(searchItem = "") {
+                return product
+            } else if (product.itemName.toLowerCase().includes(searchItem.toLowerCase())) {
+                return <ProductCard product={product} key={product.id} />
+            }
+        })}
+    </Row>*/
     return (
         <>
             <Container className="container text-center my-3">
                 <h2 className="font-weight-light">Current Live Biddings</h2>
-                <InputGroup className="mb-3">
-                    <InputGroup.Text id="searchbar">@</InputGroup.Text>
-                    <FormControl
-                    placeholder="Search an item"
-                    aria-label="searchbar"
-                    aria-describedby="searchbar"
-                    />
-                </InputGroup>
+                
                 {Auth.loggedIn() ? (
                 <Button onClick={auctionDirect} variant="light" className="addBid">Add new Bid</Button>
                 ) : (
                     <Button onClick={redirect} variant="light" className="redirectBtn">You need to login before adding new post!</Button>
                 ) }
+                <InputGroup className="mb-3">
+                    <FormControl
+                        placeholder="Search an item"
+                        aria-label="searchbar"
+                        aria-describedby="searchbar"
+                        onChange={(event) => {
+                            setSearchItem(event.target.value)
+                        }}
+                    />
+                </InputGroup>
+                
                 <Row>
-                    {!loading && data && <ProductList products={data.auctions} />}
+                    {!loading && data && <ProductList products={data.auctions}/>}
                 </Row>
             </Container>
         </>
