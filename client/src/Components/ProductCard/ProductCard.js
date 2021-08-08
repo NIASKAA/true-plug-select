@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {Link, useParams} from 'react-router-dom'
 import { Card, Button, Col} from "react-bootstrap";
 import './styles.css'
