@@ -45,7 +45,7 @@ const typeDefs = gql`
    }
 
    type Message {
-      id: ID!
+      id: ID
       user: String!
       content: String!
    }

@@ -59,23 +59,13 @@ const Messages = ({ user }) => {
 }
 
 const Chatroom = () => {
-    const [message, messageSet] = React.useState({
-        user: "Thomas",
-        content: '',
-    });
+    const [message, messageSet] = useState({ user: "", content: '' });
     let history = useHistory();
     const redirect = () => {
         history.push('/login')
     }
 
-    // Need to get the user name to load in instead of the manual input I have for line 79
-    // const { load, data } = useQuery(Query_User);
-
-    // useEffect(() => {
-    //     messageSet(data);
-    //     console.log(data)
-    //     console.log(message);
-    // }, [load]);
+    console.log(message)
 
     const [postMessage] = useMutation(POST_MESSAGE);
 
