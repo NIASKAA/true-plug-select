@@ -11,8 +11,12 @@ const Footer = () => {
             <footer className="text-center">
                 <div className="text-center text-dark p-1">
 
+
                     
                     <p className="text-dark">© 2021 Copyright: ThePlugSelect.com</p>
+
+                   
+
                     <Link style={{textDecoration: "underline", color: "black"}} onClick={redirect}> Contact Us</Link>
 
              
