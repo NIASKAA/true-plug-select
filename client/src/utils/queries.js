@@ -31,3 +31,14 @@ export const Get_All_Products = gql`
 }
 
 `;
+
+export const Query_Messages = gql`
+  query {
+    message {
+      content
+      user {
+        username
+      }
+    }
+  }
+`;
