@@ -69,8 +69,8 @@ const Profile = () => {
                             src={profileData.profilePic}
                             style={{ width: "95%", margin: "2%" }}
                           ></Card.Img>
-                          <Card.Title className="float-left">Email: {profileData.email}</Card.Title>
-                          <Card.Title className="float-left">Name: {profileData.username}</Card.Title>
+                          <Card.Title className="tableInfo">Email: {profileData.email}</Card.Title>
+                          <Card.Title className="tableInfo">Name: {profileData.username}</Card.Title>
                         </Row>
                       </Card>
                     </Col>
