@@ -8,6 +8,7 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from '@apollo/client/utilities';
 import { Provider } from 'react-redux';
 import store from './utils/state/store';
+require('dotenv').config()
 
 const httpLink = createHttpLink({
   uri: "/graphql",
