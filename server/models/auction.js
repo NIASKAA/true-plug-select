@@ -8,6 +8,8 @@ const auctionSchema = new mongoose.Schema({
   description: { type: String, trim: true },
   image: { type: String },
   seller: { type: mongoose.Schema.ObjectId, ref: "profileData" },
+  category: {type: String},
+  brand: {type: String},
   created: { type: Date, default: Date.now() },
   bidStart: { type: Date, default: Date.now() },
   bidEnd: { type: Date, default: Date.now() },
