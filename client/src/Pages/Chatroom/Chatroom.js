@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 //import { Query_User } from "../../utils/queries";
 import {GET_MESSAGES, POST_MESSAGE} from '../../utils/mutations'
 import Auth from '../../utils/auth';
-import { useMutation, useSubscription, gql } from '@apollo/client';
+import { useMutation, useSubscription} from '@apollo/client';
 import './styles.css'
 
 const Messages = ({ user }) => {
@@ -45,7 +45,7 @@ const Messages = ({ user }) => {
                         style={{
                             // Styling for the messages.
                             background: user === messageUser ? "#4682B4" : "#A9A9A9",
-                            color: user === messageUser ? "black" : "blue",
+                            color: user === messageUser ? "black" : "black",
                             padding: "1em",
                             borderRadius: '1em'
                         }}
