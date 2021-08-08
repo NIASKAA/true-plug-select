@@ -5,7 +5,6 @@ import { Query_User } from "../../utils/queries";
 import { Create_Auction } from "../../utils/mutations";
 import { GET_USER_INFO } from "../../utils/state/actions";
 import { useSelector, useDispatch } from "react-redux";
-//import {Create_Auction} from '../../utils/mutations'
 import { Button, Card, Container, Form, Row, Col, Dropdown, Spinner } from "react-bootstrap";
 import "./styles.css";
 import { valueFromASTUntyped } from "graphql";
@@ -70,11 +69,12 @@ const AuctionSubmitForm = () => {
     setCreateProductLoading(true);
     const productImage = await uploadItemImage();
     console.log(productImage);
-    const { itemName, description, startingPrice, bidEnd, seller, image } = formState;
+    const { itemName, description, brand, startingPrice, bidEnd, seller, image } = formState;
     const mutResponse = await createAuction({
       variables: {
         itemName,
         description,
+        brand,
         startingPrice: Number(startingPrice),
         bidEnd,
         seller,
@@ -85,6 +85,7 @@ const AuctionSubmitForm = () => {
     setFormState({
       itemName: "",
       description: "",
+      brand: "",
       startingPrice: 0,
       bidEnd: "",
       image: "",
@@ -139,6 +140,16 @@ const AuctionSubmitForm = () => {
                     placeholder="description"
                   />
                 </Form.Group>
+                <Form.Group className="mb-3 itemInput" controlId="brand">
+                  <Form.Label>Brand</Form.Label>
+                  <Form.Control
+                    name="brand"
+                    value={formState.description}
+                    onChange={handleChange}
+                    type="brand"
+                    placeholder="brand"
+                  />
+                </Form.Group>
                 <Form.Group className="mb-3 itemInput" controlId="size">
                   <Form.Label>Starting Price</Form.Label>
                   <Form.Control
@@ -146,7 +157,7 @@ const AuctionSubmitForm = () => {
                     value={formState.startingPrice}
                     onChange={handleChange}
                     type="price"
-                    placeholder="Starting price"
+                    placeholder="0"
                   />
                 </Form.Group>
                 <Form.Group className="mb-3 itemInput" controlId="bidTime">
