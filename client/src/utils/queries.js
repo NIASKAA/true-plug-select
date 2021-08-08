@@ -10,7 +10,7 @@ export const Get_Me = gql`
 `;
 
 export const Query_User = gql`
-  {
+  query {
     user {
       _id
       username
@@ -29,5 +29,4 @@ export const Get_All_Products = gql`
       description
 	} 
 }
-
 `;
