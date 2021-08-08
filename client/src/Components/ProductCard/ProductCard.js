@@ -15,7 +15,9 @@ const ProductCard = ({product}) => {
           <Card.Title className="infoText">Category: {product.category}</Card.Title>
           <Card.Title className="infoText">Brand: {product.brand}</Card.Title>
           <Card.Title className="infoText">Seller: {product.seller}</Card.Title>
-          <Link to={`/bids/${product._id}`} variant="light" className="bidBtn">Bid</Link>
+          <Button variant="light" className="bidBtn">
+            <Link to={`/bids/${product._id}`} variant="light" className="bidBtn">Bid</Link>
+          </Button>
           <Button variant="danger" className="deleteBtn">Delete Bid</Button>
         </Card>
       </Col>
