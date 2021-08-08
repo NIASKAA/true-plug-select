@@ -50,6 +50,10 @@ const typeDefs = gql`
       content: String!
    }
 
+   type Checkout {
+      session: ID
+   }
+   
    type Subscription {
       messages: [Message!]
    }
