@@ -1,59 +1,39 @@
 .timer {
-  margin: 3%; 
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
 }
 
-.timerStyle {
-    font-family: "Bangers";
-  }
-  .d-flex {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: center;
-    justify-content: center;
-  }
-
-.card-header h4 {
-  color: #ffc312;
-  font-family: "Bangers";
+.bidTimer {
+  color: red
 }
 
-.btn-primary {
-  background-color: #ffc312;
-  border-color: black;
-  border-style: solid;
-  border-width: 3px;
-  font-family: "Bangers";
+.endTimer {
+  color: orange;
+}
+.d-flex {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
 }
 
 .imageContain {
-  width: 20%;
-  height: 280px;
+  width: 40%;
+  height: 300px;
 }
 
-@media only screen and (max-width: 575px) {
-  .teamMember .teamImage::after {
-    height: 160px;
-    bottom: -90px;
-  }
-}
 .imageCard {
   height: 600px;
-  border-radius: 15px;
-  border-color: black;
-  border-style: solid;
-  border-width: 4px;
   background-color: white !important;
 }
 
-.itemInfo {
-  border-top: solid;
-  border-color: black;
-}
 .infoList {
-  font-family: "Bangers";
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
   font-size: 14px;
   list-style: none;
+  text-align: left;
 }
 
 .chatCard {
@@ -62,14 +42,6 @@
   border-color: black;
   border-style: solid;
   border-width: 4px;
-  background-color: rgba(0, 0, 0, 0.4) !important;
-}
-
-.chatHeader {
-  height: 12%;
-  border-radius: 15px 15px 0 0 !important;
-  border-bottom: black;
-  border-bottom-style: solid;
 }
 
 .msgBody {
@@ -92,47 +64,6 @@
   font-family: "Bangers";
 }
 
-.msgContainer {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-left: 10px;
-  border-radius: 25px;
-  background-color: white;
-  padding: 10px;
-  position: relative;
-}
-
-.msgContainerReply {
-  margin-top: auto;
-  margin-bottom: auto;
-  margin-right: 10px;
-  border-radius: 25px;
-  background-color: white;
-  padding: 10px;
-  position: relative;
-}
-
-.msgTime {
-  position: absolute;
-  left: 0;
-  bottom: -15px;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 10px;
-}
-
-.bidBtns {
-  background-color: white;
-  color: black;
-  margin: 20px;
-  border-color: black;
-  border-style: solid;
-  border-width: 2px;
-  font-family: "Bangers";
-}
-.bidBtns:hover{
-  background-color: #ffc312
-}
-
 .customBidBtn{
   background-color: white;
   color: black;
@@ -145,20 +76,6 @@
 
 .customBidBtn:hover{
   background-color: #ffc312;
-}
-
-.render-message {
-    background-color: white;
-    color: black;
-    margin: 20px;
-    border-color: black;
-    border-style: solid;
-    border-width: 2px;
-    border-radius: 15px;
-    padding: 5px;
-    font-family: "Bangers";
-    width: 20rem
-
 }
 
 .chatContainer {
@@ -183,4 +100,20 @@
 
 .chatBtn:hover {
   background-color: #ffc312;
+}
+
+.redirectBtn {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:black;
+  z-index: 1;
+  margin: 2%;
+  justify-content: center;
+  align-items: center;
+}
+
+.redirectBtn:hover {
+  background-color: #ffc312 !important;
 }

@@ -29,7 +29,6 @@ export const Get_All_Products = gql`
       description
 	} 
 }
-
 `;
 
 export const Query_Messages = gql`

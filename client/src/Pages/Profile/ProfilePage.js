@@ -22,27 +22,31 @@ const Profile = () => {
     if (loading === false && data) {
       setProfileData(data.user);
       dispatch({ type: GET_USER_INFO, payload: data.user });
-      console.log(state)
-      console.log(data);
     }
   }, [loading, data]);  
 
 
   const uploadImage = async (event) => {
     event.preventDefault();
-    const imageData = new FormData();
-    imageData.append("file", imageSelected);
-    imageData.append("upload_preset", "lz6oie8l");
-    const response = await Axios.post(
-      `https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`,
-      imageData
-    );
-    const mutResponse = await addProfilePic({
-      variables: {
-        imageURL: response.data.secure_url,
-      },
-    });
-    setProfileData({ ...profileData, profilePic: response.data.secure_url});
+    try{
+      const imageData = new FormData();
+      imageData.append("file", imageSelected);
+      imageData.append("upload_preset", "lz6oie8l");
+      console.log(imageData.get("file"), imageData.get("upload_preset"))
+      const response = await Axios.post(
+        `https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`,
+        imageData
+      );
+      const mutResponse = await addProfilePic({
+        variables: {
+          imageURL: response.data.secure_url,
+        },
+      });
+      setProfileData({ ...profileData, profilePic: response.data.secure_url});
+
+    }catch(err) {
+      console.log(err);
+    }
   };
 
   if (loading) return <Spinner></Spinner>;
