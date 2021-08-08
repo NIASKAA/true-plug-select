@@ -37,3 +37,15 @@
 .submitBtn:hover {
     background-color: #ffc312 !important;
 }
+
+.mt-2{
+    font-family: 'Work Sans', sans-serif;  
+}
+
+.nav-item.nav-link{
+    color: black;
+    font-family: 'Work Sans', sans-serif;
+}
+
+
+
