@@ -1,7 +1,7 @@
 const { profileData, Auction } = require("../models");
 const db = require("../config/connection");
 const auctionSeeds = [
-  {
+  { 
     itemName: "Among Us Nugget",
     description: "hOlY ShIt BrO",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1623718837/yikes_eh7ujm.jpg",

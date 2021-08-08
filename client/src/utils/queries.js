@@ -24,6 +24,7 @@ export const Query_User = gql`
 export const Get_All_Products = gql`
 {
 	auctions {
+      _id
       itemName
       image
       description

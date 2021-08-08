@@ -3,7 +3,7 @@
 }
 
 .tableInfo {
-    float: left;
+    text-align: left;
 }
 
 .profileBtns {
@@ -37,4 +37,3 @@
 .submitBtn:hover {
     background-color: #ffc312 !important;
 }
-
