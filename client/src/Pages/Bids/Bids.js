@@ -36,7 +36,7 @@ const Bids = () => {
             <Container className="container text-center my-3">
                 <h2 className="font-weight-light">Current Live Biddings</h2>
                 <InputGroup className="mb-3">
-                    <InputGroup.Text id="searchbar">@</InputGroup.Text>
+                    <InputGroup.Text id="searchbar">🔎</InputGroup.Text>
                     <FormControl
                     placeholder="Search an item"
                     aria-label="searchbar"

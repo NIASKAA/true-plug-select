@@ -1,9 +1,11 @@
-.footerControl{
+.text-center{
     font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     font-size: 80%;
-    position:fixed;
+    position:static;
+    clear:both;
     bottom: 0;
     left:0;
+    
 
 }
