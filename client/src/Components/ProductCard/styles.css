@@ -4,12 +4,13 @@
 }
 
 .infoText {
-    font-size: 15px !important;
+    font-size: 11px !important;
     text-align: left;
 }
 
 .bidBtn {
     font-family: 'Work Sans', sans-serif;
+    text-decoration: none;
     text-transform: uppercase;
     font-weight: 300px;
     font-size: 100%;
@@ -22,6 +23,7 @@
 
 .bidBtn:hover {
     background-color: #ffc312 !important;
+    color: black;
   }
 
 .deleteBtn {
