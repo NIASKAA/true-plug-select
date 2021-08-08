@@ -80,8 +80,8 @@ export const POST_MESSAGE = gql`
 
 
 export const Create_Auction = gql`
-  mutation addBidForm($itemName: String! $description: String, $image: String, $seller: ID!) {
-    createAuction(itemName: $itemName description: $description image: $image seller: $seller) {
+  mutation addBidForm($itemName: String! $description: String, $image: String, $category: String, $brand: String, $seller: ID!) {
+    createAuction(itemName: $itemName description: $description image: $image category: $category brand: $brand seller: $seller) {
       itemName
     }
 }`

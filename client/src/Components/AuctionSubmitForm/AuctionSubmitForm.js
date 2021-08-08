@@ -168,8 +168,9 @@ const AuctionSubmitForm = () => {
                     <Dropdown.Item href="#/action-1">Accessories</Dropdown.Item>
                     <Dropdown.Item href="#/action-2">Shirts</Dropdown.Item>
                     <Dropdown.Item href="#/action-3">Pants</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Outerwear</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">Shoes</Dropdown.Item>
+                    <Dropdown.Item href="#/action-4">Outerwear</Dropdown.Item>
+                    <Dropdown.Item href="#/action-5">Shoes</Dropdown.Item>
+                    <Dropdown.Item href="#/action-6">Collectibles</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 <Form.Group className="mb-3 itemInput" controlId="agreeIt">

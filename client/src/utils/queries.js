@@ -28,6 +28,8 @@ export const Get_All_Products = gql`
       itemName
       image
       description
+      category
+      brand
 	} 
 }
 `;
@@ -42,3 +44,11 @@ export const Query_Messages = gql`
     }
   }
 `;
+
+/*export const Query_Checkout = gql`
+  query getCheckout($auctions: [ID]!) {
+    checkout(auctions: $auctions) {
+      session
+    }
+  }
+`;*/
