@@ -10,9 +10,12 @@ const Footer = () => {
         <>
             <footer className="text-center">
                 <div className="text-center text-dark p-1">
+ avi_branch
                     © 2021 Copyright:
                     <p className="text-dark">ThePlugSelect.com</p>
                     <Link style={{textDecoration: "underline", color: "black"}} onClick={redirect}> Contact Us</Link>
+
+             
                 </div>
             </footer>
         </>

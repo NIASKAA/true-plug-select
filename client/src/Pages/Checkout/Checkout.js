@@ -1,7 +1,10 @@
 import React from 'react'
 import {Container, Card, Form, Button} from 'react-bootstrap'
+import { loadStripe } from '@stripe/stripe-js';
 import Auth from '../../utils/auth'
 import './styles.css'
+
+const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
 
 const Checkout = () => {
     return (

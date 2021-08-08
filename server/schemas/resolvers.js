@@ -1,6 +1,6 @@
 const { profileData, Auction, Bid } = require("../models");
 const { AuthenticationError } = require("apollo-server-express");
-const { PubSub} = require('graphql-yoga')
+const { PubSub } = require("graphql-yoga");
 const { signToken } = require("../utils/auth");
 const cloudinary = require("cloudinary");
 require("dotenv").config();
@@ -20,19 +20,26 @@ const resolvers = {
         const user = await profileData.findById(context.user._id).populate("bids").populate("seller");
         return user;
       }
-
       throw new AuthenticationError("Not logged in");
     },
-    userById: async(parent, args) => {
+    userById: async (parent, args) => {
       return await profileData.findById(args.id);
     },
     auctions: async () => {
-      return await Auction.find({}).populate("bids");
+      return await Auction.find({}).populate("bids").populate("seller");
     },
     auction: async ({ id }) => {
       return await Auction.findById(id).populate("bids");
     },
     messages: () => messages,
+    /*bid: async (parent, args, context) => {
+      if(context.user) {
+        const user = await profileData.findByid(context.user._id).populate("bids").populate("seller");
+      }
+    },*/
+    /*checkout: async (parent, args, context) => {
+        
+    },*/
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -42,7 +49,7 @@ const resolvers = {
         return { token, user };
       } catch (err) {
         console.log(err);
-        res.send("TAKEN");
+        throw new AuthenticationError('Taken')
       }
     },
     createAuction: async (parent, args) => {
@@ -61,7 +68,6 @@ const resolvers = {
       return { token, user };
     },
 
-
     postMessage: (parent, { user, content }) => {
       const id = messages.length;
       messages.push({
@@ -70,7 +76,7 @@ const resolvers = {
         content,
       });
       // Alerts server that there is a new message
-      subscribers.forEach((fn) => fn())
+      subscribers.forEach((fn) => fn());
       return id;
     },
     addBid: async (parent, args, context) => {
@@ -86,7 +92,12 @@ const resolvers = {
           $push: { bids: bid },
         }
       );
-      console.log(product);
+      const user = await profileData.findOneAndUpdate(
+        { _id: userId },
+        {
+          $push: { bids: bid },
+        }
+      );
       return bid;
     },
     deleteAuction: async (parent, { id }) => {
@@ -100,12 +111,11 @@ const resolvers = {
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
-      console.log(context)
-        let userId = context.user._id? context.user._id : id;
-        console.log(userId);
-        const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
-        return user;
-      
+      console.log(context);
+      let userId = context.user._id ? context.user._id : id;
+      console.log(userId);
+      const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
+      return user;
     },
     profileUpload: async (parent, { photo }) => {
       cloudinary.config({
@@ -131,13 +141,13 @@ const resolvers = {
   Subscription: {
     messages: {
       subscribe: (parent, args, { pubsub = new PubSub() }) => {
-        const channel = Math.random().toString(36).slice(2,15);
+        const channel = Math.random().toString(36).slice(2, 15);
         onMessagesUpdates(() => pubsub.publish(channel, { messages }));
         setTimeout(() => pubsub.publish(channel, { messages }), 0);
         return pubsub.asyncIterator(channel);
-      } 
-    }
-  }
+      },
+    },
+  },
 };
 
 module.exports = resolvers;

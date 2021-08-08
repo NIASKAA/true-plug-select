@@ -8,3 +8,24 @@
     align-items: center;
     margin-left: 4%;
 }
+
+.categoryDropdown {
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+}
+
+.submitBtn {
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+    font-weight: 300px;
+    font-size: 100%;
+    color:black;
+    z-index: 1;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.submitBtn:hover {
+    background-color: #ffc312 !important;
+}

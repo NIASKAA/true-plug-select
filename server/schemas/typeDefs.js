@@ -45,11 +45,15 @@ const typeDefs = gql`
    }
 
    type Message {
-      id: ID!
+      id: ID
       user: String!
       content: String!
    }
 
+   type Checkout {
+      session: ID
+   }
+   
    type Subscription {
       messages: [Message!]
    }
