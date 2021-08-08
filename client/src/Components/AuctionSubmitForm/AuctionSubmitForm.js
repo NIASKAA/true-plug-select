@@ -211,6 +211,12 @@ const AuctionSubmitForm = () => {
                   1. I don't know man, add whatever
                   <br />
                   2. Listen son, in this world you either yeet or be yeeted.
+                  <br />
+                  3. Do you have time for our lord and savior Jesus Christ?
+                  <br />
+                  4. Why did the chicken cross the road? Idk I was hoping you can tell me instead.
+                  <br/>
+                  5. pLs dO NOt pOsT LeWD ConTeNt.
                 </Card.Text>
               </Card.Body>
             </Card>
