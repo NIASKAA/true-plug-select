@@ -16,17 +16,21 @@ const SignUp = (props) => {
 
     const handleFormSubmit = async(event) => {
         event.preventDefault();
-        const mutationResponse = await addUser({
-            variables: {
-                email: userFormData.email,
-                password: userFormData.password,
-                username: userFormData.username,
-                lastName: userFormData.username,
-                firstName: userFormData.firstName
-            },
-        })
-        const token = mutationResponse.data.addUser.token
-        Auth.login(token)
+        try {
+            const mutationResponse = await addUser({
+                variables: {
+                    email: userFormData.email,
+                    password: userFormData.password,
+                    username: userFormData.username,
+                    lastName: userFormData.username,
+                    firstName: userFormData.firstName
+                },
+            })
+            const token = mutationResponse.data.addUser.token
+            Auth.login(token)
+        } catch (err) {
+            console.log(err)
+        }
     }
     let history = useHistory()
     const redirect = () => {
@@ -87,7 +91,7 @@ const SignUp = (props) => {
                             </Form>
                             {error ? (
                                 <div>
-                                    <p className="error">The provided credentials are incorrect</p>
+                                    <p className="error">The provided credentials are taken.</p>
                                 </div>
                             ) : null}
                             <Button onClick={redirect} variant="light" className="loginBtn" type="submit">
