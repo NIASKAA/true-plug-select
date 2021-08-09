@@ -78,7 +78,7 @@ const Chatroom = () => {
 
   useEffect(() => {
     if (!userDataLoading) {
-      const { username } = userData? userData.user: {user:"unidentified user"};
+      const { username } = userData ? userData.user : { user: "unidentified user" };
       messageSet({ ...message, user: username });
     }
   }, [userDataLoading, userData]);
@@ -102,7 +102,7 @@ const Chatroom = () => {
   const [postMessage] = useMutation(POST_MESSAGE);
 
   const onSend = () => {
-    if (message.content.length > 0) {
+    if (message.content.length > 0) {        
       postMessage({
         variables: message,
       });
@@ -177,10 +177,10 @@ const Chatroom = () => {
 
           <Col className="col-md-8 col-xl-6">
             <Card className="chatCard">
-                <Container className=" scrollbar chatContainer">
-                    {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
-                     <Messages user={message.user} />
-                </Container>     
+              <Container className=" scrollbar chatContainer">
+                {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
+                <Messages user={message.user} />
+              </Container>
               <Card.Footer className="cardEnd">
                 <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>
                 {Auth.loggedIn() ? (
@@ -190,12 +190,12 @@ const Chatroom = () => {
                         label="Content"
                         className="msgBox"
                         value={message.content}
-                        onChange={(evt) =>
+                        onChange={(evt) => {
                           messageSet({
                             ...message,
                             content: evt.target.value,
-                          })
-                        }
+                          });
+                        }}
                         onKeyUp={(evt) => {
                           if (evt.keyDown === 13) {
                             onSend();
