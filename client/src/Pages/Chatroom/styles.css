@@ -36,6 +36,7 @@
   text-align: left;
 }
 
+
 .chatCard {
   height: 600px;
   border-radius: 15px;
@@ -116,4 +117,8 @@
 
 .redirectBtn:hover {
   background-color: #ffc312 !important;
+}
+
+.scrollbar {
+  overflow: scroll;
 }
