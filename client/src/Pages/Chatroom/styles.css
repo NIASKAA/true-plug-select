@@ -36,6 +36,7 @@
   text-align: left;
 }
 
+
 .chatCard {
   height: 600px;
   border-radius: 15px;
@@ -79,8 +80,7 @@
 }
 
 .chatContainer {
-  width: 20%;
-  height: 280px;
+  height: 520px !important;
 }
 
 .chat-input {
@@ -116,4 +116,8 @@
 
 .redirectBtn:hover {
   background-color: #ffc312 !important;
+}
+
+.scrollbar {
+  overflow: scroll;
 }
