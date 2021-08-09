@@ -30,6 +30,9 @@ export const Get_All_Products = gql`
       description
       category
       brand
+      seller {
+          username
+      }
 	} 
 }
 `;
