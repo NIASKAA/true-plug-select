@@ -12,7 +12,7 @@ const About = () => {
         <>
             <article>
                 <div class="container-fuild" id="aboutContain">
-                    <h3 class="title text-center" id="aboutTitle">About Us</h3>
+                    <h3 class="title " id="aboutTitle">About Us</h3>
                 </div>
                 <p class="aboutText">
                     The Plug Select was made by 4 passionate individuals that just want a better community to purchase premium goods.
@@ -23,7 +23,7 @@ const About = () => {
                 <Container>
                     <Row class="row justify-content-center">
                         <Col className="col-12 col-sm-8 col-lg-6">
-                            <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
+                            <div class="section_heading  wow fadeInUp" data-wow-delay="0.2s" style={cardStyle}>
                                 <h3 class="aboutText">Our Team Consists Of:</h3>
                                 <div class="line"></div>
                             </div>

@@ -86,4 +86,6 @@ const Bids = ({ products }) => {
   );
 };
 
+
 export default Bids;
+

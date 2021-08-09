@@ -8,6 +8,7 @@ import { WebSocketLink } from "@apollo/client/link/ws";
 import { getMainDefinition } from '@apollo/client/utilities';
 import { Provider } from 'react-redux';
 import store from './utils/state/store';
+require('dotenv').config()
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -61,7 +62,7 @@ function App() {
               <Route path="/brands" component={TopBrands} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/chatroom" component={Chatroom} />
+              <Route path="/bids/:bid" component={Chatroom} />
               <Route exact path="/checkout" component={Checkout} />
               <Route exact path="/support" component={Support} />
               <Route exact path="/recentlysold" component={RecentlySold} />

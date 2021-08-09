@@ -33,6 +33,14 @@ const resolvers = {
       return await Auction.findById(id).populate("bids");
     },
     messages: () => messages,
+    /*bid: async (parent, args, context) => {
+      if(context.user) {
+        const user = await profileData.findByid(context.user._id).populate("bids").populate("seller");
+      }
+    },*/
+    /*checkout: async (parent, args, context) => {
+        
+    },*/
   },
   Mutation: {
     addUser: async (parent, args) => {
