@@ -23,7 +23,7 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     userById: async (parent, args) => {
-      return await profileData.findById(args.id);
+      return await profileData.findById(args.id).populate("bids").populate("auction");
     },
     auctions: async () => {
       return await Auction.find({}).populate("bids").populate("seller");
