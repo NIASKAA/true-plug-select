@@ -23,7 +23,7 @@ const Messages = ({ user }) => {
           style={{
             display: "flex",
             // If the message is from the logged in user than message displays at the beginning of window if other user display at the front of window
-            justifyContent: user === messageUser ? "flex-end" : "flex-start",
+            justifyContent: user === messageUser ? "flex-start" : "flex-end",
             padding: "1em",
           }}
         >
@@ -177,16 +177,10 @@ const Chatroom = () => {
 
           <Col className="col-md-8 col-xl-6">
             <Card className="chatCard">
-              <Card.Body className="msgBody scroll">
-                <div className="d-flex justify-content-start mb-4">
-                  <Card.Img src="" className="rounded-circle" style={imgStyle} />
-                  <Container className="chatContainer">
+                <Container className=" scrollbar chatContainer">
                     {/* This self contained Messages passes the user data to the chatContainer as viewable messages */}
-                    <Messages user={message.user} />
-                  </Container>
-                </div>
-              </Card.Body>
-
+                     <Messages user={message.user} />
+                </Container>     
               <Card.Footer className="cardEnd">
                 <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>
                 {Auth.loggedIn() ? (

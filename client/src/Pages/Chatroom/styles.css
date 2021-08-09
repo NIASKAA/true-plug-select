@@ -80,8 +80,7 @@
 }
 
 .chatContainer {
-  width: 20%;
-  height: 280px;
+  height: 520px !important;
 }
 
 .chat-input {
