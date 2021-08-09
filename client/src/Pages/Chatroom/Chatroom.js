@@ -78,7 +78,7 @@ const Chatroom = () => {
 
   useEffect(() => {
     if (!userDataLoading) {
-      const { username } = userData.user;
+      const { username } = userData? userData.user: {user:"unidentified user"};
       messageSet({ ...message, user: username });
     }
   }, [userDataLoading, userData]);

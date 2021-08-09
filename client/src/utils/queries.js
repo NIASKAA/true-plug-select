@@ -32,6 +32,7 @@ export const Get_All_Products = gql`
       brand
       seller {
           username
+          _id
       }
 	} 
 }

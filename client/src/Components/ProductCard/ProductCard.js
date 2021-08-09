@@ -1,10 +1,21 @@
 import React from "react";
 import {Link, useParams} from 'react-router-dom'
 import { Card, Button, Col} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import './styles.css'
 
 const ProductCard = ({product}) => {
   const { id } = useParams()
+  const state = useSelector((state) => state.profileData);
+  // const deleteProduct = useQuery(Delete_Product);
+  // const handleDelete = () => {
+  //   deleteProduct({
+  //     variables: {
+  //       id: id
+  //     }
+  //   })
+  // }
+  
   return (
     <>
       <Col>
@@ -18,7 +29,7 @@ const ProductCard = ({product}) => {
           <Link to={`/bids/${product._id}`} variant="light" className="bidBtn">
             Bid
           </Link>
-          <Button variant="danger" className="deleteBtn">Delete Bid</Button>
+          {state._id === product.seller._id &&  <Button onClick={""} variant="danger" className="deleteBtn">Delete Bid</Button>}
         </Card>
       </Col>
     </>
