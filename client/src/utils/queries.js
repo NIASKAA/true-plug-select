@@ -24,9 +24,35 @@ export const Query_User = gql`
 export const Get_All_Products = gql`
 {
 	auctions {
+      _id
       itemName
       image
       description
+      category
+      brand
+      seller {
+          username
+          _id
+      }
 	} 
 }
 `;
+
+export const Query_Messages = gql`
+  query {
+    message {
+      content
+      user {
+        username
+      }
+    }
+  }
+`;
+
+/*export const Query_Checkout = gql`
+  query getCheckout($auctions: [ID]!) {
+    checkout(auctions: $auctions) {
+      session
+    }
+  }
+`;*/

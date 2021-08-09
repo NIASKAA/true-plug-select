@@ -34,7 +34,7 @@ const Profile = () => {
       imageData.append("upload_preset", "lz6oie8l");
       console.log(imageData.get("file"), imageData.get("upload_preset"))
       const response = await Axios.post(
-        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+        `https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`,
         imageData
       );
       const mutResponse = await addProfilePic({
@@ -69,8 +69,8 @@ const Profile = () => {
                             src={profileData.profilePic}
                             style={{ width: "95%", margin: "2%" }}
                           ></Card.Img>
-                          <Card.Title className="float-left">Email: {profileData.email}</Card.Title>
-                          <Card.Title className="float-left">Name: {profileData.username}</Card.Title>
+                          <Card.Title className="tableInfo">Email: {profileData.email}</Card.Title>
+                          <Card.Title className="tableInfo">Name: {profileData.username}</Card.Title>
                         </Row>
                       </Card>
                     </Col>

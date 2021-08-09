@@ -62,7 +62,7 @@ function App() {
               <Route path="/brands" component={TopBrands} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/signup" component={SignUp} />
-              <Route exact path="/chatroom" component={Chatroom} />
+              <Route path="/bids/:bidId" component={Chatroom} />
               <Route exact path="/checkout" component={Checkout} />
               <Route exact path="/support" component={Support} />
               <Route exact path="/recentlysold" component={RecentlySold} />

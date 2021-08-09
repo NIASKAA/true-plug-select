@@ -23,6 +23,7 @@ const Bids = ({ products }) => {
   const state = useSelector((state) => state);
   const { loading, data } = useQuery(Get_All_Products);
   let { auctions } = state;
+  let {profileData} = state;
 
   const [currentAuctions, setCurrentAuctions] = useState(() => []);
   useEffect(() => {
@@ -37,6 +38,7 @@ const Bids = ({ products }) => {
       dispatch({ type: GET_ALL_PRODUCTS, payload: data.auctions });
       setCurrentAuctions(state.auctions);
     } else {
+      console.log(currentAuctions);
       setCurrentAuctions(
         auctions.filter((product) =>
           product.itemName.trim().toLowerCase().includes(searchTerm.trim().toLowerCase())
@@ -44,14 +46,6 @@ const Bids = ({ products }) => {
       );
     }
   };
-
-  /* {products.filter((product) => {
-        if(searchItem == "") {
-            return product
-        } else if(products.itemName.toLowerCase().includes(searchItem.toLowerCase())) {
-            return <ProductCard product={product} key={product.id} />
-        }
-    })} */
 
   return (
     <>
@@ -86,4 +80,6 @@ const Bids = ({ products }) => {
   );
 };
 
+
 export default Bids;
+
