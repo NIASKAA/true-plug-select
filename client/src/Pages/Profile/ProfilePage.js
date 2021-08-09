@@ -99,24 +99,16 @@ const Profile = () => {
 
               <Tab eventKey="Edit" title="Edit">
                 <Form>
-                  <Form.Group className="mb-3" controlId="firstName">
-                    <Form.Label>First Name</Form.Label>
-                    <Form.Control type="firstName" placeholder="Enter first name" />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="lastName">
-                    <Form.Label>Last Name</Form.Label>
-                    <Form.Control type="lastName" placeholder="Enter last name" />
-                  </Form.Group>
-                  <Form.Group className="mb-3" controlId="email">
+                  <Form.Group className="mb-3 formInput" controlId="email">
                     <Form.Label>Email</Form.Label>
                     <Form.Control type="email" placeholder="Enter email" />
                   </Form.Group>
 
-                  <Form.Group className="mb-3" controlId="username">
+                  <Form.Group className="mb-3 formInput" controlId="username">
                     <Form.Label>Username </Form.Label>
                     <Form.Control type="username" placeholder="Enter username" />
                   </Form.Group>
-                  <Form.Group className="mb-3" controlId="password">
+                  <Form.Group className="mb-3 formInput" controlId="password">
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Enter password" />
                   </Form.Group>

@@ -10,6 +10,9 @@ const PaymentSuccess = () => {
                     <Card.Title>
                         We received your payment!
                     </Card.Title>
+                    <Card.Body>
+                        Thank you for using Plug Select!
+                    </Card.Body>
                 </Card>
             </Container>
         </>

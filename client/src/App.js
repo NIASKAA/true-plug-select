@@ -1,6 +1,6 @@
 import './App.css';
 import { Navigation, Footer, AuctionSubmitForm }from './Components'
-import { Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support, RecentlySold, Profile } from './Pages'
+import { Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support, RecentlySold, Profile, PaymentSuccess } from './Pages'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, split } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
@@ -68,6 +68,7 @@ function App() {
               <Route exact path="/recentlysold" component={RecentlySold} />
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/auctionform" component={AuctionSubmitForm} />
+              <Route exact path="/success" component={PaymentSuccess} />
             </Switch>
             <Footer />
           </Router>
