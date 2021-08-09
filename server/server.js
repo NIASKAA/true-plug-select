@@ -17,7 +17,7 @@ const PORT = process.env.PORT || 3001;
 const pubsub = new PubSub();
 
 // In order for the chat to work the schemas had to be added to ApolloServer via makeExecutableSchema
-const schema = makeExecutableSchema({ typeDefs, resolvers });
+const schema = makeExecutableSchema({ typeDefs, resolvers, context: {pubsub} });
 
 const middleware = [];
 
@@ -28,7 +28,7 @@ const httpServer = createServer(app);
 
 const server = new ApolloServer({
   schema: schemaWithMiddleware,
-  context: {pubsub},
+  //context: {pubsub},
   context: authMiddleware,
 });
 

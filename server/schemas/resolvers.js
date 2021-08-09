@@ -10,6 +10,7 @@ const messages = [];
 const subscribers = [];
 const onMessagesUpdates = (fn) => subscribers.push(fn);
 
+
 const resolvers = {
   Query: {
     users: async () => {
