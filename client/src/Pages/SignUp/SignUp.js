@@ -86,7 +86,7 @@ const SignUp = (props) => {
                                     variant="light" 
                                     type="submit"
                                     className="signupBtn">
-                                    Sign-Up
+                                    Create
                                 </Button>
                             </Form>
                             {error ? (
