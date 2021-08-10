@@ -38,7 +38,32 @@ const resolvers = {
       }
     },*/
     /*checkout: async (parent, args, context) => {
-        
+      const line_items= [];
+      
+        const wonProduct = await stripe.products.create({
+          name:
+          description:
+          images:
+        })
+
+        const price = await stripe.prices.create({
+          product: auctionId.id
+          unit_amount: 
+          currency: 'usd'
+        }) 
+
+        line_items.push({
+          price: maxBid
+          quantity: 1
+        })
+
+        const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`
+      });
     },*/
   },
   Mutation: {
