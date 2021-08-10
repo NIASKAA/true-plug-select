@@ -131,21 +131,23 @@ const Chatroom = () => {
     </Col>*/
   return (
     <>
-      <div className="timer text-center">
-        <div className="timer">
-          Bidding will start in :
-          <span id="timer" className="bidTimer">
-            00:00
-          </span>
+      <Container className="timerContain">
+        <div className="timer text-center">
+          <div className="timer">
+            Bidding will start in :
+            <span id="timer" className="bidTimer">
+              00:00
+            </span>
+          </div>
+          <div className="timer-two">
+            {" "}
+            Time left until auction ends:
+            <span id="bid-timer" className="endTimer">
+              00:00:00
+            </span>
+          </div>
         </div>
-        <div className="timer-two">
-          {" "}
-          Time left until auction ends:
-          <span id="bid-timer" className="endTimer">
-            00:00:00
-          </span>
-        </div>
-      </div>
+      </Container>
 
       <Container className="chatroomContain">
         <Row className="row justify-content-center">
