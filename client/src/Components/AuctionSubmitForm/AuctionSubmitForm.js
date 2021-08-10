@@ -106,11 +106,12 @@ const AuctionSubmitForm = () => {
           image: productImage,
         },
       });
-      console.log(mutResponse);
-      // set the postProductSuccess message to trye
+     // set the postProductSuccess message to trye
       setErrors({ ...errors, postProductSuccess: true });
-      //TODO: add the posted product to the global state so it comes up the next time in the bid page withouit having to reload
+      console.log(mutResponse.data.createAuction);
+      dispatch({ type: ADD_AUCTION, payload: mutResponse.data.createAuction })
 
+      //TODO: add the posted product to the global state so it comes up the next time in the bid page withouit having to reload
     } catch (error) {
       console.log(error);
       setErrors({ ...errors, postProductError: true });

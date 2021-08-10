@@ -9,7 +9,6 @@ const userSeeds = [
       password:"test12345",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
-      posts: ["Your product sucks bro lol"],
    },
    {
       email: "santos@test.com",
@@ -19,7 +18,6 @@ const userSeeds = [
       password:"test12345",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
-      posts: ["Your product sucks bro lol"],
    },
    {
       email: "alan@test.com",
@@ -29,7 +27,6 @@ const userSeeds = [
       username: "alan_test",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
-      posts: ["Your product sucks bro lol"],
    },
    {
       email: "avi@test.com",
@@ -39,7 +36,6 @@ const userSeeds = [
       username: "avi_test",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
-      posts: ["Your product sucks bro lol"],
    },
    {
       email: "thomas@test.com",
@@ -49,7 +45,6 @@ const userSeeds = [
       lastName: "Bolling",
       profilePic:
          "https://res.cloudinary.com/theplugselect/image/upload/v1623709442/ywg1n19nnuetghwdv4ib.jpg",
-      posts: ["Your product sucks bro lol"],
    },
    {
       email: "test@gmail.com",
@@ -59,7 +54,6 @@ const userSeeds = [
       lastName: "yikes",
       profilePic:
          "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628145913/j0wskkihx7y3mtlxhwma.png",
-      posts: ["Your product sucks bro lol"],
    },
 ];
 const seedUsers = async () => {

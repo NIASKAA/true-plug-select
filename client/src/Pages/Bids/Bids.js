@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { Get_All_Products} from "../../utils/queries";
-import { GET_ALL_PRODUCTS } from "../../utils/state/actions";
+import { GET_ALL_PRODUCTS, ADD_AUCTION } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, Button, Row, InputGroup, FormControl } from "react-bootstrap";
 import ProductList from "../../Components/ProductList/ProductList";
@@ -27,9 +27,14 @@ const Bids = ({ products }) => {
 
   const [currentAuctions, setCurrentAuctions] = useState(() => []);
   useEffect(() => {
-    if (currentAuctions.length === 0 && loading == false && data) {
+    if (loading == false && data) {
       dispatch({ type: GET_ALL_PRODUCTS, payload: data.auctions });
-      setCurrentAuctions(data.auctions);
+      if(auctions.length ===0) {
+        setCurrentAuctions(data.auctions);
+      }
+      else {
+        setCurrentAuctions(auctions);
+      }
     }
   }, [loading, data]);
 

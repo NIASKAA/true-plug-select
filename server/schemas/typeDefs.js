@@ -23,7 +23,6 @@ const typeDefs = gql`
       bidAmount: Float
       timeCreated: String
       bidder: ID
-
    }
    type Auction {
       _id: ID
@@ -81,6 +80,7 @@ const typeDefs = gql`
       addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
       profileUpload(photo: String): String
       addProfilePic(imageURL: String! id: ID): profileData
+      winAuction(auctionId: ID!): Bid
    }
 
 `;
