@@ -22,11 +22,7 @@ const Navigation = () => {
                   <Nav.Link className="navBtns" as={Link} to={'/'}>Home</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/bids'}>Bids</Nav.Link>
                   <Nav.Link className="navBtns" as={Link} to={'/about'}>About Us</Nav.Link>
-                  <NavDropdown title="Top Brands"id="navbarDropdown" className="navBtns" as={Link} to={'/brands'}>
-                    <NavDropdown.Item>  
-                      <Button variant="light" className="navBtns" onClick={toBrands}>See More!</Button>
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  <Nav.Link className="navBtns" as={Link} to={'/brands'}>Top Brands</Nav.Link>
                   {Auth.loggedIn() ? (
                     <>
                       <Nav.Link className="navBtns" as={Link} to={"/profile"}>Profile</Nav.Link>
