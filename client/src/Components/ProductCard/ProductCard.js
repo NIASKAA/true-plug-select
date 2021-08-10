@@ -44,8 +44,8 @@ const ProductCard = ({product}) => {
           <Card.Title className="infoText">Category: {product.category}</Card.Title>
           <Card.Title className="infoText">Brand: {product.brand}</Card.Title>
           <Card.Title className="infoText">Seller: {product.seller.username}</Card.Title>
-          <Link to={`/bids/${product._id}`} variant="light" className="bidBtn">
-            Bid
+          <Link to={`/bids/${product._id}`} variant="light">
+            <Button variant="light" className="bidBtn">Bid</Button>
           </Link>
           {!loading && userId === product.seller._id &&  <Button onClick={()=> handleDelete(product._id)} variant="danger" className="deleteBtn">Delete Bid</Button>}
         </Card>
