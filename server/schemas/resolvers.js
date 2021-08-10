@@ -49,7 +49,7 @@ const resolvers = {
         return { token, user };
       } catch (err) {
         console.log(err);
-        throw new AuthenticationError('Taken')
+        throw new AuthenticationError("Taken");
       }
     },
     createAuction: async (parent, args) => {
@@ -66,6 +66,30 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
+    },
+
+    winAuction: async (parent, { auctionId }) => {
+      // find auction being sold and set it as sold
+      const auction = await Auction.findByIdAndUpdate(auctionId, {
+        sold:true
+      }).populate("bids.auction");
+
+      const {bids} = auction;
+
+      // set the maxBid as the first Bid
+      let maxBid = bids[bids.length-1];
+
+      bids.forEach((bid)=> {
+        if(bid.bidAmount > maxBid.bidAmount) {
+          maxBid = bid;
+        }
+      });
+
+      const winner = await profileData.findByIdAndUpdate(maxBid.bidder, {
+        $push: {bidsWon: maxBid}
+      });
+
+      return maxBid;
     },
 
     postMessage: (parent, { user, content }) => {
@@ -98,6 +122,7 @@ const resolvers = {
           $push: { bids: bid },
         }
       );
+
       return bid;
     },
     deleteAuction: async (parent, { id }) => {

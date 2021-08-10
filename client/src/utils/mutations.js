@@ -83,7 +83,26 @@ export const Create_Auction = gql`
   mutation addBidForm($itemName: String! $description: String, $image: String, $category: String, $brand: String, $seller: ID!) {
     createAuction(itemName: $itemName description: $description image: $image category: $category brand: $brand seller: $seller) {
       itemName
+      _id
+      description
+      image
+      category
+      brand
+      seller {
+        _id
+        username
+      }
+      
     }
 }`
 
-export const Remove_Bid = gql
+export const Delete_Product = gql`
+  mutation Delete_Product($id: ID!){
+  deleteAuction(id: $id) {
+    image
+    itemName
+    description
+  }
+}
+`
+

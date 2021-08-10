@@ -15,8 +15,16 @@ const auctionSchema = new mongoose.Schema({
   bidEnd: { type: Date, default: Date.now() },
   bids: [bidSchema],
   startingPrice: { type: Number, default: 0 },
+  sold: {type:Boolean, default: false}
+  
 });
+auctionSchema.methods.getWinner = async function() {
+  const bids = this.bids;
+  for (let bid of bids) {
+    console.log(bid);
+  }
 
+}
 const model = mongoose.model("Auction", auctionSchema);
 
 module.exports = model;
