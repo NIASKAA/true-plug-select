@@ -22,8 +22,8 @@ export const Query_User = gql`
 `;
 
 export const Get_All_Products = gql`
-{
-	auctions {
+  {
+    auctions {
       _id
       itemName
       image
@@ -31,11 +31,11 @@ export const Get_All_Products = gql`
       category
       brand
       seller {
-          username
-          _id
+        username
+        _id
       }
-	} 
-}
+    }
+  }
 `;
 
 export const Query_Messages = gql`
@@ -49,6 +49,17 @@ export const Query_Messages = gql`
   }
 `;
 
+export const Get_Max_Bid = gql`
+  query GetMaxBid($auctionId: ID!) {
+    getMaxBid(auctionId: $auctionId) {
+      bidAmount
+      bidder {
+        username
+        _id
+      }
+    }
+  }
+`;
 /*export const Query_Checkout = gql`
   query getCheckout($auctions: [ID]!) {
     checkout(auctions: $auctions) {

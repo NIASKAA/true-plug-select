@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { Get_All_Products} from "../../utils/queries";
+import { Get_All_Products } from "../../utils/queries";
 import { GET_ALL_PRODUCTS, ADD_AUCTION } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Button, Row, InputGroup, FormControl, Spinner} from "react-bootstrap";
+import { Container, Button, Row, InputGroup, FormControl, Spinner } from "react-bootstrap";
 import ProductList from "../../Components/ProductList/ProductList";
 import Auth from "../../utils/auth";
 import "./styles.css";
@@ -21,22 +21,29 @@ const Bids = ({ products }) => {
   const [searchItem, setSearchItem] = useState("");
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
+  const [productsLoading, setProductsLoading] = useState(true);
   const { loading, data } = useQuery(Get_All_Products);
   let { auctions } = state;
-  let {profileData} = state;
+  let { profileData } = state;
 
   const [currentAuctions, setCurrentAuctions] = useState(() => []);
   useEffect(() => {
     if (loading == false && data) {
       dispatch({ type: GET_ALL_PRODUCTS, payload: data.auctions });
-      if(auctions.length ===0) {
+      if (auctions.length === 0) {
         setCurrentAuctions(data.auctions);
-      }
-      else {
+      } else {
         setCurrentAuctions(auctions);
       }
     }
   }, [loading, data]);
+
+  // artificial loading times POG
+  useEffect(() => {
+    setTimeout(() => {
+      setProductsLoading(false);
+    }, 500);
+  });
 
   const handleSearch = (searchTerm) => {
     if (searchItem.trim().length <= 1 && auctions.length <= 1) {
@@ -51,8 +58,8 @@ const Bids = ({ products }) => {
       );
     }
   };
-  
-  if (loading) return <Spinner className="bidSpinner" animation="grow" variant="dark"/>;
+
+  if (loading) return <Spinner className="bidSpinner" animation="grow" variant="dark" />;
 
   return (
     <>
@@ -80,13 +87,13 @@ const Bids = ({ products }) => {
             }}
           />
         </InputGroup>
-
-        <Row>{!loading && currentAuctions && <ProductList products={currentAuctions} />}</Row>
+        {productsLoading && <Spinner animation="border" role="status" />}
+        <Row>
+          {!productsLoading && !loading && currentAuctions && <ProductList products={currentAuctions} />}
+        </Row>
       </Container>
     </>
   );
 };
 
-
 export default Bids;
-

@@ -22,8 +22,8 @@ const typeDefs = gql`
       auction: Auction
       bidAmount: Float
       timeCreated: String
-      bidder: ID
-   }
+      bidder: profileData
+   } 
    type Auction {
       _id: ID
       itemName: String
@@ -65,7 +65,10 @@ const typeDefs = gql`
       userById(id: ID): profileData
       auctions: [Auction]
       auction(id: String): Auction
+      getAllBidsByAuction(auctionId: ID!): [Bid]
       messages: [Message!] 
+      getMaxBid(auctionId: ID!): Bid
+
    }
 
    type Mutation {

@@ -63,6 +63,7 @@ const Messages = ({ user }) => {
 
 const Chatroom = () => {
   const [message, messageSet] = useState({ user: "", content: "" });
+  const [price, setPrice] = useState(0);
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
 
@@ -91,6 +92,7 @@ const Chatroom = () => {
     } else {
       setBidInfo(state.auctions.filter((auction) => auction._id === bidId)[0]);
     }
+
   }, [productsLoading, productData]);
 
   const redirect = () => {
@@ -198,8 +200,9 @@ const Chatroom = () => {
                             content: evt.target.value,
                           });
                         }}
-                        onKeyUp={(evt) => {
-                          if (evt.keyDown === 13) {
+                        onKeyDown={(evt) => {
+                          console.log(evt)
+                          if (evt.key === "Enter") {
                             onSend();
                           }
                         }}

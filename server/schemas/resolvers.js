@@ -31,6 +31,29 @@ const resolvers = {
     auction: async ({ id }) => {
       return await Auction.findById(id).populate("bids");
     },
+    getAllBidsByAuction: async (parent, { auctionId }) => {
+      // find auction being sold and set it as sold
+      const auction = await Auction.findById(auctionId).populate("bids.bidder");
+      const { bids } = auction;
+      return bids;
+    },
+    getMaxBid: async (parent, { auctionId }) => {
+      // find auction being sold and set it as sold
+      const auction = await Auction.findById(auctionId).populate("bids.bidder");
+
+      const { bids } = auction;
+
+      // set the maxBid as the first Bid
+      let maxBid = bids[bids.length - 1];
+
+      bids.forEach((bid) => {
+        if (bid.bidAmount > maxBid.bidAmount) {
+          maxBid = bid;
+        }
+      });
+      console.log(maxBid);
+      return maxBid;
+    },
     messages: () => messages,
     /*bid: async (parent, args, context) => {
       if(context.user) {
@@ -93,25 +116,26 @@ const resolvers = {
       return { token, user };
     },
 
+
     winAuction: async (parent, { auctionId }) => {
       // find auction being sold and set it as sold
       const auction = await Auction.findByIdAndUpdate(auctionId, {
-        sold:true
+        sold: true,
       }).populate("bids.auction");
 
-      const {bids} = auction;
+      const { bids } = auction;
 
       // set the maxBid as the first Bid
-      let maxBid = bids[bids.length-1];
+      let maxBid = bids[bids.length - 1];
 
-      bids.forEach((bid)=> {
-        if(bid.bidAmount > maxBid.bidAmount) {
+      bids.forEach((bid) => {
+        if (bid.bidAmount > maxBid.bidAmount) {
           maxBid = bid;
         }
       });
 
       const winner = await profileData.findByIdAndUpdate(maxBid.bidder, {
-        $push: {bidsWon: maxBid}
+        $push: { bidsWon: maxBid },
       });
 
       return maxBid;
