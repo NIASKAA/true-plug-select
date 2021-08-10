@@ -3,10 +3,22 @@ const db = require("../config/connection");
 const auctionSeeds = [
   { 
     itemName: "Among Us Nugget",
-    description: "hOlY ShIt BrO",
+    description: "rare nugget from BTS collab",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1623718837/yikes_eh7ujm.jpg",
     category: "Accessories",
     brand: "Unknown",
+    seller: null,
+    created: Date.now(),
+    bidStart: Date.now(),
+    bidEnd: new Date().setDate(new Date().getDate() + 30),
+    bids: [],
+  },
+  {
+    itemName: "Y-3 High Tops",
+    description: "Rare Y-3 Hong Kong shoes",
+    image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628603585/IMG_1289_hhrn7w.jpg",
+    category: "Shoes",
+    brand: "Y-3",
     seller: null,
     created: Date.now(),
     bidStart: Date.now(),
@@ -75,7 +87,7 @@ const auctionSeeds = [
   },
   {
     itemName: "Balenciaga Shoes",
-    description: "S.O.C.K.S",
+    description: "Only wore a little bit",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1623718839/balenciagashoes_w1oqji.jpg",
     category: "Shoes",
     brand: "Balenciaga",
@@ -99,7 +111,7 @@ const auctionSeeds = [
   },
   {
     itemName: "Off-White Shoes",
-    description: "Check out these arrows bro",
+    description: "Used. Testing ground",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1623718855/offwhiteshoes2_a7anr9.jpg",
     category: "Shoes",
     brand: "Off-White",
@@ -111,7 +123,7 @@ const auctionSeeds = [
   },
   {
     itemName: "Getter Bear Brick",
-    description: "Yo is that a bear?",
+    description: "Super Robot bear brick collab",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628448858/medicom-toy-getter-robot-bearbrick-400-limited-edition-01_be7fca.jpg",
     category: "Collectibles",
     brand: "Bear Brick",
@@ -123,7 +135,7 @@ const auctionSeeds = [
   },
   {
     itemName: "Bape Rx-78-2 Gundam MG",
-    description: "You fooking ape",
+    description: "Gundam X Bape Collab, new in box",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628448946/3__79362.1607094545_ay6i5w.jpg",
     category: "Collectibles",
     brand: "Bape",
@@ -135,7 +147,7 @@ const auctionSeeds = [
   },
   {
     itemName: "Y-3 Suika Shoes",
-    description: "Feels like a damn sock bro",
+    description: "In good condition",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628449341/310_oxqojj.jpg",
     category: "Shoes",
     brand: "Y-3",
@@ -159,7 +171,7 @@ const auctionSeeds = [
   },
   {
     itemName: "KTZ Jacket",
-    description: "Bit Satanic? ",
+    description: "Only wore it a few times",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628449340/15057567_27262564_600_kjoelk.webp",
     category: "Outerwear",
     brand: "KTZ",
@@ -171,7 +183,7 @@ const auctionSeeds = [
   },
   {
     itemName: "Mastermind Rx-78-2 Gundam",
-    description: "This makes me moist",
+    description: "Mastermind human size gundam",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628449654/untitled-78_f1r3vz.jpg",
     category: "Collectibles",
     brand: "Mastermind",
@@ -183,7 +195,7 @@ const auctionSeeds = [
   },
   {
     itemName: "KAWS Dissected Statue",
-    description: "DAYUM WHAT IS THAT",
+    description: "Rare statue",
     image: "https://res.cloudinary.com/ddtqwizaf/image/upload/v1628449757/kaws-4ft-dissected-companlon-kaws-1-3m-anatomy_hlmbnk.jpg",
     category: "Collectibles",
     brand: "KAWS",

@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { Get_All_Products} from "../../utils/queries";
 import { GET_ALL_PRODUCTS, ADD_AUCTION } from "../../utils/state/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Container, Button, Row, InputGroup, FormControl } from "react-bootstrap";
+import { Container, Button, Row, InputGroup, FormControl, Spinner} from "react-bootstrap";
 import ProductList from "../../Components/ProductList/ProductList";
 import Auth from "../../utils/auth";
 import "./styles.css";
@@ -51,6 +51,8 @@ const Bids = ({ products }) => {
       );
     }
   };
+  
+  if (loading) return <Spinner className="bidSpinner" animation="grow" variant="dark"/>;
 
   return (
     <>

@@ -11,8 +11,7 @@ const profileSchema = new mongoose.Schema({
    profilePic: { type: String },
    bids: [bidSchema],
    bidsWon:[bidSchema],
-   
-
+  
 });
 
 profileSchema.pre('save', async function (next) {

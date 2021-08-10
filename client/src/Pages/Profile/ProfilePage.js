@@ -34,7 +34,7 @@ const Profile = () => {
       imageData.append("upload_preset", "lz6oie8l");
       console.log(imageData.get("file"), imageData.get("upload_preset"))
       const response = await Axios.post(
-        `https://api.cloudinary.com/v1_1/ddtqwizaf/image/upload`,
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
         imageData
       );
       const mutResponse = await addProfilePic({
@@ -49,7 +49,7 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <Spinner></Spinner>;
+  if (loading) return <Spinner className="profileSpinner" animation="grow" variant="dark"/>;
 
   return (
     <>
