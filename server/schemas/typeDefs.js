@@ -76,7 +76,6 @@ const typeDefs = gql`
       messages: [Message!]
       auctionRoom: [Auction]
       getAllBidsByAuction(auctionId: ID!): [Bid]
-      messages: [Message!] 
       getMaxBid(auctionId: ID!): Bid
    }
 
