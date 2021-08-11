@@ -17,6 +17,13 @@ export const Query_User = gql`
       firstName
       email
       profilePic
+      bidsWon {
+        timeCreated
+        bidAmount
+        auction {
+          _id
+        }
+      }
     }
   }
 `;

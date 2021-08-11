@@ -25,6 +25,7 @@ const typeDefs = gql`
       timeCreated: String
       bidder: profileData
    } 
+
    type Auction {
       _id: ID
       itemName: String

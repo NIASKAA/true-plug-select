@@ -17,7 +17,7 @@ const Profile = () => {
   const [updateUsername, setUpdateUsername] = useState("");
   const [addProfilePic] = useMutation(Add_Profile_Pic);
   const [updateUser] = useMutation(Update_Username);
-  const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture" });
+  const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture", bidsWon: "No Bids Won" });
   const { loading, data } = useQuery(Query_User);
 
   useEffect(() => {
@@ -77,6 +77,7 @@ const Profile = () => {
       console.log(err)
     }
   }
+  console.log(profileData.bidsWon[0].auction._id)
 
   if (loading) return <Spinner className="profileSpinner" animation="grow" variant="dark"/>;
 
@@ -105,24 +106,26 @@ const Profile = () => {
                     </Col>
                   )}
 
-                  <Col className="col-md-12">
-                    <Card>
-                      <h4 class="mt-2 profileInfo">Recent Bids</h4>
-                      <Table class="table table-sm table-hover table-striped">
-                        <tbody className="tableInfo">
-                          <tr>
-                            <td>Product: </td>
-                          </tr>
-                          <tr>
-                            <td>Price: </td>
-                          </tr>
-                          <tr>
-                            <td>Date: </td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </Card>
-                  </Col>
+                  {!loading && profileData && (
+                    <Col className="col-md-12">
+                      <Card>
+                        <h4 class="mt-2 profileInfo">Recent Bids</h4>
+                        <Table class="table table-sm table-hover table-striped">
+                          <tbody className="tableInfo">
+                            <tr>
+                              <td>Product ID: {profileData.bidsWon[0].auction._id}</td>
+                            </tr>
+                            <tr>
+                              <td>Price: {profileData.bidsWon[0].bidAmount} </td>
+                            </tr>
+                            <tr>
+                              <td>Date: {profileData.bidsWon[0].timeCreated}</td>
+                            </tr>
+                          </tbody>
+                        </Table>
+                      </Card>
+                    </Col>
+                  )}
                 </Row>
               </Tab>
 
