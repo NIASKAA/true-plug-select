@@ -4,3 +4,4 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const UPDATE_CART_QUANTITY = "UPDATE_CART_QUANTITY";
 export const TOGGLE_CART = "TOGGLE_CART";
 export const ADD_AUCTION = "ADD_AUCTION";
+export const UPDATE_USERNAME = "UPDATE_USERNAME";

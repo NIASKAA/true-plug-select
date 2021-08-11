@@ -3,7 +3,8 @@ import {
   UPDATE_CATEGORIES,
   GET_ALL_PRODUCTS,
   ADD_AUCTION,
-  ADD_TO_CART
+  ADD_TO_CART,
+  UPDATE_USERNAME
 } from "./actions";
 
 export const reducers = (state, action) => {
@@ -25,6 +26,13 @@ export const reducers = (state, action) => {
         ...state,
         auctions: [...state.auctions, action.payload],
       };
+    
+      case UPDATE_USERNAME:
+        return {
+          ...state,
+          profileData: [...action.payload],
+        };
+        
     default:
       return state;
   }
