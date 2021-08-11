@@ -32,6 +32,7 @@ const typeDefs = gql`
       description: String
       category: String
       brand: String
+      bidEnd: String
       seller: profileData
       channelId: String
       bids: [Bid]

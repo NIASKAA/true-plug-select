@@ -8,6 +8,7 @@ import { GET_MESSAGES, POST_MESSAGE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import "./styles.css";
+import getTimeRemaining from "../../utils/timer";
 
 const Messages = ({ user }) => {
   const { data } = useSubscription(GET_MESSAGES);
@@ -70,12 +71,13 @@ const Chatroom = () => {
   // get the specific item's id
   const { bidId } = useParams();
   // use the id to get the specific item from the global state
-  const [bidInfo, setBidInfo] = useState(null);
+  const [bidInfo, setBidInfo] = useState({ bidEnd: " " });
   //const bidInfo = state.auctions.filter(auction=> auction._id === bidId)[0];
 
   let history = useHistory();
   const { loading: userDataLoading, data: userData } = useQuery(Query_User);
   const { loading: productsLoading, data: productData } = useQuery(Get_All_Products);
+  const [timeRemaining, setTimeRemaining] = useState("");
 
   useEffect(() => {
     if (!userDataLoading) {
@@ -85,26 +87,32 @@ const Chatroom = () => {
   }, [userDataLoading, userData]);
 
   useEffect(() => {
-    if (!productsLoading && state.auctions.length === 0) {
+    if (!productsLoading) {
       dispatch({ type: Get_All_Products, payload: productData });
       setBidInfo(productData.auctions.filter((auction) => auction._id === bidId)[0]);
-      console.log(state);
+      setTimeRemaining(getTimeRemaining(bidInfo?.bidEnd));
     } else {
       setBidInfo(state.auctions.filter((auction) => auction._id === bidId)[0]);
+      setTimeRemaining(getTimeRemaining(bidInfo?.bidEnd));
     }
+  }, [productsLoading, productData]);
 
+  useEffect(() => {
+    if (bidInfo) {
+      console.log(bidInfo.bidEnd);
+      setTimeRemaining(getTimeRemaining(bidInfo.bidEnd));
+      console.log(timeRemaining);
+    }
   }, [productsLoading, productData]);
 
   const redirect = () => {
     history.push("/login");
   };
 
-  console.log(message);
-
   const [postMessage] = useMutation(POST_MESSAGE);
 
   const onSend = () => {
-    if (message.content.length > 0) {        
+    if (message.content.length > 0) {
       postMessage({
         variables: message,
       });
@@ -119,6 +127,12 @@ const Chatroom = () => {
     width: "55px",
     height: "40px",
   };
+
+  let time = setInterval(function () {
+    if (bidInfo) {
+      setTimeRemaining(bidInfo.bidEnd);
+    }
+  }, 1000);
 
   /*<Col xs={3} style={{ padding: 0 }}>
     <input
@@ -135,18 +149,15 @@ const Chatroom = () => {
     <>
       <Container className="timerContain">
         <div className="timer text-center">
-          <div className="timer">
-            Bidding will start in :
-            <span id="timer" className="bidTimer">
-              00:00
-            </span>
-          </div>
           <div className="timer-two">
             {" "}
             Time left until auction ends:
-            <span id="bid-timer" className="endTimer">
-              00:00:00
-            </span>
+            {timeRemaining && (
+              <span id="bid-timer" className="endTimer">
+                {timeRemaining.days} days {timeRemaining.hours} hours {timeRemaining.minutes} minutes{" "}
+                {timeRemaining.seconds} seconds
+              </span>
+            )}
           </div>
         </div>
       </Container>
@@ -201,7 +212,7 @@ const Chatroom = () => {
                           });
                         }}
                         onKeyDown={(evt) => {
-                          console.log(evt)
+                          console.log(evt);
                           if (evt.key === "Enter") {
                             onSend();
                           }
