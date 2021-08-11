@@ -5,44 +5,49 @@
     padding: 0 20px;
   }
   
-  .videoContainer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-  
-  .videoContainer video {
-    min-width: 100%;
-    min-height: 100%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-  }
-  
-  .videoContainer:after {
-    content: "";
-    z-index: 1;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    position: absolute;
-  }
+.videoContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 
-  #SignUpContain {
-    z-index: 2;
-  } 
+.videoContainer video {
+  min-width: 100%;
+  min-height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+}
 
-  .content {
-    margin: 15%;
-  }
-  
+.videoContainer:after {
+  content: "";
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+}
+
+#SignUpContain {
+  z-index: 2;
+} 
+
+.content {
+  margin: 15%;
+}
+
+.card-header {
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+}
+
 .signupForm {
   position: absolute;
   align-items: center;

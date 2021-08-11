@@ -6,23 +6,19 @@
 .infoText {
     font-size: 11px !important;
     text-align: left;
-}
+    margin: 2%;
+}      
 
 .bidBtn {
     font-family: 'Work Sans', sans-serif;
     font-size: 16px !important;
     text-decoration: none;
     text-transform: uppercase;
-    font-weight: 300px;
-    font-size: 100%;    
     color:black;
-    z-index: 1;
     margin: 2%;
-    justify-content: center !important;
-    align-items: center !important;
-    text-align: center !important;
     border-radius: 3px;
     height: 35px;
+    width: 90%;
 }
 
 .bidBtn:hover {

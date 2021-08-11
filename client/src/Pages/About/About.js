@@ -16,10 +16,8 @@ const About = () => {
                 </div>
                 <p class="aboutText">
                     The Plug Select was made by 4 passionate individuals that just want a better community to purchase premium goods.
-                    
                 </p>
         
-
                 <Container>
                     <Row class="row justify-content-center">
                         <Col className="col-12 col-sm-8 col-lg-6">

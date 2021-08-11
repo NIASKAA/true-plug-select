@@ -37,10 +37,7 @@
     text-transform: uppercase;
     text-align: center;
     font-size: 11px;
-    left: 50%;
     margin-right: 10%;
-    
-   
   }
   
   .card {
@@ -90,7 +87,7 @@
     }
   }
   
-  .teamMember .teamImage .social-info {
+  .teamMember .teamImage {
     position: absolute;
     z-index: 1;
     width: 100%;
@@ -99,21 +96,11 @@
     text-align: right;
   }
   
-  .teamMember .teamImage .social-info a {
-    font-size: 14px;
-    color: #020710;
-    padding: 0 5px;
+  .gitBtns a{
+    text-decoration: none;
+    color: black;
   }
-  
-  .teamMember .teamImage .social-info a:hover,
-  .teamMember .teamImage .social-info a:focus {
-    color: #ffc312;
-  }
-  
-  .teamMember .teamImage .social-info a:last-child {
-    padding-right: 0;
-  }
-  
+
   .teamMember .teamInfo {
     position: relative;
     z-index: 1;
@@ -165,34 +152,22 @@
       font-size: 12px;
     }
   }
-  
-  .teamMember:hover .teamImage::after,
-  .teamMember:focus .teamImage::after {
-    background-color: black;
-  }
-  
-  .teamMember:hover .teamImage .social-info a,
-  .teamMember:focus .teamImage .social-info a {
-    color: #ffffff;
-  }
-  
-  .teamMember:hover .teamImage .social-info a:hover,
-  .teamMember:hover .teamImage .social-info a:focus,
-  .teamMember:focus .teamImage .social-info a:hover,
-  .teamMember:focus .teamImage .social-info a:focus {
-    color: #ffffff;
-  }
-  
-  .teamMember:hover .teamInfo,
+    
+  .teamMember:hover .teamInfo , 
   .teamMember:focus .teamInfo {
     background-color: black;
   }
   
-  .teamMember:hover .teamInfo::after,
-  .teamMember:focus .teamInfo::after {
+  .teamMember:hover .teamInfo::after ,
+  .teamMember:focus .teamInfo::after{
     background-color: #ffffff;
   }
-  
+
+  .teamMember:hover .gitBtns ,
+  .teamMember:focus .gitBtns {
+    background-color: white;
+  }
+
   .teamMember:hover .teamInfo h6,
   .teamMember:focus .teamInfo h6 {
     color: #ffffff;
@@ -203,10 +178,7 @@
     color: #ffffff;
   }
   
-  .gitBtns:hover {
-    background-color: seashell;
-  }
-  
-  .gitBtns {
-    color:black;
+  .teamMember:hover .gitBtns a ,
+  .teamMember:focus .gitBtns a{
+    color: black;
   }

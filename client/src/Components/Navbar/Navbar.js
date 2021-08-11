@@ -1,6 +1,6 @@
 import React from 'react'
-import { Navbar, Container, Nav, NavDropdown, Button} from 'react-bootstrap';
-import {Link, useHistory} from 'react-router-dom'; 
+import { Navbar, Container, Nav, Button} from 'react-bootstrap';
+import {NavLink, Link, useHistory} from 'react-router-dom'; 
 import Auth from '../../utils/auth';
 import './styles.css';
 
@@ -19,20 +19,16 @@ const Navigation = () => {
                   <Link to={'/'}>
                    <img className= "logoIcon" src='/logo.png' alt="Logo"/> 
                   </Link>
-                  <Nav.Link className="navBtns" as={Link} to={'/'}>Home</Nav.Link>
-                  <Nav.Link className="navBtns" as={Link} to={'/bids'}>Bids</Nav.Link>
-                  <Nav.Link className="navBtns" as={Link} to={'/about'}>About Us</Nav.Link>
-                  <NavDropdown title="Top Brands"id="navbarDropdown" className="navBtns" as={Link} to={'/brands'}>
-                    <NavDropdown.Item>  
-                      <Button variant="light" className="navBtns" onClick={toBrands}>See More!</Button>
-                    </NavDropdown.Item>
-                  </NavDropdown>
+                  <NavLink exact activeClassName="active" className="navBtns" as={Link} to={'/'}>Home</NavLink>
+                  <NavLink exact activeClassName="active"className="navBtns" as={Link} to={'/bids'}>Bids</NavLink>
+                  <NavLink exact activeClassName="active"className="navBtns" as={Link} to={'/about'}>About Us</NavLink>
+                  <NavLink exact activeClassName="active"className="navBtns" as={Link} to={'/brands'}>Top Brands</NavLink>
                   {Auth.loggedIn() ? (
                     <>
-                      <Nav.Link className="navBtns" as={Link} to={"/profile"}>Profile</Nav.Link>
-                      <Nav.Link className="navBtns" as={Link} to={"/checkout"}>Checkout</Nav.Link>
-                      <Nav.Link className="navBtns" as={Link} to={"/recentlysold"}>Recently Sold</Nav.Link>
-                      <Nav.Link className="navBtns" onClick={Auth.logout}>Logout</Nav.Link>
+                      <NavLink exact activeClassName="active"className="navBtns" as={Link} to={"/profile"}>Profile</NavLink>
+                      <NavLink exact activeClassName="active"className="navBtns" as={Link} to={"/checkout"}>Checkout</NavLink>
+                      <NavLink exact activeClassName="active"className="navBtns" as={Link} to={"/recentlysold"}>Recently Sold</NavLink>
+                      <Nav.Link exact activeClassName="active"className="navBtns" onClick={Auth.logout}>Logout</Nav.Link>
                     </>
                   ) : (
                     <Nav.Link className="navBtns" as={Link} to={'/login'}>Login</Nav.Link>

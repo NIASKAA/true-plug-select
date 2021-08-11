@@ -9,6 +9,7 @@ const typeDefs = gql`
       lastName: String
       profilePic: String
       bids: [Bid]
+      bidsWon: [Bid]
    }
 
    type File {
@@ -22,9 +23,8 @@ const typeDefs = gql`
       auction: Auction
       bidAmount: Float
       timeCreated: String
-      bidder: ID
-
-   }
+      bidder: profileData
+   } 
    type Auction {
       _id: ID
       itemName: String
@@ -75,6 +75,9 @@ const typeDefs = gql`
       auction(id: String): Auction
       messages: [Message!]
       auctionRoom: [Auction]
+      getAllBidsByAuction(auctionId: ID!): [Bid]
+      messages: [Message!] 
+      getMaxBid(auctionId: ID!): Bid
    }
 
    type Mutation {
@@ -85,13 +88,13 @@ const typeDefs = gql`
       createAuction(itemName: String! description: String, image: String, category: String, brand: String, seller: ID!): Auction
       deleteAuction(id: ID!): Auction
       updateAuction(id: ID!): Auction
-      updateUser(id: ID!): profileData
+      updateUser(newUsername: String! id: ID): profileData
       addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
       profileUpload(photo: String): String
       addProfilePic(imageURL: String! id: ID): profileData
       createRoom(channelId: ID): Auction
+      winAuction(auctionId: ID!): Bid
    }
-
 `;
 
 module.exports = typeDefs;

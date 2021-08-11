@@ -1,3 +1,11 @@
 .soldContainers {
-    margin: 5%;
+    margin-top: 5%;
+}
+
+.regularFont {
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+       text-align: left;
+    justify-content: center;
+    align-items: center;
 }

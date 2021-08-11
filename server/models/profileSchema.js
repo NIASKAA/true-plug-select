@@ -9,13 +9,9 @@ const profileSchema = new mongoose.Schema({
    password: {type: String, required: true},
    lastName: { type: String, required: true },
    profilePic: { type: String },
-   posts: [
-      {
-         type: String,
-      },
-   ],
    bids: [bidSchema],
-
+   bidsWon:[bidSchema],
+  
 });
 
 profileSchema.pre('save', async function (next) {

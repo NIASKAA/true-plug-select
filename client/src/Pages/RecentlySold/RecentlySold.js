@@ -25,7 +25,6 @@ const RecentlySold = () => {
                         <Card.Body>
                             <Row>
                                 <p class="regularFont">Name:</p>
-                                <p class="regularFont">Price: </p>
                                 <p class="regularFont">Size: </p>
                                 <p class="regularFont">Brand: </p>
                             </Row>

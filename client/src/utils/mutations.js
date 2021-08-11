@@ -52,6 +52,16 @@ export const Upload_ProfilePic = gql`
   }
 `;
 
+export const Update_Username = gql`
+  mutation updateUser($newUsername: String! $id: ID) {
+    updateUser(newUsername: $newUsername id: $id) {
+      username
+      email
+    }
+  }
+  `
+
+
 export const Add_Profile_Pic = gql`
 mutation Add_Pic($imageURL: String! $id: ID) {
   addProfilePic(imageURL: $imageURL id:$id) {
@@ -84,7 +94,38 @@ export const Create_Auction = gql`
   mutation addBidForm($itemName: String! $description: String, $image: String, $category: String, $brand: String, $seller: ID!) {
     createAuction(itemName: $itemName description: $description image: $image category: $category brand: $brand seller: $seller) {
       itemName
+      _id
+      description
+      image
+      category
+      brand
+      seller {
+        _id
+        username
+      }
+      
     }
 }`
 
-export const Remove_Bid = gql
+export const Delete_Product = gql`
+  mutation Delete_Product($id: ID!){
+  deleteAuction(id: $id) {
+    image
+    itemName
+    description
+  }
+}
+`
+
+export const Win_Auction = gql`
+  mutation wonAuction($auctionId: ID!){
+    auctionId(auctionId: $auctionId) {
+      auction
+      bidAmount
+      timeCreated
+      bidder {
+        _id
+        username
+      }
+    }
+  }`

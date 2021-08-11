@@ -16,7 +16,11 @@ const auctionSchema = new mongoose.Schema({
   bids: [bidSchema],
   startingPrice: { type: Number, default: 0 },
   // channelId: { type: String, default: 0 }
+  sold: {type:Boolean, default: false}
+  
 });
+
+
 
 const model = mongoose.model("Auction", auctionSchema);
 

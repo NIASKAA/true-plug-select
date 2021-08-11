@@ -3,15 +3,34 @@ import Axios from "axios";
 import { useMutation, useQuery } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
 import { Create_Auction } from "../../utils/mutations";
-import { GET_USER_INFO } from "../../utils/state/actions";
+import { GET_USER_INFO, ADD_AUCTION } from "../../utils/state/actions";
 import { useSelector, useDispatch } from "react-redux";
-import { Button, Card, Container, Form, Row, Col, Dropdown, Spinner } from "react-bootstrap";
+import { Button, Card, Container, Form, Row, Col, Dropdown, Spinner, Alert } from "react-bootstrap";
 import "./styles.css";
 import { valueFromASTUntyped } from "graphql";
 
 const AuctionSubmitForm = () => {
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
+  // get the global state to get the logged in user's info
+  // to make global state changes
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
+  // extract the user's infor from global state
+  // on reload, sometimes state gets wipped out so this is in case that happens
+  const { loading, data } = useQuery(Query_User);
+  useEffect(() => {
+    // only dispatch if the profileData has been cleared
+    if (loading == false && data) {
+      dispatch({ type: GET_USER_INFO, payload: data.user });
+    }
+  }, [loading, data]);
+  
+  const [createProductLoading, setCreateProductLoading] = useState(false);
+  const [createAuction, { err }] = useMutation(Create_Auction);
+  const [isSwitchOn, setIsSwitchOn] = useState(false);
+  const { profileData } = state;
+
 
   // initial state of the form
   const [formState, setFormState] = useState({
@@ -22,26 +41,18 @@ const AuctionSubmitForm = () => {
     seller: null,
     image: "",
   });
+  // for front end form validation; not implemented yet
+  const [errors, setErrors] = useState({
+    postProductSuccess: null,
+    postProductError: null,
+    noProductNameError: null,
+    noDateError: null,
+    noStartingPriceError: null,
+    noDescriptionError: null,
+    termsNotAcceptedError: null,
+  });
 
-  const [errors, setErrors] = useState({ postProductSuccess: true, postProductError: null }); // for front end form validation; not implemented yet
-  // get the global state to get the logged in user's info
-  const state = useSelector((state) => state);
-  // to make global state changes
-  const dispatch = useDispatch();
-  // extract the user's infor from global state
-  const { profileData } = state;
-  // on reload, sometimes state gets wipped out so this is in case that happens
-  const { loading, data } = useQuery(Query_User);
-  const [createProductLoading, setCreateProductLoading] = useState(false);
-  const [createAuction, { err }] = useMutation(Create_Auction);
-  const [isSwitchOn, setIsSwitchOn] = useState(false);
 
-  useEffect(() => {
-    // only dispatch if the profileData has been cleared
-    if (!loading && data && profileData._id === undefined) {
-      dispatch({ type: GET_USER_INFO, payload: data.user });
-    }
-  }, [loading, data]);
 
   const uploadItemImage = async () => {
     const imageData = new FormData();
@@ -56,42 +67,65 @@ const AuctionSubmitForm = () => {
 
   const onSwitchAction = () => {
     setIsSwitchOn(!isSwitchOn);
+    let error = isSwitchOn? true: false;
+    setErrors({...errors, termsNotAcceptedError: error});
   };
 
   const handleChange = (event) => {
+    console.log(profileData)
     const { name, value } = event.target;
-    setFormState({ ...formState, [name]: value, seller: profileData._id });
+    setFormState({ ...formState, [name]: value });
   };
 
+  // handles the whole bid submit process
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-
+    if (errors.termsNotAcceptedError == true || !isSwitchOn) {
+      setErrors({...errors, termsNotAcceptedError: true});
+      return;
+    }
     setCreateProductLoading(true);
-    const productImage = await uploadItemImage();
-    console.log(productImage);
-    const { itemName, description, brand, startingPrice, bidEnd, seller, image } = formState;
-    const mutResponse = await createAuction({
-      variables: {
-        itemName,
-        description,
-        brand,
-        startingPrice: Number(startingPrice),
-        bidEnd,
-        seller,
-        image: productImage,
-      },
-    });
+    try {
+      let productImage = "";
+      // if product image has been selected set the productImage var to the uploaded image URL
+      if (imageSelected.name) {
+        productImage = await uploadItemImage();
+      }
+      // destructure the form state for easy access
+      const { itemName, description, brand, startingPrice, bidEnd, seller, image } = formState;
 
-    setFormState({
-      itemName: "",
-      description: "",
-      brand: "",
-      startingPrice: 0,
-      bidEnd: "",
-      image: "",
-    });
-    setCreateProductLoading(false);
-    setErrors({ ...errors, postProductSuccess: true });
+      // create the product
+      const mutResponse = await createAuction({
+        variables: {
+          itemName,
+          description,
+          brand,
+          startingPrice: Number(startingPrice),
+          bidEnd,
+          seller:profileData._id,
+          image: productImage,
+        },
+      });
+     // set the postProductSuccess message to trye
+      setErrors({ ...errors, postProductSuccess: true });
+      console.log(mutResponse.data.createAuction);
+      dispatch({ type: ADD_AUCTION, payload: mutResponse.data.createAuction })
+
+      //TODO: add the posted product to the global state so it comes up the next time in the bid page withouit having to reload
+    } catch (error) {
+      console.log(error);
+      setErrors({ ...errors, postProductError: true });
+    } finally {
+      setFormState({
+        itemName: "",
+        description: "",
+        brand: "",
+        startingPrice: 0,
+        bidEnd: "",
+        image: "",
+      });
+      setCreateProductLoading(false);
+    }
   };
 
   return (
@@ -108,7 +142,17 @@ const AuctionSubmitForm = () => {
                 method="post"
                 class="col-lg-4 order-lg-1 text-center"
               >
-                {errors.postProductSuccess && <p> Bid posted succesfully</p>}
+                {errors.postProductSuccess && <Alert variant="primary"> Bid posted succesfully</Alert>}
+                {errors.postProductError && (
+                  <Alert variant="danger">
+                    There was a problem with posting your bid. Please try again later
+                  </Alert>
+                )}
+                {errors.termsNotAcceptedError && (
+                  <Alert variant="warning">
+                    You must accept the terms to post a product
+                  </Alert>
+                )}
 
                 <Form.Label>Upload Photo</Form.Label>
                 <Form.Group controlId="formFileLg" className="mb-3">
@@ -117,6 +161,7 @@ const AuctionSubmitForm = () => {
                     size="lg"
                     onChange={(event) => {
                       setImageSelected(event.target.files[0]);
+                      console.log(imageSelected);
                     }}
                   />
                 </Form.Group>
@@ -194,8 +239,7 @@ const AuctionSubmitForm = () => {
                   />
                   <Form.Control.Feedback type="invalid">
                     You must agree before submitting.
-                  </Form.Control.Feedback>
-                  {" "}
+                  </Form.Control.Feedback>{" "}
                 </Form.Group>
                 <Button type="submit" variant="light" className="submitBtn">
                   Submit
@@ -215,7 +259,7 @@ const AuctionSubmitForm = () => {
                   3. Do you have time for our lord and savior Jesus Christ?
                   <br />
                   4. Why did the chicken cross the road? Idk I was hoping you can tell me instead.
-                  <br/>
+                  <br />
                   5. pLs dO NOt pOsT LeWD ConTeNt.
                 </Card.Text>
               </Card.Body>

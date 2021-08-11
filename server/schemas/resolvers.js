@@ -23,13 +23,36 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
     userById: async (parent, args) => {
-      return await profileData.findById(args.id);
+      return await profileData.findById(args.id).populate("bids").populate("auction");
     },
     auctions: async () => {
       return await Auction.find({}).populate("bids").populate("seller");
     },
     auction: async ({ id }) => {
       return await Auction.findById(id).populate("bids");
+    },
+    getAllBidsByAuction: async (parent, { auctionId }) => {
+      // find auction being sold and set it as sold
+      const auction = await Auction.findById(auctionId).populate("bids.bidder");
+      const { bids } = auction;
+      return bids;
+    },
+    getMaxBid: async (parent, { auctionId }) => {
+      // find auction being sold and set it as sold
+      const auction = await Auction.findById(auctionId).populate("bids.bidder");
+
+      const { bids } = auction;
+
+      // set the maxBid as the first Bid
+      let maxBid = bids[bids.length - 1];
+
+      bids.forEach((bid) => {
+        if (bid.bidAmount > maxBid.bidAmount) {
+          maxBid = bid;
+        }
+      });
+      console.log(maxBid);
+      return maxBid;
     },
     messages: () => messages,
 
@@ -42,7 +65,32 @@ const resolvers = {
       }
     },*/
     /*checkout: async (parent, args, context) => {
-        
+      const line_items= [];
+      
+        const wonProduct = await stripe.products.create({
+          name:
+          description:
+          images:
+        })
+
+        const price = await stripe.prices.create({
+          product: auctionId.id
+          unit_amount: 
+          currency: 'usd'
+        }) 
+
+        line_items.push({
+          price: maxBid
+          quantity: 1
+        })
+
+        const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items,
+        mode: 'payment',
+        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${url}/`
+      });
     },*/
   },
   Mutation: {
@@ -52,8 +100,8 @@ const resolvers = {
         const token = signToken(user);
         return { token, user };
       } catch (err) {
-        //console.log(err);
-        throw new AuthenticationError('Taken')
+        console.log(err);
+        throw new AuthenticationError("Taken");
       }
     },
     createAuction: async (parent, args) => {
@@ -70,6 +118,31 @@ const resolvers = {
       }
       const token = signToken(user);
       return { token, user };
+    },
+
+
+    winAuction: async (parent, { auctionId }) => {
+      // find auction being sold and set it as sold
+      const auction = await Auction.findByIdAndUpdate(auctionId, {
+        sold: true,
+      }).populate("bids.auction");
+
+      const { bids } = auction;
+
+      // set the maxBid as the first Bid
+      let maxBid = bids[bids.length - 1];
+
+      bids.forEach((bid) => {
+        if (bid.bidAmount > maxBid.bidAmount) {
+          maxBid = bid;
+        }
+      });
+
+      const winner = await profileData.findByIdAndUpdate(maxBid.bidder, {
+        $push: { bidsWon: maxBid },
+      });
+
+      return maxBid;
     },
 
     postMessage: (parent, { user, content }) => {
@@ -111,6 +184,7 @@ const resolvers = {
           $push: { bids: bid },
         }
       );
+
       return bid;
     },
     deleteAuction: async (parent, { id }) => {
@@ -119,8 +193,9 @@ const resolvers = {
     updateAuction: async (parent, args) => {
       return await Auction.findOneAndUpdate({ _id: args.id }, { args });
     },
-    updateUser: async (parent, args) => {
-      return await profileData.findOneAndUpdate({ _id: args.id }, args);
+    updateUser: async (parent, {newUsername, id}, context) => {
+      let userId = context.user._id ? context.user._id : id;
+      return await profileData.findOneAndUpdate({ _id: userId }, {username: newUsername });
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
