@@ -30,7 +30,7 @@ export const reducers = (state, action) => {
       case UPDATE_USERNAME:
         return {
           ...state,
-          profileData: [...action.payload],
+          profileData: {...action.payload},
         };
         
     default:
