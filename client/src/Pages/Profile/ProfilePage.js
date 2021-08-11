@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useMutation, useQuery, gql } from "@apollo/client";
+import { useMutation, useQuery} from "@apollo/client";
 import { Query_User } from "../../utils/queries";
-import { Add_Profile_Pic } from "../../utils/mutations";
-import { GET_ALL_PRODUCTS, GET_USER_INFO, UPDATE_PRODUCTS } from "../../utils/state/actions";
+import { Add_Profile_Pic, Update_Username } from "../../utils/mutations";
+import { GET_USER_INFO } from "../../utils/state/actions";
 
 import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } from "react-bootstrap";
 import "./styles.css";
@@ -14,7 +14,9 @@ const Profile = () => {
   const state = useSelector((state) => state);
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
+  const [updateUsername, setUpdateUsername] = useState("");
   const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
+  const [updateUser] = useMutation(Update_Username);
   const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture" });
   const { loading, data } = useQuery(Query_User);
 
@@ -48,6 +50,16 @@ const Profile = () => {
       console.log(err);
     }
   };
+
+  const updatingUsername = async (event) => {
+    event.preventDefault();
+    try {
+
+
+    } catch(err) {
+      console.log(err)
+    }
+  }
 
   if (loading) return <Spinner className="profileSpinner" animation="grow" variant="dark"/>;
 
@@ -99,20 +111,11 @@ const Profile = () => {
 
               <Tab eventKey="Edit" title="Edit">
                 <Form>
-                  <Form.Group className="mb-3 formInput" controlId="email">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
-                  </Form.Group>
-
                   <Form.Group className="mb-3 formInput" controlId="username">
                     <Form.Label>Username </Form.Label>
                     <Form.Control type="username" placeholder="Enter username" />
                   </Form.Group>
-                  <Form.Group className="mb-3 formInput" controlId="password">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Enter password" />
-                  </Form.Group>
-                  <Button variant="light" className="submitBtn">
+                  <Button variant="light" className="submitBtn" onChange={""}>
                     Submit
                   </Button>
                 </Form>

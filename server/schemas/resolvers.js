@@ -180,8 +180,9 @@ const resolvers = {
     updateAuction: async (parent, args) => {
       return await Auction.findOneAndUpdate({ _id: args.id }, { args });
     },
-    updateUser: async (parent, args) => {
-      return await profileData.findOneAndUpdate({ _id: args.id }, args);
+    updateUser: async (parent, {newUsername, id}, context) => {
+      let userId = context.user._id ? context.user._id : id;
+      return await profileData.findOneAndUpdate({ _id: userId }, {username: newUsername });
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
