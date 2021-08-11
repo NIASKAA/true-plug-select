@@ -127,7 +127,7 @@ const Profile = () => {
               </Tab>
 
               <Tab eventKey="Edit" title="Edit">
-                <Form onSubmit={(event) => handleFormSubmit(event)}>
+                <Form onSubmit={(event) => handleFormSubmit(event)} className="formAll">
                   <Form.Group className="mb-3 formInput" controlId="username">
                     <Form.Label>Username </Form.Label>
                     <Form.Control 

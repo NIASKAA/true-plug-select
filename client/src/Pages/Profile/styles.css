@@ -42,9 +42,23 @@
 
 .mt-2{
     font-family: 'Work Sans', sans-serif;  
+    text-transform: uppercase;
 }
 
 .nav-item.nav-link{
+    color: black;
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+}
+
+.profileCol {
+    background-color: white !important;
+    color: black;
+    font-family: 'Work Sans', sans-serif;
+}
+
+.formAll {
+    background-color: white !important;
     color: black;
     font-family: 'Work Sans', sans-serif;
 }
@@ -52,6 +66,9 @@
 .formInput {
     text-align: left;
     width: 40% !important;
+    background-color: white !important;
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
 }
 
 .profileSpinner {
