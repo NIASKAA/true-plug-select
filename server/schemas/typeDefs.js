@@ -33,6 +33,7 @@ const typeDefs = gql`
       category: String
       brand: String
       seller: profileData
+      channelId: String
       bids: [Bid]
    }
 
@@ -42,14 +43,20 @@ const typeDefs = gql`
    }
 
    type Image {
-      id: Int!
+      _id: Int!
       publicId: String!
    }
 
    type Message {
-      id: ID
+      messageId: ID
       user: String!
       content: String!
+      room(auctionRooms: ID): Channel
+   }
+
+   type Channel {
+      id: ID!
+      auctionRooms(channelID: ID): [Auction]
    }
 
    type Checkout {
@@ -66,14 +73,15 @@ const typeDefs = gql`
       userById(id: ID): profileData
       auctions: [Auction]
       auction(id: String): Auction
-      messages: [Message!] 
+      messages: [Message!]
+      auctionRoom: [Auction]
    }
 
    type Mutation {
       addUser(username: String!, email:String!, firstName:String!, password:String!, lastName: String!, profilePic: String): Auth
       login(email: String!, password: String!): Auth
       auction(itemName: String!, id: ID!, description: String! category: String! brand: String! seller: ID): Auth
-      postMessage(user: String!, content: String!): ID!
+      postMessage(user: String!, content: String!, channelId: String): ID!
       createAuction(itemName: String! description: String, image: String, category: String, brand: String, seller: ID!): Auction
       deleteAuction(id: ID!): Auction
       updateAuction(id: ID!): Auction
@@ -81,6 +89,7 @@ const typeDefs = gql`
       addBid(auctionId: ID! bidAmount: Float!, userId: ID!): Bid
       profileUpload(photo: String): String
       addProfilePic(imageURL: String! id: ID): profileData
+      createRoom(channelId: ID): Auction
    }
 
 `;

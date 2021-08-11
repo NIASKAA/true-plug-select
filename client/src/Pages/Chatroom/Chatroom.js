@@ -15,7 +15,7 @@ const Messages = ({ user }) => {
     return (
         <>
         {/* This return code takes the messages from GET_MESSAGES subscription to display them in Messages */}
-            {data.messages.map(({ id, user: messageUser, content }) => (
+            {data.messages.map(({ id , user: messageUser, content }) => (
                 <Container
                     style={{
                         display: 'flex',

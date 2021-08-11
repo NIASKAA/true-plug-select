@@ -63,11 +63,12 @@ mutation Add_Pic($imageURL: String! $id: ID) {
 `
 // Query built on page to pull chat messages from server
 export const GET_MESSAGES = gql`
-  subscription getMessages {
+  subscription getMessages{
     messages {
-      id 
+      messageId 
       content
       user
+      
     }
   }
 `
