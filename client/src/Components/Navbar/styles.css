@@ -3,7 +3,7 @@
   text-transform: uppercase;
   font-weight: 300px;
   font-size: 100%;
-  color:black;
+  color:rgb(63, 62, 62);
   z-index: 1;
   text-decoration: none;
   margin-right: 10px;
@@ -25,3 +25,26 @@ float: left;
 margin-left: -140px;
 }
 
+.active{
+  background-color: #ffc312;
+  
+}
+.active.navBtns:hover{
+  color: black
+}
+
+.navbar-nav{
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  font-weight: 300px;
+  font-size: 100%;
+  color:gray;
+  z-index: 1;
+  text-decoration: none;
+  margin-right: 10px;
+  justify-content: center;
+  align-items: center;
+}
+a:hover{
+  color: black;
+}
