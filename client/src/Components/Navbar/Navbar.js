@@ -1,14 +1,11 @@
 import React from 'react'
 import { Navbar, Container, Nav, Button} from 'react-bootstrap';
-import {NavLink, Link, useHistory} from 'react-router-dom'; 
+import {NavLink, Link} from 'react-router-dom'; 
 import Auth from '../../utils/auth';
 import './styles.css';
 
 const Navigation = () => {
-  let history = useHistory()
-  const toBrands = () => {
-    history.push('/brands')
-  }
+
     return (
         <>
           <Navbar collapseOnSelect fixed="top" expand="sm" bg='light' variant="light">

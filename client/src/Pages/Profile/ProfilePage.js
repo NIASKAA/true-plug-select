@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useMutation, useQuery} from "@apollo/client";
 import { Query_User } from "../../utils/queries";
 import { Add_Profile_Pic, Update_Username } from "../../utils/mutations";
-import { GET_USER_INFO } from "../../utils/state/actions";
+import { GET_USER_INFO, UPDATE_USERNAME } from "../../utils/state/actions";
 
 import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } from "react-bootstrap";
 import "./styles.css";
@@ -15,7 +15,7 @@ const Profile = () => {
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
   const [updateUsername, setUpdateUsername] = useState("");
-  const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
+  const [addProfilePic] = useMutation(Add_Profile_Pic);
   const [updateUser] = useMutation(Update_Username);
   const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture" });
   const { loading, data } = useQuery(Query_User);
@@ -27,6 +27,13 @@ const Profile = () => {
     }
   }, [loading, data]);  
 
+
+  useEffect(() => {
+    if(loading === false && data) {
+      setUpdateUsername(data.user)
+      dispatch({type: UPDATE_USERNAME, payload: data.user})
+    }
+  }, [loading, data]);
 
   const uploadImage = async (event) => {
     event.preventDefault();
@@ -51,12 +58,22 @@ const Profile = () => {
     }
   };
 
-  const updatingUsername = async (event) => {
-    event.preventDefault();
-    try {
-
-
-    } catch(err) {
+  const handleChangeInput = (event) => {
+    const {name, value} = event.target;
+    setUpdateUsername({...updateUsername, [name]: value})
+  }
+  
+  const handleFormSubmit = async (event) => {
+    event.preventDefault()
+    try{  
+      const { username } = updateUsername
+      const updateResponse = await updateUser({
+        variables: {
+          newUsername: updateUsername.username
+        }
+      });
+      dispatch({type: UPDATE_USERNAME, payload: updateResponse.data.updateUser})
+    } catch (err) {
       console.log(err)
     }
   }
@@ -110,12 +127,17 @@ const Profile = () => {
               </Tab>
 
               <Tab eventKey="Edit" title="Edit">
-                <Form>
+                <Form onSubmit={(event) => handleFormSubmit(event)} className="formAll">
                   <Form.Group className="mb-3 formInput" controlId="username">
                     <Form.Label>Username </Form.Label>
-                    <Form.Control type="username" placeholder="Enter username" />
+                    <Form.Control 
+                      name="username"
+                      type="username" 
+                      value={updateUsername.username}
+                      onChange={handleChangeInput}
+                      placeholder="Enter username" />
                   </Form.Group>
-                  <Button variant="light" className="submitBtn" onChange={""}>
+                  <Button type="submit" variant="light" className="submitBtn">
                     Submit
                   </Button>
                 </Form>

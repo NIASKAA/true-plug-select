@@ -200,7 +200,6 @@ const resolvers = {
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
       //console.log(context);
-      
       let userId = context.user ? context.user._id : id;
       //console.log(userId);
       const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });

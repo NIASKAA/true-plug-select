@@ -56,7 +56,6 @@ export const Update_Username = gql`
   mutation updateUser($newUsername: String! $id: ID) {
     updateUser(newUsername: $newUsername id: $id) {
       username
-      email
     }
   }
   `
