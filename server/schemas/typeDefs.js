@@ -73,7 +73,6 @@ const typeDefs = gql`
       userById(id: ID): profileData
       auctions: [Auction]
       auction(id: String): Auction
-      messages: [Message!]
       auctionRoom: [Auction]
       getAllBidsByAuction(auctionId: ID!): [Bid]
       messages: [Message!] 
