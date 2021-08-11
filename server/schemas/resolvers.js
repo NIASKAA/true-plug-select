@@ -55,6 +55,10 @@ const resolvers = {
       return maxBid;
     },
     messages: () => messages,
+
+    auctionRoom: async (parent, args) => {
+      return await Auction.findById(args.id).populate("bids").populate("seller")
+    },
     /*bid: async (parent, args, context) => {
       if(context.user) {
         const user = await profileData.findByid(context.user._id).populate("bids").populate("seller");
@@ -142,16 +146,25 @@ const resolvers = {
     },
 
     postMessage: (parent, { user, content }) => {
-      const id = messages.length;
+      const messageId = messages.length;
       messages.push({
-        id,
+        messageId,
         user,
         content,
       });
       // Alerts server that there is a new message
       subscribers.forEach((fn) => fn());
-      return id;
+      return messageId;
     },
+    // createRoom: async (parent, args, context) => {
+    //   const { channelId, room } = args;
+    //   const newRoom = await Auction.create({ _id: channelId })
+    //   console.log(room)
+    //   return {
+    //     id: newRoom.id,
+    //     room
+    //   };
+    // },
     addBid: async (parent, args, context) => {
       const { bidAmount, auctionId, userId } = args;
       const bid = await Bid.create({
@@ -186,9 +199,9 @@ const resolvers = {
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
-      console.log(context);
+      //console.log(context);
       let userId = context.user._id ? context.user._id : id;
-      console.log(userId);
+      //console.log(userId);
       const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
       return user;
     },
