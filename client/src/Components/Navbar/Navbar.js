@@ -31,7 +31,7 @@ const Navigation = () => {
                       <Nav.Link exact activeClassName="active"className="navBtns" onClick={Auth.logout}>Logout</Nav.Link>
                     </>
                   ) : (
-                    <Nav.Link className="navBtns" as={Link} to={'/login'}>Login</Nav.Link>
+                    <Nav.Link exact activeClassName="active" className="navBtns" as={Link} to={'/login'}>Login</Nav.Link>
                   )}
                 </Nav>
               </Navbar.Collapse>

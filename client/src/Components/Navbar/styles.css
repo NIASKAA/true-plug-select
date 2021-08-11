@@ -13,6 +13,8 @@
 
 .navBtns:hover {
   background-color: #ffc312 !important;
+  text-decoration: none;
+  color: black;
 }
 
 #navbarDropdown::after {
