@@ -119,7 +119,19 @@ export const Delete_Product = gql`
 export const Win_Auction = gql`
   mutation wonAuction($auctionId: ID!){
     auctionId(auctionId: $auctionId) {
-      auction
+      bidAmount
+      timeCreated
+      bidder {
+        _id
+        username
+      }
+    }
+  }`
+
+export const AddBid_Amount = gql`
+  mutation addingBid($auctionId: ID! $bidAmount: Float!, $userId: ID!){
+    addBid(auctionId: $auctionId bidAmount: $bidAmount userId: $userId) {
+      auctionId
       bidAmount
       timeCreated
       bidder {

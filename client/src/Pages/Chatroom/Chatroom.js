@@ -4,7 +4,7 @@ import { useHistory, useParams } from "react-router-dom";
 import { Query_User, Get_All_Products } from "../../utils/queries";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ALL_PRODUCTS, GET_USER_INFO } from "../../utils/state/actions";
-import { GET_MESSAGES, POST_MESSAGE } from "../../utils/mutations";
+import { GET_MESSAGES, POST_MESSAGE, AddBid_Amount } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import "./styles.css";
