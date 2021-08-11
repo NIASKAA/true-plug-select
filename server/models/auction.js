@@ -10,9 +10,9 @@ const auctionSchema = new mongoose.Schema({
   seller: { type: mongoose.Schema.ObjectId, ref: "profileData" },
   category: {type: String},
   brand: {type: String},
-  created: { type: Date, default: Date.now() },
-  bidStart: { type: Date, default: Date.now() },
-  bidEnd: { type: Date, default: Date.now() },
+  created: { type: String, default: Date.now() },
+  bidStart: { type: String, default: Date.now() },
+  bidEnd: { type: String, default: Date.now() },
   bids: [bidSchema],
   startingPrice: { type: Number, default: 0 },
   // channelId: { type: String, default: 0 }
