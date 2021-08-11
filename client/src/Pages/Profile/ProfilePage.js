@@ -14,7 +14,7 @@ const Profile = () => {
   const state = useSelector((state) => state);
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
-  const [updateUsername, setUpdateUsername] = useState("");
+  const [updateUsername, setUpdateUsername] = useState('');
   const [addProfilePic, { err }] = useMutation(Add_Profile_Pic);
   const [updateUser] = useMutation(Update_Username);
   const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture" });
@@ -27,6 +27,13 @@ const Profile = () => {
     }
   }, [loading, data]);  
 
+
+  /*useEffect(() => {
+    if(loading === false && data) {
+
+      dispatch({type: UPDATE_USERNAME, payload: data.user})
+    }
+  }, [loading, data]);*/
 
   const uploadImage = async (event) => {
     event.preventDefault();
@@ -51,11 +58,20 @@ const Profile = () => {
     }
   };
 
-  const updatingUsername = async (event) => {
+  const handleInputChange = (event) => {
+    setUpdateUsername(event.target.value)
+  }
+
+  const handleFormSubmit = async(event) => {
     event.preventDefault();
     try {
-
-
+      const updateResponse = await updateUser({
+        variables: {
+          username: updateUsername.data
+        },
+      })
+      console.log(data)
+      setUpdateUsername({...profileData, username: updateResponse.data})
     } catch(err) {
       console.log(err)
     }
@@ -110,12 +126,17 @@ const Profile = () => {
               </Tab>
 
               <Tab eventKey="Edit" title="Edit">
-                <Form>
+                <Form onSubmit={handleFormSubmit}>
                   <Form.Group className="mb-3 formInput" controlId="username">
                     <Form.Label>Username </Form.Label>
-                    <Form.Control type="username" placeholder="Enter username" />
+                    <Form.Control 
+                      name="username"
+                      type="username" 
+                      value={updateUsername}
+                      onChange={handleInputChange}
+                      placeholder="Enter username" />
                   </Form.Group>
-                  <Button variant="light" className="submitBtn" onChange={""}>
+                  <Button type="submit" variant="light" className="submitBtn">
                     Submit
                   </Button>
                 </Form>

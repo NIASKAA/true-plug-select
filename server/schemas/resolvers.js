@@ -194,13 +194,13 @@ const resolvers = {
       return await Auction.findOneAndUpdate({ _id: args.id }, { args });
     },
     updateUser: async (parent, {newUsername, id}, context) => {
-      let userId = context.user._id ? context.user._id : id;
+      let userId = context.user ? context.user._id : id;
       return await profileData.findOneAndUpdate({ _id: userId }, {username: newUsername });
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
       //console.log(context);
-      let userId = context.user._id ? context.user._id : id;
+      let userId = context.user ? context.user._id : id;
       //console.log(userId);
       const user = await profileData.findOneAndUpdate({ _id: userId }, { profilePic: imageURL });
       return user;
