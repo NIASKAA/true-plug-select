@@ -117,14 +117,9 @@ export const Delete_Product = gql`
 `
 
 export const Win_Auction = gql`
-  mutation wonAuction($auctionId: ID!){
-    auctionId(auctionId: $auctionId) {
+  mutation WinAuction($auctionId: ID!){
+    winAuction(auctionId: $auctionId) {
       bidAmount
-      timeCreated
-      bidder {
-        _id
-        username
-      }
     }
   }`
 
