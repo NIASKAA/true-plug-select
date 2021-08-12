@@ -189,7 +189,7 @@ const AuctionSubmitForm = () => {
                   <Form.Label>Brand</Form.Label>
                   <Form.Control
                     name="brand"
-                    value={formState.description}
+                    value={formState.brand}
                     onChange={handleChange}
                     type="brand"
                     placeholder="brand"

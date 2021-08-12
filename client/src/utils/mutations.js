@@ -77,7 +77,6 @@ export const GET_MESSAGES = gql`
       messageId 
       content
       user
-      
     }
   }
 `

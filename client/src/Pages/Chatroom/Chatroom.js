@@ -11,9 +11,9 @@ import {
    Spinner,
 } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
-import { Query_User, Get_All_Products, Get_Max_Bid } from "../../utils/queries";
+import { Query_User, Get_All_Products, Get_Max_Bid, Get_Sold_Auctions } from "../../utils/queries";
 import { useDispatch, useSelector } from "react-redux";
-import { GET_ALL_PRODUCTS, GET_USER_INFO } from "../../utils/state/actions";
+import { GET_ALL_PRODUCTS, GET_USER_INFO, UPDATE_SOLD_PRODUCTS} from "../../utils/state/actions";
 import {
    GET_MESSAGES,
    POST_MESSAGE,
