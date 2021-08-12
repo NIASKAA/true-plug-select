@@ -70,7 +70,7 @@ export const Get_Max_Bid = gql`
 `;
 
 export const Get_All_Bids_Auction = gql`
-  query getAllBids($auctionId: ID) {
+  query getAllBids($auctionId: ID!) {
     getAllBidsByAuction(auctionId: $auctionId) {
       bidAmount
       bidder {

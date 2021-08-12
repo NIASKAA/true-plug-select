@@ -3,7 +3,9 @@ const { AuthenticationError } = require("apollo-server-express");
 const { PubSub } = require("graphql-yoga");
 const { signToken } = require("../utils/auth");
 const cloudinary = require("cloudinary");
+const stripe = require('stripe')('sk_test_51Iuh6nAyuy17BR8EUVi1F5xCQeIc6RmbTVrQutJLVJ9ylJwk3JJWCTVkUNRwUwi3gvDS8j0hHPjQMZ6mZUlIoSsx00CsgG737u')
 require("dotenv").config();
+
 
 // These 3 lines contain the messages array, subscribers contains the channels that are made for chat in apollo-server, and onMessagesUpdates pushes the messages
 const messages = [];
@@ -65,32 +67,20 @@ const resolvers = {
       }
     },*/
     /*checkout: async (parent, args, context) => {
-      const line_items= [];
-      
-        const wonProduct = await stripe.products.create({
-          name:
-          description:
-          images:
-        })
-
-        const price = await stripe.prices.create({
-          product: auctionId.id
-          unit_amount: 
-          currency: 'usd'
-        }) 
-
-        line_items.push({
-          price: maxBid
-          quantity: 1
-        })
-
-        const session = await stripe.checkout.sessions.create({
+      const url = new URL(context.headers.referer).origin;
+      const user = await profileData.findById(context.user._id).populate("bids").populate("seller");
+      const line_items= [{
+        price: user.bidsWon[0].bidAmount,
+        quantity: 1
+      }];
+      const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items,
         mode: 'payment',
-        success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${url}/`
-      });
+        success_url: `${url}?success=true`,
+        cancel_url: `${url}?canceled=true`
+      })
+      return {session: session.id}
     },*/
   },
   Mutation: {
