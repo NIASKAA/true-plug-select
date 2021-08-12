@@ -156,7 +156,7 @@ const Chatroom = () => {
          } else {
             setTimeRemaining(getTimeRemaining(customDeadline));
          }
-         if (timeRemaining.total <= 0) {
+         if (timeRemaining.total === 0) {
             winAuction({
                variables: {
                   auctionId: bidId,

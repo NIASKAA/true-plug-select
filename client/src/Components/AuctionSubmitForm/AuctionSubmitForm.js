@@ -241,7 +241,7 @@ const AuctionSubmitForm = () => {
                     You must agree before submitting.
                   </Form.Control.Feedback>{" "}
                 </Form.Group>
-                <Button type="submit" variant="light" className="submitBtn">
+                <Button type="submit" variant="light" className="auctionBtn">
                   Submit
                 </Button>
               </Form>

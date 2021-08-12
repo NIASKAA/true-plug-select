@@ -18,7 +18,7 @@
     text-transform: uppercase;
 }
 
-.submitBtn {
+.auctionBtn {
     font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
     font-weight: 300px;
@@ -30,6 +30,6 @@
     align-items: center;
 }
 
-.submitBtn:hover {
+.auctionBtn:hover {
     background-color: #ffc312 !important;
 }
