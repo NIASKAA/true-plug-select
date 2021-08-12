@@ -81,11 +81,11 @@ export const Get_All_Bids_Auction = gql`
   }
 `;
 
-/*export const Query_Checkout = gql`
-  query getCheckout($auctions: [ID]!) {
-    checkout(auctions: $auctions) {
-      session
-    }
+export const Get_Checkout = gql`
+  query Checkout($id: ID!){
+  checkout(id: $id) {
+    session
   }
-`;*/
+
+}`
 
