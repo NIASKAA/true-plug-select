@@ -90,20 +90,27 @@ const Chatroom = () => {
     if (!productsLoading) {
       dispatch({ type: Get_All_Products, payload: productData });
       setBidInfo(productData.auctions.filter((auction) => auction._id === bidId)[0]);
-      setTimeRemaining(getTimeRemaining(bidInfo?.bidEnd));
     } else {
       setBidInfo(state.auctions.filter((auction) => auction._id === bidId)[0]);
-      setTimeRemaining(getTimeRemaining(bidInfo?.bidEnd));
     }
-  }, [productsLoading, productData]);
+  }, [productsLoading]);
 
   useEffect(() => {
     if (bidInfo) {
       console.log(bidInfo.bidEnd);
-      setTimeRemaining(getTimeRemaining(bidInfo.bidEnd));
       console.log(timeRemaining);
     }
-  }, [productsLoading, productData]);
+  }, [productsLoading]);
+
+
+  useEffect(() => {
+    var timer = setTimeout(function(){
+      if(bidInfo!=undefined) {
+        setTimeRemaining(getTimeRemaining(bidInfo.bidEnd));
+        console.log()
+      }
+    },1000)
+  },[timeRemaining])
 
   const redirect = () => {
     history.push("/login");
@@ -128,11 +135,7 @@ const Chatroom = () => {
     height: "40px",
   };
 
-  let time = setInterval(function () {
-    if (bidInfo) {
-      setTimeRemaining(bidInfo.bidEnd);
-    }
-  }, 1000);
+
 
   /*<Col xs={3} style={{ padding: 0 }}>
     <input

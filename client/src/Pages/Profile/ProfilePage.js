@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { useMutation, useQuery} from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
 import { Add_Profile_Pic, Update_Username } from "../../utils/mutations";
 import { GET_USER_INFO, UPDATE_USERNAME } from "../../utils/state/actions";
@@ -17,7 +17,12 @@ const Profile = () => {
   const [updateUsername, setUpdateUsername] = useState("");
   const [addProfilePic] = useMutation(Add_Profile_Pic);
   const [updateUser] = useMutation(Update_Username);
-  const [profileData, setProfileData] = useState({ email: "No user email ", username: "No username", profilePic: "No profile picture", bidsWon: "No Bids Won" });
+  const [profileData, setProfileData] = useState({
+    email: "No user email ",
+    username: "No username",
+    profilePic: "No profile picture",
+    bidsWon: "No Bids Won",
+  });
   const { loading, data } = useQuery(Query_User);
 
   useEffect(() => {
@@ -25,23 +30,22 @@ const Profile = () => {
       setProfileData(data.user);
       dispatch({ type: GET_USER_INFO, payload: data.user });
     }
-  }, [loading, data]);  
-
+  }, [loading, data]);
 
   useEffect(() => {
-    if(loading === false && data) {
-      setUpdateUsername(data.user)
-      dispatch({type: UPDATE_USERNAME, payload: data.user})
+    if (loading === false && data) {
+      setUpdateUsername(data.user);
+      dispatch({ type: UPDATE_USERNAME, payload: data.user });
     }
   }, [loading, data]);
 
   const uploadImage = async (event) => {
     event.preventDefault();
-    try{
+    try {
       const imageData = new FormData();
       imageData.append("file", imageSelected);
       imageData.append("upload_preset", "lz6oie8l");
-      console.log(imageData.get("file"), imageData.get("upload_preset"))
+      console.log(imageData.get("file"), imageData.get("upload_preset"));
       const response = await Axios.post(
         `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
         imageData
@@ -51,39 +55,37 @@ const Profile = () => {
           imageURL: response.data.secure_url,
         },
       });
-      setProfileData({ ...profileData, profilePic: response.data.secure_url});
-
-    }catch(err) {
+      setProfileData({ ...profileData, profilePic: response.data.secure_url });
+    } catch (err) {
       console.log(err);
     }
   };
 
   const handleChangeInput = (event) => {
-    const {name, value} = event.target;
-    setUpdateUsername({...updateUsername, [name]: value})
-  }
-  
+    const { name, value } = event.target;
+    setUpdateUsername({ ...updateUsername, [name]: value });
+  };
+
   const handleFormSubmit = async (event) => {
-    event.preventDefault()
-    try{  
-      const { username } = updateUsername
+    event.preventDefault();
+    try {
+      const { username } = updateUsername;
       const updateResponse = await updateUser({
         variables: {
-          newUsername: updateUsername.username
-        }
+          newUsername: updateUsername.username,
+        },
       });
-      dispatch({type: UPDATE_USERNAME, payload: updateResponse.data.updateUser})
+      dispatch({ type: UPDATE_USERNAME, payload: updateResponse.data.updateUser });
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
-  console.log(profileData.bidsWon[0].auction._id)
+  };
+  //console.log(profileData?.bidsWon[0]?.auction._id)
 
-  if (loading) return <Spinner className="profileSpinner" animation="grow" variant="dark"/>;
+  if (loading) return <Spinner className="profileSpinner" animation="grow" variant="dark" />;
 
   return (
     <>
-    
       <Container className="profileContainer">
         <Row>
           <Col class="col-lg-8 order-lg-2">
@@ -111,17 +113,19 @@ const Profile = () => {
                       <Card>
                         <h4 class="mt-2 profileInfo">Recent Bids</h4>
                         <Table class="table table-sm table-hover table-striped">
-                          <tbody className="tableInfo">
-                            <tr>
-                              <td>Product ID: {profileData.bidsWon[0].auction._id}</td>
-                            </tr>
-                            <tr>
-                              <td>Price: {profileData.bidsWon[0].bidAmount} </td>
-                            </tr>
-                            <tr>
-                              <td>Date: {profileData.bidsWon[0].timeCreated}</td>
-                            </tr>
-                          </tbody>
+                          { profileData?.bidsWon[0]?.auction!== undefined && (
+                            <tbody className="tableInfo">
+                              <tr>
+                                <td>Product ID: {profileData.bidsWon[0].auction._id}</td>
+                              </tr>
+                              <tr>
+                                <td>Price: {profileData.bidsWon[0].bidAmount} </td>
+                              </tr>
+                              <tr>
+                                <td>Date: {profileData.bidsWon[0].timeCreated}</td>
+                              </tr>
+                            </tbody>
+                          )}
                         </Table>
                       </Card>
                     </Col>
@@ -133,12 +137,13 @@ const Profile = () => {
                 <Form onSubmit={(event) => handleFormSubmit(event)} className="formAll">
                   <Form.Group className="mb-3 formInput" controlId="username">
                     <Form.Label>Username </Form.Label>
-                    <Form.Control 
+                    <Form.Control
                       name="username"
-                      type="username" 
+                      type="username"
                       value={updateUsername.username}
                       onChange={handleChangeInput}
-                      placeholder="Enter username" />
+                      placeholder="Enter username"
+                    />
                   </Form.Group>
                   <Button type="submit" variant="light" className="submitBtn">
                     Submit
