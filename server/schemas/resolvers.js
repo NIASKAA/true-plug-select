@@ -174,12 +174,13 @@ const resolvers = {
     //   };
     // },
     addBid: async (parent, args, context) => {
+      console.log(args);
       const { bidAmount, auctionId, userId } = args;
       const bid = await Bid.create({
         bidAmount: bidAmount,
         auction: auctionId,
         bidder: userId,
-      });
+      })
       const product = await Auction.findOneAndUpdate(
         { _id: args.auctionId },
         {
@@ -193,7 +194,7 @@ const resolvers = {
         }
       );
 
-      return bid;
+      return await bid.populate("auction");
     },
     deleteAuction: async (parent, { id }) => {
       return await Auction.findOneAndDelete({ _id: id });
