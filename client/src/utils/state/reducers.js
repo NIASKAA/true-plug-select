@@ -4,7 +4,8 @@ import {
   ADD_AUCTION,
   ADD_TO_CART,
   GET_SOLD_PRODUCTS,
-  UPDATE_USERNAME
+  UPDATE_USERNAME,
+  UPDATE_SOLD_PRODUCTS
 } from "./actions";
 
 export const reducers = (state, action) => {
@@ -37,6 +38,11 @@ export const reducers = (state, action) => {
         return {
           ...state,
           recentlySold: action.payload
+        }
+      case UPDATE_SOLD_PRODUCTS:
+        return {
+          ...state,
+          recentlySold: [...state.recentlySold, action.payload]
         }
     default:
       return state;

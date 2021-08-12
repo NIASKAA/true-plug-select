@@ -33,14 +33,14 @@ const Profile = () => {
       setProfileData(data.user);
       dispatch({ type: GET_USER_INFO, payload: data.user });
     }
-  }, [loading, data]);
+  }, [loading, data, dispatch]);
 
   useEffect(() => {
     if (loading === false && data) {
       setUpdateUsername(data.user);
       dispatch({ type: UPDATE_USERNAME, payload: data.user });
     }
-  }, [loading, data]);
+  }, [loading, data, dispatch]);
 
   const uploadImage = async (event) => {
     event.preventDefault();

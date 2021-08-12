@@ -11,12 +11,11 @@ const RecentlySold = () => {
     const {loading, data} = useQuery(Get_Sold_Auctions);
     const [soldProducts, setSoldProducts] = useState(undefined);
     useEffect(()=> {
-
         if(!loading && data) {
             setSoldProducts(data.recentlySoldAuctions);
         }
                 
-    })
+    },[loading, data])
     const cardStyle = {
         width: "18rem"
     }
@@ -35,7 +34,7 @@ const RecentlySold = () => {
                 {!loading &&
                    soldProducts &&
                    soldProducts.map((product) => (
-                      <Card style={cardStyle}>
+                      <Card key={product._id} style={cardStyle}>
                          <Card.Img src="" className="card-img-top" style={imgStyle} />
                          <Card.Body>
                             <Row>
