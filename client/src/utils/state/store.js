@@ -6,6 +6,7 @@ const initialState = {
    recentBids: [],
    profileData:{},
    auctions: [],
+   recentlySold:[],
    cart: [],
    cartOpen: false,
    categories: [],

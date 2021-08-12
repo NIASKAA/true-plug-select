@@ -90,3 +90,22 @@ export const Get_Checkout = gql`
 
 }`
 
+export const Get_Sold_Auctions = gql`
+   {
+      recentlySoldAuctions {
+         _id
+         itemName
+         image
+         price
+         description
+         category
+         priceSold
+         brand
+         bidEnd
+         seller {
+            username
+            _id
+         }
+      }
+   }
+`;

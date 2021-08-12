@@ -75,6 +75,8 @@ const AuctionSubmitForm = () => {
     console.log(profileData)
     const { name, value } = event.target;
     setFormState({ ...formState, [name]: value });
+
+    console.log(formState);
   };
 
   // handles the whole bid submit process
@@ -101,7 +103,7 @@ const AuctionSubmitForm = () => {
           description,
           brand,
           startingPrice: Number(startingPrice),
-          bidEnd,
+          bidEnd: new Date(bidEnd),
           seller:profileData._id,
           image: productImage,
         },

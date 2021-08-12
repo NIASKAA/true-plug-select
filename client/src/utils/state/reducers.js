@@ -2,6 +2,8 @@ import {
   GET_USER_INFO,
   GET_ALL_PRODUCTS,
   ADD_AUCTION,
+  ADD_TO_CART,
+  GET_SOLD_PRODUCTS,
   UPDATE_USERNAME
 } from "./actions";
 
@@ -30,7 +32,12 @@ export const reducers = (state, action) => {
           ...state,
           profileData: {...action.payload},
         };
-        
+      
+      case GET_SOLD_PRODUCTS:
+        return {
+          ...state,
+          recentlySold: action.payload
+        }
     default:
       return state;
   }

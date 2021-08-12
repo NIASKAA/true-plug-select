@@ -14,7 +14,6 @@ const subscribers = [];
 const onMessagesUpdates = (fn) => subscribers.push(fn);
 
 const resolvers = {
-
    Query: {
       users: async () => {
          return await profileData.find({});
@@ -33,10 +32,13 @@ const resolvers = {
          return await profileData.findById(args.id).populate("bids").populate("auction");
       },
       auctions: async () => {
-         return await Auction.find({}).populate("bids").populate("seller");
+         return await Auction.find({ sold: false }).populate("bids").populate("seller");
       },
       auction: async ({ id }) => {
          return await Auction.findById(id).populate("bids");
+      },
+      recentlySoldAuctions: async (parent) => {
+         return await Auction.find({ sold: true }).populate("bids").populate("auction");
       },
       getAllBidsByAuction: async (parent, { auctionId }) => {
          // find auction being sold and set it as sold
@@ -146,7 +148,6 @@ const resolvers = {
 
          const { bids } = auction;
 
-
          // set the maxBid as the first Bid
          let maxBid = bids[bids.length - 1];
 
@@ -156,10 +157,12 @@ const resolvers = {
             }
          });
 
+         auction.priceSold = maxBid.bidAmount;
          const winner = await profileData.findByIdAndUpdate(maxBid.bidder, {
             $push: { bidsWon: maxBid },
          });
 
+         await auction.save();
          return maxBid;
       },
 
