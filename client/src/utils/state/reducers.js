@@ -1,11 +1,10 @@
 import {
   GET_USER_INFO,
-  UPDATE_CATEGORIES,
   GET_ALL_PRODUCTS,
   ADD_AUCTION,
   ADD_TO_CART,
-  UPDATE_USERNAME,
-  GET_SOLD_PRODUCTS
+  GET_SOLD_PRODUCTS,
+  UPDATE_USERNAME
 } from "./actions";
 
 export const reducers = (state, action) => {

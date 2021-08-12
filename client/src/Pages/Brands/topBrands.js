@@ -2,10 +2,6 @@ import React from 'react'
 import {Container, Row, Col, Card} from 'react-bootstrap';
 import './styles.css'
 const TopBrands = () => {
-    const imgStyle = {
-        width: "50px",
-        borderRadius: "8%"
-    }
     return (
         <>
             <Container className='brandContainer'>

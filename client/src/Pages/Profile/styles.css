@@ -1,9 +1,11 @@
 .profileContainer {
     margin: 6%;
+    background-color: white !important;
 }
 
 .tableInfo {
     text-align: left;
+    font-size: 15px !important;
 }
 
 .profileBtns {
@@ -77,4 +79,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+.testing {
+   background-color: white !important;
 }

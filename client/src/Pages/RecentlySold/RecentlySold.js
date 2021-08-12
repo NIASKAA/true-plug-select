@@ -27,6 +27,7 @@ const RecentlySold = () => {
     }
 
     return (
+
        <>
           <Container className="soldContainers">
              <h2 className="font-weight-light">Recently Sold</h2>

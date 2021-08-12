@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useMutation, useQuery } from "@apollo/client";
 import { Query_User } from "../../utils/queries";
 import { Add_Profile_Pic, Update_Username } from "../../utils/mutations";
 import { GET_USER_INFO, UPDATE_USERNAME } from "../../utils/state/actions";
 
-import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner } from "react-bootstrap";
+import { Container, Row, Card, Col, Tabs, Tab, Button, Form, Table, Spinner, Alert } from "react-bootstrap";
 import "./styles.css";
 
 const Profile = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
   let CLOUD_NAME = process.env.REACT_APP_CLOUD_NAME;
   const [imageSelected, setImageSelected] = useState("");
   const [updateUsername, setUpdateUsername] = useState("");
@@ -24,6 +23,10 @@ const Profile = () => {
     bidsWon: "No Bids Won",
   });
   const { loading, data } = useQuery(Query_User);
+  const [errors, setErrors] = useState({
+    updateUsernameSuccess: null,
+    updateError: null,
+  })
 
   useEffect(() => {
     if (loading === false && data) {
@@ -69,29 +72,31 @@ const Profile = () => {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const { username } = updateUsername;
+  
       const updateResponse = await updateUser({
         variables: {
           newUsername: updateUsername.username,
         },
       });
+      setErrors({...errors, updateUsernameSuccess: true})
       dispatch({ type: UPDATE_USERNAME, payload: updateResponse.data.updateUser });
     } catch (err) {
       console.log(err);
+      setErrors({...errors, updateError: true})
     }
   };
-  //console.log(profileData?.bidsWon[0]?.auction._id)
+
 
   if (loading) return <Spinner className="profileSpinner" animation="grow" variant="dark" />;
 
   return (
     <>
       <Container className="profileContainer">
-        <Row>
+        <Row className="testing">
           <Col class="col-lg-8 order-lg-2">
-            <Tabs defaultActiveKey="profile" id="uncontrolled-tab-example" className="mb-3">
+            <Tabs defaultActiveKey="profile"  className="mb-3">
               <Tab eventKey="Info" title="Info">
-                <Row>
+                <Row className="testing">
                   {!loading && profileData && (
                     <Col className="col-md-6">
                       <Card className="infoCard">
@@ -135,19 +140,23 @@ const Profile = () => {
 
               <Tab eventKey="Edit" title="Edit">
                 <Form onSubmit={(event) => handleFormSubmit(event)} className="formAll">
-                  <Form.Group className="mb-3 formInput" controlId="username">
-                    <Form.Label>Username </Form.Label>
-                    <Form.Control
-                      name="username"
-                      type="username"
-                      value={updateUsername.username}
-                      onChange={handleChangeInput}
-                      placeholder="Enter username"
-                    />
-                  </Form.Group>
-                  <Button type="submit" variant="light" className="submitBtn">
-                    Submit
-                  </Button>
+                  {errors.updateUsernameSuccess &&  <Alert variant="success"> Username updated successfully</Alert>}
+                  {errors.updateError && (
+                    <Alert variant="danger">Username failed to update</Alert>
+                  )}
+                    <Form.Group className="mb-3 formInput" controlId="username">
+                      <Form.Label>Username </Form.Label>
+                      <Form.Control
+                        name="username"
+                        type="username"
+                        value={updateUsername.username}
+                        onChange={handleChangeInput}
+                        placeholder="Enter username"
+                      />
+                    </Form.Group>
+                    <Button type="submit" variant="light" className="submitBtn">
+                      Submit
+                    </Button>
                 </Form>
               </Tab>
             </Tabs>
