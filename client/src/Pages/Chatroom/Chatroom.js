@@ -230,6 +230,7 @@ const Chatroom = () => {
                     <ul>
                       <li className="infoList">Name: {bidInfo.itemName}</li>
                       <li className="infoList">Description: {bidInfo.description} </li>
+                      <li className="infoList">Starting Price: {bidInfo.price} </li>
                       <li className="infoList" id="price">
                         Price: {maxBid}
                       </li>
