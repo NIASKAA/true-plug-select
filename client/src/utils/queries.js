@@ -34,6 +34,7 @@ export const Get_All_Products = gql`
       _id
       itemName
       image
+      price
       description
       category
       brand

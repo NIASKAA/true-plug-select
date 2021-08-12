@@ -298,6 +298,7 @@ const Chatroom = () => {
                   )}
                </Col>
 
+
                <Col className="col-md-8 col-xl-6">
                   <Card className="chatCard">
                      <Container className=" scrollbar chatContainer">

@@ -6,6 +6,7 @@ const { bidSchema } = require("./bids");
 const auctionSchema = new mongoose.Schema({
   itemName: { type: String, trim: true, required: "No item name was entered" },
   description: { type: String, trim: true },
+  price: {type: Number},
   image: { type: String },
   seller: { type: mongoose.Schema.ObjectId, ref: "profileData" },
   category: {type: String},

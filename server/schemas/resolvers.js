@@ -14,6 +14,7 @@ const subscribers = [];
 const onMessagesUpdates = (fn) => subscribers.push(fn);
 
 const resolvers = {
+
    Query: {
       users: async () => {
          return await profileData.find({});

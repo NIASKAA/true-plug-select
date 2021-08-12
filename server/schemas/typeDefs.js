@@ -30,6 +30,7 @@ const typeDefs = gql`
       _id: ID
       itemName: String
       image: String
+      price: Float
       description: String
       category: String
       brand: String
@@ -87,7 +88,7 @@ const typeDefs = gql`
       login(email: String!, password: String!): Auth
       auction(itemName: String!, id: ID!, description: String! category: String! brand: String! seller: ID): Auth
       postMessage(user: String!, content: String!, channelId: String): ID!
-      createAuction(itemName: String! description: String, image: String, category: String, brand: String, seller: ID!): Auction
+      createAuction(itemName: String! description: String, price: Float, image: String, category: String, brand: String, seller: ID!): Auction
       deleteAuction(id: ID!): Auction
       updateAuction(id: ID!): Auction
       updateUser(newUsername: String! id: ID): profileData
