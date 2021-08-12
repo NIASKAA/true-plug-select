@@ -172,7 +172,7 @@ const Chatroom = () => {
               payload: productData.auctions.filter(auction=> auction._id!== bidId)
             });
          }
-         console.log(timeRemaining.total);
+         //console.log(timeRemaining.total);
       }, 1000);
    }, [timeRemaining]);
 
@@ -293,7 +293,6 @@ const Chatroom = () => {
                                  <li className="infoList" id="price">
                                     Current Price: {maxBid}
                                  </li>
-                                 <li className="infoList">Size: {bidInfo.size} </li>
                                  <li className="infoList">Brand:{bidInfo.brand} </li>
                                  <li className="infoList">
                                     Category:{bidInfo.category}{" "}

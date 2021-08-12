@@ -129,7 +129,7 @@ const AuctionSubmitForm = () => {
   };
 
   return (
-    <Container>
+    <Container className="auctionContain">
       {createProductLoading ? (
         <Spinner animation="border" role="status" />
       ) : (
