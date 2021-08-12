@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Container, Card, Form, Button} from 'react-bootstrap'
 import { loadStripe } from '@stripe/stripe-js';
 import Auth from '../../utils/auth'
 import './styles.css'
-
-const stripePromise = loadStripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+const stripePromise = loadStripe('pk_test_51Iuh6nAyuy17BR8EvFLWRonr4uXr83y7IX58uJU6cF9fMJ2MKULdrxjTRynrGbqVRhQOU789XUXxf4LsMUdLcLLc00aRzQIJME')
 
 const Checkout = () => {
     return (
