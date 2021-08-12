@@ -90,8 +90,8 @@ export const POST_MESSAGE = gql`
 
 
 export const Create_Auction = gql`
-  mutation addBidForm($itemName: String! $description: String, $price: Float, $image: String, $category: String, $brand: String, $seller: ID!) {
-    createAuction(itemName: $itemName description: $description price: $price image: $image category: $category brand: $brand seller: $seller) {
+  mutation addBidForm($itemName: String! $bidEnd:String! $description: String, $price: Float, $image: String, $category: String, $brand: String, $seller: ID!) {
+    createAuction(itemName: $itemName bidEnd:$bidEnd description: $description price: $price image: $image category: $category brand: $brand seller: $seller) {
       itemName
       _id
       description
@@ -99,6 +99,7 @@ export const Create_Auction = gql`
       image
       category
       brand
+      bidEnd
       seller {
         _id
         username

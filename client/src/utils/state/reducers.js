@@ -4,7 +4,8 @@ import {
   GET_ALL_PRODUCTS,
   ADD_AUCTION,
   ADD_TO_CART,
-  UPDATE_USERNAME
+  UPDATE_USERNAME,
+  GET_SOLD_PRODUCTS
 } from "./actions";
 
 export const reducers = (state, action) => {
@@ -32,7 +33,12 @@ export const reducers = (state, action) => {
           ...state,
           profileData: {...action.payload},
         };
-        
+      
+      case GET_SOLD_PRODUCTS:
+        return {
+          ...state,
+          recentlySold: action.payload
+        }
     default:
       return state;
   }

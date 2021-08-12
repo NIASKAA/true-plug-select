@@ -120,7 +120,7 @@ const Chatroom = () => {
    // on mount procedures
    useEffect(() => {
       if (!userDataLoading) {
-         const { username } = userData ? userData.user : { user: "unidentified user" };
+         const { username } = userData?.user ? userData.user : { user: "unidentified user" };
          messageSet({ ...message, user: username });
       }
    }, [userDataLoading, userData]);
@@ -137,7 +137,7 @@ const Chatroom = () => {
    useEffect(() => {
       if (!maxBidLoading && maxBidData?.getMaxBid?.bidAmount) {
          setMaxBid(maxBidData.getMaxBid.bidAmount);
-      } else if (bidInfo.startingPrice !== undefined) {
+      } else if (bidInfo?.startingPrice !== undefined) {
          setMaxBid(bidInfo.startingPrice);
       } else {
          setMaxBid(0);
@@ -164,7 +164,13 @@ const Chatroom = () => {
             });
             clearInterval(timer);
             setTimeRemaining(0);
+            // this flag allows for hiding the bid fields and display the 'auction ended' message
             setAuctionEnded(true);
+            // update the products so the item is removed
+            dispatch({
+              type: GET_ALL_PRODUCTS,
+              payload: productData.auctions.filter(auction=> auction._id!== bidId)
+            });
          }
          console.log(timeRemaining.total);
       }, 1000);
