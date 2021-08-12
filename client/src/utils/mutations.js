@@ -131,12 +131,10 @@ export const Win_Auction = gql`
 export const AddBid_Amount = gql`
   mutation addingBid($auctionId: ID! $bidAmount: Float!, $userId: ID!){
     addBid(auctionId: $auctionId bidAmount: $bidAmount userId: $userId) {
-      auctionId
+      auction {
+        itemName
+      }
       bidAmount
       timeCreated
-      bidder {
-        _id
-        username
-      }
     }
   }`

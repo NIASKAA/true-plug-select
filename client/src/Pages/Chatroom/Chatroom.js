@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Container, Button, Row, Col, Card, InputGroup, FormControl, Spinner } from "react-bootstrap";
+import { Alert, Container, Button, Row, Col, Card, InputGroup, FormControl, Spinner } from "react-bootstrap";
 import { useHistory, useParams } from "react-router-dom";
-import { Query_User, Get_All_Products } from "../../utils/queries";
+import { Query_User, Get_All_Products, Get_Max_Bid } from "../../utils/queries";
 import { useDispatch, useSelector } from "react-redux";
 import { GET_ALL_PRODUCTS, GET_USER_INFO } from "../../utils/state/actions";
 import { GET_MESSAGES, POST_MESSAGE, AddBid_Amount } from "../../utils/mutations";
+
 import Auth from "../../utils/auth";
 import { useMutation, useQuery, useSubscription } from "@apollo/client";
 import "./styles.css";
@@ -15,7 +16,6 @@ const Messages = ({ user }) => {
   if (!data) {
     return null;
   }
-
   return (
     <>
       {/* This return code takes the messages from GET_MESSAGES subscription to display them in Messages */}
@@ -64,20 +64,37 @@ const Messages = ({ user }) => {
 
 const Chatroom = () => {
   const [message, messageSet] = useState({ user: "", content: "" });
-  const [price, setPrice] = useState(0);
   const dispatch = useDispatch();
+
   const state = useSelector((state) => state);
+  const [postMessage] = useMutation(POST_MESSAGE);
+  const [addBid, { err }] = useMutation(AddBid_Amount);
 
   // get the specific item's id
+  const [price, setPrice] = useState(0);
   const { bidId } = useParams();
+  const [bidAmount, setBidAmount] = useState(0);
+  const [maxBid, setMaxBid] = useState(0);
   // use the id to get the specific item from the global state
   const [bidInfo, setBidInfo] = useState({ bidEnd: " " });
-  //const bidInfo = state.auctions.filter(auction=> auction._id === bidId)[0];
+  const [timeRemaining, setTimeRemaining] = useState("");
+  const [errors, setErrors] = useState({
+    lessThanMaxBidError: null,
+    bidIsNaNError: null,
+  });
 
   let history = useHistory();
   const { loading: userDataLoading, data: userData } = useQuery(Query_User);
   const { loading: productsLoading, data: productData } = useQuery(Get_All_Products);
-  const [timeRemaining, setTimeRemaining] = useState("");
+  const { loading: maxBidLoading, data: maxBidData } = useQuery(
+    Get_Max_Bid,
+    {
+      variables: {
+        auctionId: bidId,
+      },
+    },
+    []
+  );
 
   useEffect(() => {
     if (!userDataLoading) {
@@ -87,36 +104,71 @@ const Chatroom = () => {
   }, [userDataLoading, userData]);
 
   useEffect(() => {
-    if (!productsLoading) {
+    if (!productsLoading && state.auctions.length === 0) {
       dispatch({ type: Get_All_Products, payload: productData });
       setBidInfo(productData.auctions.filter((auction) => auction._id === bidId)[0]);
     } else {
       setBidInfo(state.auctions.filter((auction) => auction._id === bidId)[0]);
     }
-  }, [productsLoading]);
+  }, [productsLoading, state]);
 
   useEffect(() => {
-    if (bidInfo) {
-      console.log(bidInfo.bidEnd);
-      console.log(timeRemaining);
+    if (!maxBidLoading && maxBidData?.getMaxBid?.bidAmount) {
+      console.log(maxBidData);
+      setMaxBid(maxBidData.getMaxBid.bidAmount);
+      console.log(maxBid);
+    } else if (bidInfo.startingPrice !== undefined) {
+      setMaxBid(bidInfo.startingPrice);
+      console.log(maxBid);
+    } else {
+      setMaxBid(0);
     }
-  }, [productsLoading]);
-
+  }, [maxBidLoading, maxBidData]);
 
   useEffect(() => {
-    var timer = setTimeout(function(){
-      if(bidInfo!=undefined) {
+    var timer = setTimeout(function () {
+      if (bidInfo != undefined) {
         setTimeRemaining(getTimeRemaining(bidInfo.bidEnd));
-        console.log()
       }
-    },1000)
-  },[timeRemaining])
+    }, 1000);
+  }, [timeRemaining]);
 
   const redirect = () => {
     history.push("/login");
   };
 
-  const [postMessage] = useMutation(POST_MESSAGE);
+  const onBid = async () => {
+    if (isNaN(bidAmount)) {
+      setErrors({ ...errors, bidIsNaNError: true });
+      return;
+    }
+    if (bidAmount < maxBid) {
+      setErrors({ ...errors, lessThanMaxBidError: true });
+      return;
+    }
+
+    try {
+      const mutResponse = await addBid({
+        variables: {
+          auctionId: bidInfo._id,
+          bidAmount: Number(bidAmount),
+          userId: userData.user._id,
+        },
+      });
+      postMessage({
+        variables: {
+          user: userData.user.username,
+          content: `${userData.user.username} bids ${bidAmount}`,
+        },
+      });
+      setMaxBid(bidAmount);
+      setErrors({ lessThanMaxBidError: false, bidIsNaNError: false });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setBidAmount("");
+    }
+  };
 
   const onSend = () => {
     if (message.content.length > 0) {
@@ -134,8 +186,6 @@ const Chatroom = () => {
     width: "55px",
     height: "40px",
   };
-
-
 
   /*<Col xs={3} style={{ padding: 0 }}>
     <input
@@ -155,7 +205,7 @@ const Chatroom = () => {
           <div className="timer-two">
             {" "}
             Time left until auction ends:
-            {timeRemaining && (
+            {timeRemaining && !isNaN(timeRemaining.days) && (
               <span id="bid-timer" className="endTimer">
                 {timeRemaining.days} days {timeRemaining.hours} hours {timeRemaining.minutes} minutes{" "}
                 {timeRemaining.seconds} seconds
@@ -168,7 +218,7 @@ const Chatroom = () => {
       <Container className="chatroomContain">
         <Row className="row justify-content-center">
           <Col className="col-md-8 col-xl-6">
-            {bidInfo && (
+            {bidInfo && maxBid >= 0 && (
               <Card className="imageCard">
                 <Card.Body>
                   <Container>
@@ -181,7 +231,7 @@ const Chatroom = () => {
                       <li className="infoList">Name: {bidInfo.itemName}</li>
                       <li className="infoList">Description: {bidInfo.description} </li>
                       <li className="infoList" id="price">
-                        Price: {bidInfo.startingPrice}{" "}
+                        Price: {maxBid}
                       </li>
                       <li className="infoList">Size: {bidInfo.size} </li>
                       <li className="infoList">Brand:{bidInfo.brand} </li>
@@ -200,6 +250,10 @@ const Chatroom = () => {
                 <Messages user={message.user} />
               </Container>
               <Card.Footer className="cardEnd">
+                {errors.bidIsNaNError && <Alert variant="danger">Please enter a valid number</Alert>}
+                {errors.lessThanMaxBidError && (
+                  <Alert variant="danger">Your bid must be greater than the current max bid</Alert>
+                )}
                 <h5 className="infoList text-center">To start bidding, type the amount you wish to bid</h5>
                 {Auth.loggedIn() ? (
                   <Container className="d-flex justify-content-center" id="bitBtns">
@@ -236,8 +290,17 @@ const Chatroom = () => {
                         placeholder="enter custom bid number"
                         aria-label="customBid"
                         aria-describedby="customBid"
+                        value={bidAmount}
+                        onKeyDown={(evt) => {
+                          if (evt.key === "Enter") {
+                            onBid();
+                          }
+                        }}
+                        onChange={(e) => {
+                          setBidAmount(e.target.value);
+                        }}
                       />
-                      <InputGroup.Text id="enterBid" type="submit">
+                      <InputGroup.Text id="enterBid" onClick={onBid} type="submit">
                         Enter
                       </InputGroup.Text>
                     </InputGroup>

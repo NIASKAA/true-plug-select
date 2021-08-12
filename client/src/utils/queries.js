@@ -86,4 +86,6 @@ export const Get_Checkout = gql`
   checkout(id: $id) {
     session
   }
+
 }`
+
