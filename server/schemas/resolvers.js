@@ -3,9 +3,10 @@ const { AuthenticationError } = require("apollo-server-express");
 const { PubSub } = require("graphql-yoga");
 const { signToken } = require("../utils/auth");
 const cloudinary = require("cloudinary");
-const stripe = require('stripe')('sk_test_51Iuh6nAyuy17BR8EUVi1F5xCQeIc6RmbTVrQutJLVJ9ylJwk3JJWCTVkUNRwUwi3gvDS8j0hHPjQMZ6mZUlIoSsx00CsgG737u')
+const stripe = require("stripe")(
+  "sk_test_51Iuh6nAyuy17BR8EUVi1F5xCQeIc6RmbTVrQutJLVJ9ylJwk3JJWCTVkUNRwUwi3gvDS8j0hHPjQMZ6mZUlIoSsx00CsgG737u"
+);
 require("dotenv").config();
-
 
 // These 3 lines contain the messages array, subscribers contains the channels that are made for chat in apollo-server, and onMessagesUpdates pushes the messages
 const messages = [];
@@ -59,29 +60,47 @@ const resolvers = {
     messages: () => messages,
 
     auctionRoom: async (parent, args) => {
-      return await Auction.findById(args.id).populate("bids").populate("seller")
+      return await Auction.findById(args.id).populate("bids").populate("seller");
     },
-    /*bid: async (parent, args, context) => {
-      if(context.user) {
-        const user = await profileData.findByid(context.user._id).populate("bids").populate("seller");
-      }
-    },*/
-    /*checkout: async (parent, args, context) => {
+    // bid: async (parent, args, context) => {
+    //   if(context.user) {
+    //     const user = await profileData.findByid(context.user._id).populate("auction").populate("seller");
+    //   }
+    // },
+    checkout: async (parent, { id }, context) => {
+      console.log(id);
+      let userId = context.user ? context.user._id : id;
       const url = new URL(context.headers.referer).origin;
-      const user = await profileData.findById(context.user._id).populate("bids").populate("seller");
-      const line_items= [{
-        price: user.bidsWon[0].bidAmount,
-        quantity: 1
-      }];
+
+      const user = await profileData.findById(userId).populate("bidsWon");
+      const { bidsWon } = user;
+
+      console.log(bidsWon);
+
+      const line_items = [];
+
+      for (let bid of bidsWon) {
+        const product = await stripe.products.create({
+          name: bid.auction.toString(),
+        });
+
+        const price = await stripe.prices.create({
+          product: product.id,
+          unit_amount: bid.bidAmount * 100,
+          currency: "usd",
+        });
+        line_items.push({ price: price.id, quantity: 1 });
+      }
+
       const session = await stripe.checkout.sessions.create({
-        payment_method_types: ['card'],
+        payment_method_types: ["card"],
         line_items,
-        mode: 'payment',
+        mode: "payment",
         success_url: `${url}?success=true`,
-        cancel_url: `${url}?canceled=true`
-      })
-      return {session: session.id}
-    },*/
+        cancel_url: `${url}?canceled=true`,
+      });
+      return { session: session.id };
+    },
   },
   Mutation: {
     addUser: async (parent, args) => {
@@ -109,7 +128,6 @@ const resolvers = {
       const token = signToken(user);
       return { token, user };
     },
-
 
     winAuction: async (parent, { auctionId }) => {
       // find auction being sold and set it as sold
@@ -183,9 +201,9 @@ const resolvers = {
     updateAuction: async (parent, args) => {
       return await Auction.findOneAndUpdate({ _id: args.id }, { args });
     },
-    updateUser: async (parent, {newUsername, id}, context) => {
+    updateUser: async (parent, { newUsername, id }, context) => {
       let userId = context.user ? context.user._id : id;
-      return await profileData.findOneAndUpdate({ _id: userId }, {username: newUsername });
+      return await profileData.findOneAndUpdate({ _id: userId }, { username: newUsername });
     },
 
     addProfilePic: async (parent, { imageURL, id }, context) => {
