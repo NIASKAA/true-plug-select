@@ -289,8 +289,9 @@ const Chatroom = () => {
                                  <li className="infoList">
                                     Description: {bidInfo.description}{" "}
                                  </li>
+                                 <li className="infoList">Starting Price: {bidInfo.price}</li>
                                  <li className="infoList" id="price">
-                                    Price: {maxBid}
+                                    Current Price: {maxBid}
                                  </li>
                                  <li className="infoList">Size: {bidInfo.size} </li>
                                  <li className="infoList">Brand:{bidInfo.brand} </li>
