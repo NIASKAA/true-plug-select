@@ -29,7 +29,7 @@ const httpLink = createHttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: "wss://localhost:28890/graphql",
+  uri: "wss://theplugselect.herokuapp.com/graphql",
   options: {
     reconnect: true,
   },
