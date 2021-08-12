@@ -1,9 +1,7 @@
 import {
   GET_USER_INFO,
-  UPDATE_CATEGORIES,
   GET_ALL_PRODUCTS,
   ADD_AUCTION,
-  ADD_TO_CART,
   UPDATE_USERNAME
 } from "./actions";
 

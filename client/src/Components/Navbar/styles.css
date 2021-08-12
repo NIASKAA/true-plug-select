@@ -29,7 +29,7 @@ margin-left: -140px;
 }
 
 .active{
-  background-color: #ffc312;
+  background-color: #ffc312 !important;
   
 }
 .active.navBtns:hover{

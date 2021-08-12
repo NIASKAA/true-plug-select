@@ -2,10 +2,15 @@
     margin-top: 5%;
 }
 
+.titleFont {
+    font-family: 'Work Sans', sans-serif;
+    text-transform: uppercase;
+}
+
 .regularFont {
     font-family: 'Work Sans', sans-serif;
     text-transform: uppercase;
-       text-align: left;
+    text-align: left;
     justify-content: center;
     align-items: center;
 }

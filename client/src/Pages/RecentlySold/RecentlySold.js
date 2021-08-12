@@ -14,7 +14,7 @@ const RecentlySold = () => {
     return (
         <>
             <Container className="soldContainers">
-                <h2 className="font-weight-light">Recently Sold</h2>
+                <h2 className="titleFont">Recently Sold</h2>
                 <Row className="justify-content-center">
                     <Card style={cardStyle}>
                         <Card.Img

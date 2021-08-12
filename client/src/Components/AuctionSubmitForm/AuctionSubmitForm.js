@@ -140,7 +140,7 @@ const AuctionSubmitForm = () => {
                 method="post"
                 class="col-lg-4 order-lg-1 text-center"
               >
-                {errors.postProductSuccess && <Alert variant="primary"> Bid posted succesfully</Alert>}
+                {errors.postProductSuccess && <Alert variant="success"> Bid posted successfully</Alert>}
                 {errors.postProductError && (
                   <Alert variant="danger">
                     There was a problem with posting your bid. Please try again later
@@ -250,15 +250,19 @@ const AuctionSubmitForm = () => {
               <Card.Body>
                 <Card.Title>Some Rules Before You Post...</Card.Title>
                 <Card.Text>
-                  1. I don't know man, add whatever
+                  1. Please upload a picture for others to know what you are posting.
                   <br />
-                  2. Listen son, in this world you either yeet or be yeeted.
+                  2. Please try to fill out each field for best bidding experience for others.
                   <br />
-                  3. Do you have time for our lord and savior Jesus Christ?
+                  3. Set a reasonable date for others to be able to bid
                   <br />
-                  4. Why did the chicken cross the road? Idk I was hoping you can tell me instead.
+                  4. Failure to post genuine items could result in your post being pull down.
                   <br />
-                  5. pLs dO NOt pOsT LeWD ConTeNt.
+                  5. Do not use profanity in your post.
+                  <br/>
+                  6. Scams will not be tolerated and will result ban.
+                  <br/>
+                  7. Do not post items with unreasonable price. 
                 </Card.Text>
               </Card.Body>
             </Card>
