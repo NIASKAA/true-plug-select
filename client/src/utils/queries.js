@@ -88,3 +88,4 @@ export const Get_All_Bids_Auction = gql`
     }
   }
 `;*/
+

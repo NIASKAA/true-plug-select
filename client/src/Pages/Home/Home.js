@@ -1,5 +1,11 @@
 import React, {useState} from "react";
 import Carousel from "react-bootstrap/Carousel";
+import { useDispatch } from "react-redux";
+import { GET_ALL_PRODUCTS, GET_USER_INFO } from "../../utils/state/actions";
+import { Query_User, Get_All_Products } from '../../utils/queries'
+import { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+
 
 const images = [
   {
@@ -37,6 +43,16 @@ function Home() {
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
+
+  const { loading: userLoading, data: userData } = useQuery(Query_User);
+  const { loading: productsLoading, data: productsData } = useQuery(Get_All_Products);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!productsLoading && !userLoading && userData && productsData) {
+      dispatch({ type: GET_ALL_PRODUCTS, payload: productsData.auctions });
+      dispatch({ type: GET_USER_INFO, payload: userData.user });
+    }
+  }, [productsLoading, userLoading]);
 
   return (
     <>

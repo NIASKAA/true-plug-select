@@ -1,14 +1,28 @@
-import './App.css';
-import { Navigation, Footer, AuctionSubmitForm }from './Components'
-import { Home, About, TopBrands, Login, SignUp, Bids, Chatroom, Checkout, Support, RecentlySold, Profile, PaymentSuccess } from './Pages'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, split } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
+import "./App.css";
+import { Navigation, Footer, AuctionSubmitForm } from "./Components";
+import {
+  Home,
+  About,
+  TopBrands,
+  Login,
+  SignUp,
+  Bids,
+  Chatroom,
+  Checkout,
+  Support,
+  RecentlySold,
+  Profile,
+  PaymentSuccess,
+} from "./Pages";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink, split } from "@apollo/client";
+import { setContext } from "@apollo/client/link/context";
 import { WebSocketLink } from "@apollo/client/link/ws";
-import { getMainDefinition } from '@apollo/client/utilities';
-import { Provider } from 'react-redux';
-import store from './utils/state/store';
-require('dotenv').config()
+import { getMainDefinition } from "@apollo/client/utilities";
+import { Provider } from "react-redux";
+
+import store from "./utils/state/store";
+require("dotenv").config();
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -17,21 +31,18 @@ const httpLink = createHttpLink({
 const wsLink = new WebSocketLink({
   uri: "ws://localhost:3001/graphql",
   options: {
-    reconnect: true
-  }
+    reconnect: true,
+  },
 });
 
 // This divides the links so they do share the same link on line 48. This prevents conflicts from the websocket, and allows for queries
 const splitLink = split(
   ({ query }) => {
     const definition = getMainDefinition(query);
-    return (
-      definition.kind === 'OperationDefinition' &&
-      definition.operation === 'subscription'
-    );
+    return definition.kind === "OperationDefinition" && definition.operation === "subscription";
   },
   wsLink,
-  httpLink,
+  httpLink
 );
 
 const authLink = setContext((_, { headers }) => {
@@ -49,6 +60,8 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 function App() {
+
+
   return (
     <ApolloProvider client={client}>
       <Provider store={store}>
