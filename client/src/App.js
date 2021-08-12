@@ -29,7 +29,7 @@ const httpLink = createHttpLink({
 });
 
 const wsLink = new WebSocketLink({
-  uri: "ws://theplugselect.herokuapp.com/",
+  uri: "wss://theplugselect.herokuapp.com/",
   options: {
     reconnect: true,
   },
