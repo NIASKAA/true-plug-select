@@ -1,12 +1,14 @@
 # The-Plug-Select-V2
-Recreating my portfolio for the third time using new knowledge
+The second version of Plug Select using new technology
 
-    
+![Logo](https://res.cloudinary.com/ddtqwizaf/image/upload/v1623718856/logo_dphoku.png)
+
+
 ## Tech Usage
 
-**Client:** BootStrap, React,
+**Client:**React BootStrap, React, Email.Js, Graphql, Cloudinary, Stripe Client, Concurrently, axios, dotenv, jwt-decode
 
-**Server:** Node, Express, MongoDB, Mongoose.Js, Cloudinary, Socket.IO
+**Server:** Node.Js, Apollo-Server-Express, MongoDB, Mongoose.Js, Cloudinary, Graphql-Subscription, Stripe.Js, mongoose.js, jsonwebtoken, bcrypt
 
   
 ## Badges
@@ -18,15 +20,24 @@ Add badges from somewhere like:
   
 ## Deployment
 
-Link to github: 
-Link to heroku: 
+Link to heroku: https://theplugselect.herokuapp.com/
 
 
 ## Authors
 
 - [@NIASKA / Alan](https://github.com/NIASKAA)
+- [@thomasbolling87](https://github.com/thomasbolling87)
+- [@avmancillas](https://github.com/avmancillas)
+- [@smg061](https://github.com/smg061)
 
   
 ## Feedback
 
 If you have any feedback, please reach out to us at mkman751@yahoo.com
+
+| Members      |   |
+|------------:|---|
+| Alan M.     | A |
+| Thomas B    | B |
+| Avi M       | C |
+| Santos G    | D |
