@@ -23,6 +23,9 @@ Add badges from somewhere like:
 Link to heroku: https://theplugselect.herokuapp.com/
 
 
+## Installation
+First clone this repo to your PC. Make sure you have mongoDB installed. Use npm start to run it in your localhost
+
 ## Authors
 
 - [@NIASKA / Alan](https://github.com/NIASKAA)
