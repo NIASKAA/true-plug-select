@@ -2,6 +2,8 @@
 The second version of Plug Select using new technology
 
 ![Logo](https://res.cloudinary.com/ddtqwizaf/image/upload/v1623718856/logo_dphoku.png)
+![Demo1](https://res.cloudinary.com/ddtqwizaf/image/upload/v1629836980/plugv2-2_b62f0r.png)
+![Demo2](https://res.cloudinary.com/ddtqwizaf/image/upload/v1629836974/plugv2-1_umb0qt.png)
 
 
 ## Tech Usage
