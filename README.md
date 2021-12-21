@@ -22,7 +22,7 @@ Add badges from somewhere like:
   
 ## Deployment
 
-Link to heroku: https://theplugselect.herokuapp.com/
+Link to heroku: https://plugselectv2.herokuapp.com/
 
 
 ## Installation
